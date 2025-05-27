@@ -1,3 +1,4 @@
+import getFestivalCommon from "../lib/api/festival/getFestivalCommon";
 import getFestvalImage from "../lib/api/festival/getFestivalImage";
 import { getFestvalList } from "../lib/api/festival/getFestivalList";
 
@@ -12,6 +13,9 @@ export default async function Page() {
     // });
 
     // const imageList = await getFestvalImage("507480");
+
+    // const commonInfo = await getFestivalCommon("507480")
+
 
     return (
         <div>

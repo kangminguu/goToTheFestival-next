@@ -15,7 +15,7 @@ interface GetFestivalListParams {
  * @param eventEndDate 축제 종료일
  * @param keyword 검색 키워드
  * @param areaCode 지역 코드
- * @returns festival : 축제 리스트와 개수 객체
+ * @returns festival : 축제 리스트, 축제 개수
  */
 export async function getFestvalList(params: GetFestivalListParams) {
     const url = new URL("searchFestival2", process.env.TourAPI_BASE_URL);
