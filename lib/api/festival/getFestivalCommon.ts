@@ -5,12 +5,13 @@
  */
 export default async function getFestivalCommon(contentid: string) {
     const url = new URL("detailCommon2", process.env.TourAPI_BASE_URL);
-    url.searchParams.set("serviceKey", decodeURIComponent(process.env.TourAPI_KEY));
+    url.searchParams.set(
+        "serviceKey",
+        decodeURIComponent(process.env.TourAPI_KEY)
+    );
     url.searchParams.set("MobileOS", "ETC");
     url.searchParams.set("MobileApp", "AppTest");
     url.searchParams.set("_type", "json");
-    url.searchParams.set("pageNo", "1");
-    url.searchParams.set("numOfRows", "100");
     url.searchParams.set("contentId", contentid);
 
     const res = await fetch(url.toString());

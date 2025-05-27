@@ -17,9 +17,12 @@ interface GetFestivalListParams {
  * @param areaCode 지역 코드
  * @returns festival : 축제 리스트, 축제 개수
  */
-export async function getFestvalList(params: GetFestivalListParams) {
+export default async function getFestivalList(params: GetFestivalListParams) {
     const url = new URL("searchFestival2", process.env.TourAPI_BASE_URL);
-    url.searchParams.set("serviceKey", decodeURIComponent(process.env.TourAPI_KEY));
+    url.searchParams.set(
+        "serviceKey",
+        decodeURIComponent(process.env.TourAPI_KEY)
+    );
     url.searchParams.set("MobileOS", "ETC");
     url.searchParams.set("MobileApp", "AppTest");
     url.searchParams.set("_type", "json");
