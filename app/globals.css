@@ -86,3 +86,45 @@
         url(../public/fonts/Pretendard/Pretendard-Thin.woff2) format("woff2"),
         url(../public/fonts/Pretendard/Pretendard-Thin.woff) format("woff");
 }
+
+.bannerSwiper .mySwiper {
+    position: relative !important;
+}
+
+.bannerSwiper .swiper-pagination {
+    height: 70px;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -70px;
+
+    display: flex;
+    align-items: start;
+    padding-left: 50px;
+
+    max-width: 1200px;
+    min-width: 320px;
+}
+
+.bannerSwiper .swiper-pagination-bullet {
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+    border-radius: 100px;
+    background: #ebebeb !important;
+    transition: width 0.5s ease, background 0.5s ease;
+}
+
+.bannerSwiper .swiper-pagination-bullet-active {
+    width: 20px;
+    background: #ff4238 !important;
+    transition: width 0.5s ease, background 0.5s ease;
+}
+
+.drag-prevent {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
