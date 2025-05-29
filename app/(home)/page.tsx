@@ -1,0 +1,35 @@
+import { getFestivalList } from "../../lib/api/festival/index";
+import { getLastDayOfMonth, getToday } from "../../lib/utils";
+import Banner from "./components/Banner";
+import { Suspense } from "react";
+
+export function generateMetadata() {
+    return {
+        title: "축제가자",
+        description:
+            "전국 방방곡곡에서 열리는 특별한 축제를 소개합니다. 지역별, 일정별로 쉽게 확인하고 나만의 축제 계획을 세워보세요!",
+    };
+}
+
+export default async function Page() {
+    const today = getToday(); // 오늘 YYYYMMDD
+    const lastDate = getLastDayOfMonth(); // 이번 달 마지막일 YYYYMMDD
+    const { festivalList } = await getFestivalList({
+        pageNo: 1,
+        numOfRows: 6,
+        eventStartDate: today,
+        eventEndDate: lastDate,
+    });
+
+    return (
+        <>
+            <Suspense fallback={<div>Loading banner...</div>}>
+                <Banner festivalList={festivalList} />
+            </Suspense>
+
+            <div className="min-w-[320px] max-w-[1200px] mx-auto">
+                main page
+            </div>
+        </>
+    );
+}
