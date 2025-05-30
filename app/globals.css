@@ -104,6 +104,8 @@
 
     max-width: 1200px;
     min-width: 320px;
+
+    pointer-events: none;
 }
 
 .bannerSwiper .swiper-pagination-bullet {
