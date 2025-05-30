@@ -47,7 +47,7 @@ export default function Address({ address, size = 0 }: AddressProps) {
         <div className={`flex flex-row ${div}`}>
             <img
                 className={`${img}`}
-                src={`/assets/${svg}.svg`}
+                src={`/assets/location/${svg}.svg`}
                 alt="location"
             />
             <p className={`font-pretendard font-medium ${text}`}>

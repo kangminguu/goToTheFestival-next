@@ -49,7 +49,7 @@ export default function EventDate({
         <div className={`flex flex-row ${div}`}>
             <img
                 className={`${img}`}
-                src={`/assets/${svg}.svg`}
+                src={`/assets/calendar/${svg}.svg`}
                 alt="calendar"
             />
             <p className={`font-pretendard font-medium ${text}`}>{eventDate}</p>

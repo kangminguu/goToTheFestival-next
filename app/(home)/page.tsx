@@ -1,3 +1,4 @@
+import Rating from "../../components/Rating/Rating";
 import { getFestivalList } from "../../lib/api/festival/index";
 import { getLastDayOfMonth, getToday } from "../../lib/utils";
 import Banner from "./components/Banner";
