@@ -44,7 +44,7 @@ export default function Address({ address, size = 0 }: AddressProps) {
     const formattedAddress = addressFormat[size](address);
 
     return (
-        <div className={`flex flex-row ${div}`}>
+        <div className={`flex flex-row ${div}  items-center`}>
             <img
                 className={`${img}`}
                 src={`/assets/location/${svg}.svg`}

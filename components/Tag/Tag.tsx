@@ -24,7 +24,7 @@ export default function Tag({ eventStartDate, eventEndDate }: TagProps) {
 
     return (
         <div
-            className={`${tagStyles[state]} h-fit w-fit px-[10px] py-[4px] rounded-[6px] font-pretendard font-semibold text-[12px] text-font-inverted`}
+            className={`${tagStyles[state]} h-fit w-fit px-[10px] py-[4px] rounded-[6px] font-pretendard font-semibold text-[12px] text-font-inverted whitespace-nowrap`}
         >
             {state}
         </div>

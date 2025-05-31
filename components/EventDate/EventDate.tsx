@@ -43,10 +43,10 @@ export default function EventDate({
     const { div, img, svg, text } = styles[size];
     const eventDate = `${convertToDotDateFormat(
         eventStartDate
-    )} - ${convertToDotDateFormat(eventEndDate)}`;
+    )} ~ ${convertToDotDateFormat(eventEndDate)}`;
 
     return (
-        <div className={`flex flex-row ${div}`}>
+        <div className={`flex flex-row ${div} items-center`}>
             <img
                 className={`${img}`}
                 src={`/assets/calendar/${svg}.svg`}
