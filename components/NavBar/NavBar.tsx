@@ -6,7 +6,7 @@ export default function NavBar() {
         <header>
             <nav className="h-[76px] min-w-[320px] max-w-[1200px] mx-auto flex items-center justify-between">
                 <Link href={`/`} className="h-[28px]">
-                    <img src="assets/logo.svg" alt="logo" />
+                    <img src="assets/logo/logo.svg" alt="logo" />
                 </Link>
 
                 <ul className="flex gap-[10px]">

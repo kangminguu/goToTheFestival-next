@@ -17,7 +17,8 @@ export default function Button({
     const baseClass = "px-[14px] py-[10px] rounded-button";
     const fontStyle =
         "font-pretendard font-semibold text-[14px] text-font-primary";
-    const backgroundStyle = "bg-background-base hover:bg-background-hover";
+    const backgroundStyle =
+        "bg-background-base hover:bg-background-hover transition-colors duration-300 ease-in-out";
     const borderStyle = "border border-border-base border-[1px]";
 
     return (
