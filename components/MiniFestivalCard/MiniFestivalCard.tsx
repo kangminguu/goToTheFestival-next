@@ -11,15 +11,15 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
-            className="flex flex-col gap-[10px] w-[282px] p-[10px] rounded-[15px] bg-background-base hover:bg-background-hover"
+            className="flex flex-col gap-[10px] w-[282px] p-[10px] rounded-[15px] bg-background-base hover:bg-background-hover transition-colors duration-300 ease-in-out"
         >
-            <div className="h-[190px] w-full overflow-hidden rounded-[12px]">
+            <div className="relative h-[190px] w-full overflow-hidden rounded-[12px]">
                 <Image
-                    src={festival.firstimage2}
+                    src={festival.firstimage}
                     alt={festival.title}
-                    width={500}
-                    height={0}
-                    style={{ width: "100%", height: "auto" }}
+                    fill
+                    className="object-cover"
+                    sizes="100vw"
                 />
             </div>
 
