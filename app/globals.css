@@ -130,3 +130,23 @@
     -khtml-user-select: none;
     user-select: none;
 }
+
+.text-base-style {
+    @apply font-pretendard font-medium text-font-primary;
+}
+
+.text-base-style {
+    @apply font-pretendard font-medium text-font-secondary;
+}
+
+.col-center {
+    @apply flex flex-col items-center;
+}
+
+.row-center {
+    @apply flex flex-row items-center;
+}
+
+.animation-color {
+    @apply transition-colors duration-200 ease-in-out;
+}

@@ -18,7 +18,7 @@ export default function Button({
     const fontStyle =
         "font-pretendard font-semibold text-[14px] text-font-primary";
     const backgroundStyle =
-        "bg-background-base hover:bg-background-hover transition-colors duration-300 ease-in-out";
+        "bg-background-base hover:bg-background-hover animation-color";
     const borderStyle = "border border-border-base border-[1px]";
 
     return (

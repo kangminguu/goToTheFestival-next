@@ -1,5 +1,5 @@
 import Footer from "../components/Footer/Footer";
-import NavBar from "../components/NavBar/NavBar";
+import Header from "../components/Header/Header";
 import "./globals.css";
 
 export default function RootLayout({
@@ -10,7 +10,7 @@ export default function RootLayout({
     return (
         <html lang="ko">
             <body className="flex flex-col min-h-screen">
-                <NavBar />
+                <Header />
 
                 <main className="flex-1">{children}</main>
 
