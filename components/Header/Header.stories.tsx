@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import NavBar from "./NavBar";
+import Header from "./Header";
 
-const meta: Meta<typeof NavBar> = {
-    title: "Components/NavBar",
-    component: NavBar,
+const meta: Meta<typeof Header> = {
+    title: "Components/Header",
+    component: Header,
     tags: ["autodocs"],
     parameters: {
         docs: {
@@ -17,8 +17,10 @@ const meta: Meta<typeof NavBar> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof NavBar>;
+type Story = StoryObj<typeof Header>;
 
-export const Navigation_Bar: Story = {
-    args: {},
+export const default_Header: Story = {
+    args: {
+        mockPathname: "/",
+    },
 };
