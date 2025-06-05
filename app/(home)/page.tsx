@@ -1,7 +1,9 @@
 import { getFestivalList } from "../../lib/api/festival/index";
 import { getLastDayOfMonth, getToday } from "../../lib/utils";
-import Banner from "./components/Banner";
+import Banner from "./components/Banner/Banner";
 import { Suspense } from "react";
+import RegionButton from "./components/RegionSelector/RegionButton";
+import RegionSelector from "./components/RegionSelector/RegionSelector";
 
 export function generateMetadata() {
     return {
@@ -12,23 +14,24 @@ export function generateMetadata() {
 }
 
 export default async function Page() {
-    const today = getToday(); // 오늘 YYYYMMDD
-    const lastDate = getLastDayOfMonth(); // 이번 달 마지막일 YYYYMMDD
-    const { festivalList } = await getFestivalList({
-        pageNo: 1,
-        numOfRows: 6,
-        eventStartDate: today,
-        eventEndDate: lastDate,
-    });
+    // const today = getToday(); // 오늘 YYYYMMDD
+    // const lastDate = getLastDayOfMonth(); // 이번 달 마지막일 YYYYMMDD
+    // const { festivalList } = await getFestivalList({
+    //     pageNo: 1,
+    //     numOfRows: 6,
+    //     eventStartDate: today,
+    //     eventEndDate: lastDate,
+    // });
 
     return (
         <>
             <Suspense fallback={<div>Loading banner...</div>}>
-                <Banner festivalList={festivalList} />
+                {/* <Banner festivalList={festivalList} /> */}
             </Suspense>
 
-            <div className="min-w-[320px] max-w-[1200px] mx-auto">
+            <div className="min-max-padding">
                 main page
+                <RegionSelector />
             </div>
         </>
     );
