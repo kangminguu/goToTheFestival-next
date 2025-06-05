@@ -1,46 +1,40 @@
 import { convertToDotDateFormat } from "../../lib/utils";
 
-type EventDateSizeType = 0 | 1 | 2 | 3; // 사이즈 순서대로
+type EventDateSizeType = "banner" | "card" | "detailPage";
 
 interface EventDateProps {
     eventStartDate: string;
     eventEndDate: string;
-    size?: EventDateSizeType;
+    sizeType: EventDateSizeType;
 }
 
 const styles = {
-    0: {
+    banner: {
+        div: "gap-[5px] text-font-primary",
+        img: "md:w-[24px] w-[12px]",
+        svg: "calendar",
+        text: "md:text-[20px] text-[12px]",
+    },
+    card: {
         div: "gap-[5px] text-font-secondary",
-        img: "w-[20px]",
-        svg: "calendar_767676",
-        text: "text-[14px]",
+        img: "md:w-[15px] w-[12px]",
+        svg: "calendar_gray",
+        text: "md:text-[15px] text-[12px]",
     },
-    1: {
-        div: "gap-[5px] text-font-secondary",
-        img: "w-[20px]",
-        svg: "calendar_767676",
-        text: "text-[15px]",
-    },
-    2: {
-        div: "gap-[8px] text-font-primary",
-        img: "w-[20px]",
-        svg: "calendar_333333",
-        text: "text-[20px]",
-    },
-    3: {
-        div: "gap-[8px] text-font-primary",
-        img: "w-[24px]",
-        svg: "calendar_333333",
-        text: "text-[20px]",
+    detailPage: {
+        div: "md:gap-[10px] gap-[5px] text-font-primary",
+        img: "md:w-[20px] w-[15px]",
+        svg: "calendar",
+        text: "md:text-[18px] text-[15px]",
     },
 };
 
 export default function EventDate({
     eventStartDate,
     eventEndDate,
-    size = 0,
+    sizeType,
 }: EventDateProps) {
-    const { div, img, svg, text } = styles[size];
+    const { div, img, svg, text } = styles[sizeType];
     const eventDate = `${convertToDotDateFormat(
         eventStartDate
     )} ~ ${convertToDotDateFormat(eventEndDate)}`;

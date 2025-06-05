@@ -1,50 +1,43 @@
-type AddressSizeType = 0 | 1 | 2 | 3; // 사이즈 순서대로
+type AddressSizeType = "banner" | "card" | "detailPage";
 
 interface AddressProps {
     address: string;
-    size?: AddressSizeType;
+    sizeType: AddressSizeType;
 }
 
-const addressStyles = {
-    0: {
+const styles = {
+    banner: {
+        div: "gap-[5px] text-font-primary",
+        img: "md:w-[24px] w-[12px]",
+        svg: "location",
+        text: "md:text-[20px] text-[12px]",
+    },
+    card: {
         div: "gap-[5px] text-font-secondary",
-        img: "w-[20px]",
-        svg: "location_767676",
-        text: "text-[14px]",
+        img: "md:w-[15px] w-[12px]",
+        svg: "location_gray",
+        text: "md:text-[15px] text-[12px]",
     },
-    1: {
-        div: "gap-[5px] text-font-secondary",
-        img: "w-[20px]",
-        svg: "location_767676",
-        text: "text-[15px]",
-    },
-    2: {
-        div: "gap-[8px] text-font-primary",
-        img: "w-[20px]",
-        svg: "location_333333",
-        text: "text-[20px]",
-    },
-    3: {
-        div: "gap-[8px] text-font-primary",
-        img: "w-[24px]",
-        svg: "location_333333",
-        text: "text-[20px]",
+    detailPage: {
+        div: "md:gap-[10px] gap-[5px] text-font-primary",
+        img: "md:w-[20px] w-[15px]",
+        svg: "location",
+        text: "md:text-[18px] text-[15px]",
     },
 };
 
 const addressFormat = {
-    0: (address: string) => address.split(" ").slice(0, 3).join(" "),
-    1: (address: string) => address.split(" ").slice(0, 3).join(" "),
-    2: (address: string) => address,
-    3: (address: string) => address.split(" ").slice(0, 2).join(" "),
+    banner: (address: string) => address.split(" ").slice(0, 2).join(" "),
+    card: (address: string) => address.split(" ").slice(0, 3).join(" "),
+    detailPage: (address: string) => address,
 };
 
-export default function Address({ address, size = 0 }: AddressProps) {
-    const { div, img, svg, text } = addressStyles[size];
-    const formattedAddress = addressFormat[size](address);
+export default function Address({ address, sizeType }: AddressProps) {
+    const { div, img, svg, text } = styles[sizeType];
+    const formattedAddress = addressFormat[sizeType](address);
 
     return (
-        <div className={`flex flex-row ${div}  items-center`}>
+        <div className={`row-center ${div}`}>
             <img
                 className={`${img}`}
                 src={`/assets/location/${svg}.svg`}

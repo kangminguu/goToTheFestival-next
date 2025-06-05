@@ -18,31 +18,24 @@ const meta: Meta<typeof EventDate> = {
 export default meta;
 type Story = StoryObj<typeof EventDate>;
 
-export const EventDate_size00: Story = {
+export const EventDate_banner: Story = {
     args: {
         eventStartDate: "20250501",
         eventEndDate: "20250531",
-        size: 0,
+        sizeType: "banner",
     },
 };
-export const EventDate_size01: Story = {
+export const EventDate_card: Story = {
     args: {
         eventStartDate: "20250501",
         eventEndDate: "20250531",
-        size: 1,
+        sizeType: "card",
     },
 };
-export const EventDate_size02: Story = {
+export const EventDate_detailPage: Story = {
     args: {
         eventStartDate: "20250501",
         eventEndDate: "20250531",
-        size: 2,
-    },
-};
-export const EventDate_size03: Story = {
-    args: {
-        eventStartDate: "20250501",
-        eventEndDate: "20250531",
-        size: 3,
+        sizeType: "detailPage",
     },
 };

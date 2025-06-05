@@ -4,8 +4,6 @@ import Address from "../../../components/Address/Address";
 import EventDate from "../../../components/EventDate/EventDate";
 
 export default function BannerCard({ festival }) {
-    const startDate = convertToDotDateFormat(festival.eventstartdate);
-    const endDate = convertToDotDateFormat(festival.eventenddate);
     const thisMonth = parseInt(getToday().substring(4, 6)); // 이번 달
 
     return (
@@ -22,28 +20,28 @@ export default function BannerCard({ festival }) {
                     url(${festival.firstimage})`,
                 }}
             >
-                <div className="min-w-[320px] max-w-[1200px] mx-auto pt-[70px] pb-[100px] px-[50px] flex flex-col gap-[20px]">
+                <div className="min-max-padding md:pt-[50px] pt-[30px] md:pb-[60px] pb-[40px] flex flex-col md:gap-[20px] gap-[10px]">
                     <div>
-                        <p className="font-pretendard font-bold text-[24px] text-font-secondary">
+                        <p className="font-pretendard font-semibold text-font-secondary md:text-[24px] text-[16px]">
                             이 달의 축제
                         </p>
 
-                        <p className="font-pretendard font-bold text-[32px] text-font-highlight">
+                        <p className="font-pretendard font-bold text-font-highlight md:text-[32px] text-[20px]">
                             {thisMonth}월
                         </p>
                     </div>
 
-                    <div className="font-pretendard font-bold text-[32px] text-font-primary">
+                    <div className="font-pretendard font-bold text-font-primary md:text-[32px] text-[20px]">
                         {festival.title}
                     </div>
 
-                    <div className="flex flex-col gap-[10px]">
-                        <Address address={festival.addr1} size={3} />
+                    <div className="flex flex-col md:gap-[10px] gap-[3px]">
+                        <Address address={festival.addr1} sizeType="banner" />
 
                         <EventDate
                             eventStartDate={festival.eventstartdate}
                             eventEndDate={festival.eventenddate}
-                            size={3}
+                            sizeType="banner"
                         />
                     </div>
                 </div>
