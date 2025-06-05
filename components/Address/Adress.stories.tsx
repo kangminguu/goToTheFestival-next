@@ -18,27 +18,21 @@ const meta: Meta<typeof Address> = {
 export default meta;
 type Story = StoryObj<typeof Address>;
 
-export const Address_size00: Story = {
+export const Address_banner: Story = {
     args: {
         address: "부산광역시 수영구 광안해변로 219",
-        size: 0,
+        sizeType: "banner",
     },
 };
-export const Address_size01: Story = {
+export const Address_card: Story = {
     args: {
         address: "부산광역시 수영구 광안해변로 219",
-        size: 1,
+        sizeType: "card",
     },
 };
-export const Address_size02: Story = {
+export const Address_detailPage: Story = {
     args: {
         address: "부산광역시 수영구 광안해변로 219",
-        size: 2,
-    },
-};
-export const Address_size03: Story = {
-    args: {
-        address: "부산광역시 수영구 광안해변로 219",
-        size: 3,
+        sizeType: "detailPage",
     },
 };

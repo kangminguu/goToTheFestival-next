@@ -43,11 +43,12 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
                 </p>
             </div>
 
-            <Address address={festival.addr1} size={0} />
+            <Address address={festival.addr1} sizeType="card" />
 
             <EventDate
                 eventStartDate={festival.eventstartdate}
                 eventEndDate={festival.eventenddate}
+                sizeType="card"
             />
         </Link>
     );
