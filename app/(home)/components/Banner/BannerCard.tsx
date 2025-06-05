@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { convertToDotDateFormat, getToday } from "../../../lib/utils";
-import Address from "../../../components/Address/Address";
-import EventDate from "../../../components/EventDate/EventDate";
+import { convertToDotDateFormat, getToday } from "../../../../lib/utils";
+import Address from "../../../../components/Address/Address";
+import EventDate from "../../../../components/EventDate/EventDate";
 
 export default function BannerCard({ festival }) {
     const thisMonth = parseInt(getToday().substring(4, 6)); // 이번 달

@@ -1,6 +1,6 @@
 "use client";
 
-import "../../globals.css";
+import "../../../globals.css";
 
 // Swiper
 import "swiper/css";
@@ -13,7 +13,7 @@ import BannerCard from "./BannerCard";
 export default function Banner({ festivalList }) {
     return (
         <Swiper
-            className="mySwiper bannerSwiper drag-prevent"
+            className="bannerSwiper drag-prevent"
             pagination
             autoplay={{
                 delay: 5000,
