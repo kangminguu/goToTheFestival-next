@@ -4,6 +4,7 @@ import Banner from "./components/Banner/Banner";
 import { Suspense } from "react";
 import RegionButton from "./components/RegionSelector/RegionButton";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
+import DateSelector from "./components/DateSelector/DateSelector";
 
 export function generateMetadata() {
     return {
@@ -32,6 +33,9 @@ export default async function Page() {
             <div className="min-max-padding">
                 <div className="md:mt-[40px] mt-[30px]">
                     <RegionSelector />
+                </div>
+                <div className="md:mt-[40px] mt-[30px]">
+                    <DateSelector />
                 </div>
             </div>
         </>

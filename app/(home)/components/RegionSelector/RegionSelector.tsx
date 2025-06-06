@@ -3,10 +3,10 @@
 import { REGION_LIST } from "../../../../constants/regions";
 import RegionButton from "./RegionButton";
 
-// Import Swiper React components
+// swiper
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
 import "swiper/css";
+
 import { useRegionStore } from "../../../../stores/useRegionStore";
 
 export default function RegionSelector() {
