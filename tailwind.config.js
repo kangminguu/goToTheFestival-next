@@ -10,6 +10,9 @@ module.exports = {
                 full: '9999px', // 완전 둥근 형태
                 tag: '6px',     // 태그 radius
                 button: '8px', // 버튼 radius
+            },
+            boxShadow: {
+                window: "5px 5px 30px rgba(0, 0, 0, 0.06)"
             }
         },
         colors: {
@@ -19,6 +22,7 @@ module.exports = {
                 muted: '#D9D9D9',       // 비활성 텍스트
                 inverted: '#ffffff',    // 색상있는 배경 위
                 highlight: '#FF4238',   // 강조
+                activeButton: '#1D88FF',   // 클릭 가능한 텍스트 버튼
             },
             background: {
                 base: '#FFFFFF',
