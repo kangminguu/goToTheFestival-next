@@ -1,10 +1,13 @@
 import Calendar from "react-calendar";
 import "./calendarCustom.css";
 
-import { useEventDateStore } from "../../../../stores/useEventDateStore";
+import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
-import { getLastDayOfMonth, getToday } from "../../../../lib/utils";
-import convertYYYYMMDDToDate from "../../../../lib/utils/convertYYYYMMDDToDate";
+import {
+    getLastDayOfMonth,
+    getToday,
+    convertYYYYMMDDToDate,
+} from "../../../../lib/utils";
 
 interface DateSelectorCalendarProps {
     close: () => void;

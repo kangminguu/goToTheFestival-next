@@ -1,10 +1,12 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchStore } from "../../../../stores/useSearchStore";
 import RecentSearchList from "./RecentSearchList";
-import { useInputValueStore } from "../../../../stores/useInputValue";
+import { useInputValueStore, useSearchStore } from "../../../../stores/index";
 
+/**
+ * 축제 검색 시 키워드를 입력하는 인풋폼 컴포넌트입니다.
+ * @returns SearchBar
+ */
 export default function SearchBar() {
     const { inputValue, setInputValue } = useInputValueStore();
     const { addKeyword, delKeyword } = useSearchStore();

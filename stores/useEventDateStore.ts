@@ -7,6 +7,9 @@ type EventDateStore = {
     setEventDate: (value: [Date, Date]) => void;
 };
 
+/**
+ * 축제 검색 시 지정한 기간을 저장합니다.
+ */
 export const useEventDateStore = create<EventDateStore>((set) => ({
     eventDate: [
         convertYYYYMMDDToDate(getToday()),

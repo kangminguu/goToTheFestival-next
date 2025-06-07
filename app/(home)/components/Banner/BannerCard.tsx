@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { convertToDotDateFormat, getToday } from "../../../../lib/utils";
+import { getToday } from "../../../../lib/utils";
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
 

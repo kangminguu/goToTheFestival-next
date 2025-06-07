@@ -1,5 +1,3 @@
-"use client";
-
 interface RegionButtonProps {
     isSelect?: boolean;
     region: string;

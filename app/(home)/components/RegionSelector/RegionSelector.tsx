@@ -1,14 +1,17 @@
 "use client";
 
-import { REGION_LIST } from "../../../../constants/regions";
-import RegionButton from "./RegionButton";
-
 // swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
-import { useRegionStore } from "../../../../stores/useRegionStore";
+import { REGION_LIST } from "../../../../constants/regions";
+import RegionButton from "./RegionButton";
+import { useRegionStore } from "../../../../stores/index";
 
+/**
+ * 축제 검색 시 지역을 설정하는 컴포넌트입니다.
+ * @returns RegionSelector
+ */
 export default function RegionSelector() {
     const regions = REGION_LIST;
 
