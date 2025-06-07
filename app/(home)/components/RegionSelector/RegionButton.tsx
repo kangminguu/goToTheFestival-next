@@ -19,10 +19,10 @@ export default function RegionButton({
     return (
         <button
             onClick={onClick}
-            className={`rounded-full border md:px-[26px] px-[20px] md:py-[9px] py-[6px] flex items-center ${style.button}`}
+            className={`rounded-full border md:px-[26px] px-[20px] md:py-[9px] py-[6px] row-center ${style.button}`}
         >
             <span
-                className={`font-pretendard font-medium md:text-[16px] text-[14px] whitespace-nowrap ${style.span}`}
+                className={`md:text-[16px] text-[14px] whitespace-nowrap ${style.span}`}
             >
                 {region}
             </span>

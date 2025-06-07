@@ -1,5 +1,5 @@
 import Calendar from "react-calendar";
-import "./calendarCustom.css";
+import "../../../../styles/calendar.custom.css";
 
 import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
@@ -26,14 +26,14 @@ export default function DateSelectorCalendar({
         <div className="relative md:max-w-[335px] w-full">
             <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base bg-background-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent animation-color md:absolute">
                 {/* icon | MM.DD (e) ~ MM.DD (e) */}
-                <div className="flex flex-row gap-[10px] items-center">
+                <div className="row-center gap-[10px]">
                     <img
                         src="/assets/calendar/calendar.svg"
                         alt="calendar"
                         className="w-[20px]"
                     />
 
-                    <span className="font-pretendard text-font-primary font-semibold text-[15px]">
+                    <span className="font-semibold text-[15px]">
                         {`${convertSelectedDateText(
                             eventDate[0]
                         )} ~ ${convertSelectedDateText(eventDate[1])}`}
@@ -70,7 +70,7 @@ export default function DateSelectorCalendar({
                 />
 
                 {/* icon 초기화 | 닫기 */}
-                <div className="flex flex-row justify-between">
+                <div className="row-center justify-between">
                     <button
                         onClick={() =>
                             setEventDate([
@@ -85,14 +85,14 @@ export default function DateSelectorCalendar({
                             alt="calendar"
                             className="w-[14px]"
                         />
-                        <span className="font-pretendard text-font-primary font-semibold text-[14px]">
+                        <span className="font-semibold text-[14px]">
                             초기화
                         </span>
                     </button>
 
                     <button
                         onClick={close}
-                        className="font-pretendard text-[14px] font-semibold text-font-activeButton"
+                        className="text-[14px] font-semibold text-font-activeButton"
                     >
                         닫기
                     </button>

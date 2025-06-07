@@ -30,7 +30,7 @@ export default function SearchBar() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 type="text"
-                className="absolute w-full pl-[20px] pr-[80px] py-[16px] border border-border-base rounded-[8px] font-pretendard text-font-primary text-[16px] font-medium hover:bg-background-hover animation-color"
+                className="absolute w-full pl-[20px] pr-[80px] py-[16px] border border-border-base rounded-[8px] hover:bg-background-hover animation-color"
                 placeholder="관심있는 지역이나 축제를 검색해보세요."
                 maxLength={20}
             />

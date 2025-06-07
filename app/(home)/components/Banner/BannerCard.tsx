@@ -22,16 +22,16 @@ export default function BannerCard({ festival }) {
             >
                 <div className="min-max-padding md:pt-[50px] pt-[30px] md:pb-[60px] pb-[40px] flex flex-col md:gap-[20px] gap-[10px]">
                     <div>
-                        <p className="font-pretendard font-semibold text-font-secondary md:text-[24px] text-[16px]">
+                        <p className="font-semibold text-font-secondary md:text-[24px] text-[16px]">
                             이 달의 축제
                         </p>
 
-                        <p className="font-pretendard font-bold text-font-highlight md:text-[32px] text-[20px]">
+                        <p className="font-bold text-font-highlight md:text-[32px] text-[20px]">
                             {thisMonth}월
                         </p>
                     </div>
 
-                    <div className="font-pretendard font-bold text-font-primary md:text-[32px] text-[20px]">
+                    <div className="font-bold md:text-[32px] text-[20px]">
                         {festival.title}
                     </div>
 

@@ -3,6 +3,7 @@
 // swiper
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import "../../../../styles/regionSelector.swiper.css";
 
 import { REGION_LIST } from "../../../../constants/regions";
 import RegionButton from "./RegionButton";

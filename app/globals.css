@@ -1,129 +1,21 @@
+@import "../styles/font.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 900;
-    font-display: swap;
-    src: local("Pretendard Black"),
-        url(../public/fonts/Pretendard/Pretendard-Black.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Black.woff) format("woff");
+body {
+    /* 기본 font 스타일 */
+    @apply font-pretendard font-medium text-[16px] text-font-primary;
 }
 
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 800;
-    font-display: swap;
-    src: local("Pretendard ExtraBold"),
-        url(../public/fonts/Pretendard/Pretendard-ExtraBold.woff2)
-            format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-ExtraBold.woff) format("woff");
+/* 세로정렬 */
+.col-center {
+    @apply flex flex-col items-center;
 }
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 700;
-    font-display: swap;
-    src: local("Pretendard Bold"),
-        url(../public/fonts/Pretendard/Pretendard-Bold.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Bold.woff) format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 600;
-    font-display: swap;
-    src: local("Pretendard SemiBold"),
-        url(../public/fonts/Pretendard/Pretendard-SemiBold.woff2)
-            format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-SemiBold.woff) format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 500;
-    font-display: swap;
-    src: local("Pretendard Medium"),
-        url(../public/fonts/Pretendard/Pretendard-Medium.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Medium.woff) format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 400;
-    font-display: swap;
-    src: local("Pretendard Regular"),
-        url(../public/fonts/Pretendard/Pretendard-Regular.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Regular.woff) format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 300;
-    font-display: swap;
-    src: local("Pretendard Light"),
-        url(../public/fonts/Pretendard/Pretendard-Light.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Light.woff) format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 200;
-    font-display: swap;
-    src: local("Pretendard ExtraLight"),
-        url(../public/fonts/Pretendard/Pretendard-ExtraLight.woff2)
-            format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-ExtraLight.woff)
-            format("woff");
-}
-
-@font-face {
-    font-family: "Pretendard";
-    font-weight: 100;
-    font-display: swap;
-    src: local("Pretendard Thin"),
-        url(../public/fonts/Pretendard/Pretendard-Thin.woff2) format("woff2"),
-        url(../public/fonts/Pretendard/Pretendard-Thin.woff) format("woff");
-}
-
-.bannerSwiper .swiper-pagination {
-    position: absolute;
-    max-width: 1180px;
-    min-width: 320px;
-    margin-left: 50%;
-    transform: translateX(-50%);
-
-    padding-left: 20px;
-    padding-bottom: 15px;
-
-    display: flex;
-    align-items: start;
-    pointer-events: none;
-}
-@media (min-width: 768px) {
-    .bannerSwiper .swiper-pagination {
-        padding-bottom: 30px;
-    }
-}
-
-.bannerSwiper .swiper-pagination-bullet {
-    width: 8px;
-    height: 8px;
-    opacity: 1;
-    border-radius: 100px;
-    background: #ebebeb !important;
-    transition: width 0.5s ease, background 0.5s ease;
-}
-
-.bannerSwiper .swiper-pagination-bullet-active {
-    width: 20px;
-    background: #ff4238 !important;
-    transition: width 0.5s ease, background 0.5s ease;
-}
-
-.regionSelectorSwiper .swiper-slide {
-    width: fit-content;
+/* 가로정렬 */
+.row-center {
+    @apply flex flex-row items-center;
 }
 
 /* 드래그 방지 */
@@ -135,27 +27,12 @@
     user-select: none;
 }
 
-.text-base-style {
-    @apply font-pretendard font-medium text-font-primary;
-}
-
-.text-base-style {
-    @apply font-pretendard font-medium text-font-secondary;
-}
-
-.col-center {
-    @apply flex flex-col items-center;
-}
-
-.row-center {
-    @apply flex flex-row items-center;
-}
-
 /* 색상 변경 애니메이션 */
 .animation-color {
     @apply transition-colors duration-200 ease-in-out;
 }
 
+/* 가로 최대 크기 설정 및 패딩값 */
 .min-max-padding {
     @apply min-w-[320px] max-w-[1180px] mx-auto w-full px-[20px];
 }
