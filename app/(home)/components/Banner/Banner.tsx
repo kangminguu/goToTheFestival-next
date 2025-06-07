@@ -1,6 +1,6 @@
 "use client";
 
-import "../../../globals.css";
+import "../../../../styles/banner.swiper.css";
 
 // Swiper
 import "swiper/css";

@@ -15,23 +15,23 @@ export default function DateSelectorButton({ open }: DateSelectorButtonProps) {
     return (
         <button
             onClick={open}
-            className="md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover:bg-background-hover flex flex-row justify-between rounded-[8px] items-center drag-prevent animation-color"
+            className="md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover:bg-background-hover row-center justify-between rounded-[8px] drag-prevent animation-color"
         >
-            <div className="flex flex-row gap-[10px]">
+            <div className="row-center gap-[10px]">
                 <img
                     src="/assets/calendar/calendar.svg"
                     alt="calendar"
                     className="w-[20px]"
                 />
 
-                <span className="font-pretendard text-font-primary font-semibold text-[15px]">
+                <span className="font-semibold text-[15px]">
                     {`${convertSelectedDateText(
                         eventDate[0]
                     )} ~ ${convertSelectedDateText(eventDate[1])}`}
                 </span>
             </div>
 
-            <span className="font-pretendard text-font-activeButton font-semibold text-[14px]">
+            <span className="text-font-activeButton font-semibold text-[14px]">
                 변경
             </span>
         </button>

@@ -8,7 +8,7 @@ export default function RecentSearchItem({ keyword }: { keyword: string }) {
         <button className="row-center gap-[2px]">
             <span
                 onClick={() => setInputValue(keyword)}
-                className="font-pretendard font-semibold text-[14px] text-font-secondary"
+                className="font-semibold text-[14px] text-font-secondary"
             >
                 {keyword}
             </span>
