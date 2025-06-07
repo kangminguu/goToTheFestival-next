@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
-interface RegionStore {
+type RegionStore = {
     regionCode: string;
     setRegionCode: (value: string) => void;
-}
+};
 
 export const useRegionStore = create<RegionStore>((set) => ({
     regionCode: "",
