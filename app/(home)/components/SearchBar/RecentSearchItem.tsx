@@ -1,5 +1,4 @@
-import { useInputValueStore } from "../../../../stores/useInputValue";
-import { useSearchStore } from "../../../../stores/useSearchStore";
+import { useInputValueStore, useSearchStore } from "../../../../stores/index";
 
 export default function RecentSearchItem({ keyword }: { keyword: string }) {
     const { setInputValue } = useInputValueStore();

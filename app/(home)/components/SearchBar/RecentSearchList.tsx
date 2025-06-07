@@ -1,4 +1,4 @@
-import { useSearchStore } from "../../../../stores/useSearchStore";
+import { useSearchStore } from "../../../../stores/index";
 import RecentSearchItem from "./RecentSearchItem";
 
 export default function RecentSearchList() {

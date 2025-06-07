@@ -1,4 +1,4 @@
-import { useEventDateStore } from "../../../../stores/useEventDateStore";
+import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
 
 interface DateSelectorButtonProps {
