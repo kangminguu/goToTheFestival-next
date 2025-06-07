@@ -36,7 +36,7 @@ export default function DateSelector() {
         return (
             <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="min-w-[335px] md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover:bg-background-hover flex flex-row justify-between rounded-[8px] items-center drag-prevent"
+                className="md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover:bg-background-hover flex flex-row justify-between rounded-[8px] items-center drag-prevent animation-color"
             >
                 <div className="flex flex-row gap-[10px]">
                     <img
@@ -57,73 +57,75 @@ export default function DateSelector() {
         );
     } else {
         return (
-            <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent">
-                <div className="flex flex-row gap-[10px] items-center">
-                    <img
-                        src="/assets/calendar/calendar.svg"
-                        alt="calendar"
-                        className="w-[20px]"
+            <div className="relative md:max-w-[335px] w-full">
+                <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base bg-background-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent animation-color md:absolute">
+                    <div className="flex flex-row gap-[10px] items-center">
+                        <img
+                            src="/assets/calendar/calendar.svg"
+                            alt="calendar"
+                            className="w-[20px]"
+                        />
+
+                        <span className="font-pretendard text-font-primary font-semibold text-[15px]">
+                            {rangeText} {/* ✅ 수정된 라인 */}
+                        </span>
+                    </div>
+
+                    <Calendar
+                        onChange={(value) => {
+                            if (Array.isArray(value)) {
+                                setEventDate(value); // ✅ 수정된 라인
+                            }
+                        }}
+                        selectRange
+                        calendarType="gregory"
+                        formatDay={(_, date) => String(date.getDate())}
+                        prevLabel={
+                            <img
+                                src="/assets/arrow.svg"
+                                alt="prev"
+                                className="w-[24px]"
+                            />
+                        }
+                        nextLabel={
+                            <img
+                                src="/assets/arrow.svg"
+                                alt="prev"
+                                className="w-[24px]"
+                            />
+                        }
+                        prev2Label={null}
+                        next2Label={null}
+                        value={eventDate || undefined} // ✅ 수정된 라인
                     />
 
-                    <span className="font-pretendard text-font-primary font-semibold text-[15px]">
-                        {rangeText} {/* ✅ 수정된 라인 */}
-                    </span>
-                </div>
+                    <div className="flex flex-row justify-between">
+                        <button
+                            onClick={() =>
+                                setEventDate([
+                                    convertYYYYMMDDToDate(getToday()),
+                                    convertYYYYMMDDToDate(getLastDayOfMonth()),
+                                ])
+                            } // ✅ 수정된 라인
+                            className="flex flex-row gap-[5px]"
+                        >
+                            <img
+                                src="/assets/reset.svg"
+                                alt="calendar"
+                                className="w-[14px]"
+                            />
+                            <span className="font-pretendard text-font-primary font-semibold text-[14px]">
+                                초기화
+                            </span>
+                        </button>
 
-                <Calendar
-                    onChange={(value) => {
-                        if (Array.isArray(value)) {
-                            setEventDate(value); // ✅ 수정된 라인
-                        }
-                    }}
-                    selectRange
-                    calendarType="gregory"
-                    formatDay={(_, date) => String(date.getDate())}
-                    prevLabel={
-                        <img
-                            src="/assets/arrow.svg"
-                            alt="prev"
-                            className="w-[24px]"
-                        />
-                    }
-                    nextLabel={
-                        <img
-                            src="/assets/arrow.svg"
-                            alt="prev"
-                            className="w-[24px]"
-                        />
-                    }
-                    prev2Label={null}
-                    next2Label={null}
-                    value={eventDate || undefined} // ✅ 수정된 라인
-                />
-
-                <div className="flex flex-row justify-between">
-                    <button
-                        onClick={() =>
-                            setEventDate([
-                                convertYYYYMMDDToDate(getToday()),
-                                convertYYYYMMDDToDate(getLastDayOfMonth()),
-                            ])
-                        } // ✅ 수정된 라인
-                        className="flex flex-row gap-[5px]"
-                    >
-                        <img
-                            src="/assets/reset.svg"
-                            alt="calendar"
-                            className="w-[14px]"
-                        />
-                        <span className="font-pretendard text-font-primary font-semibold text-[14px]">
-                            초기화
-                        </span>
-                    </button>
-
-                    <button
-                        onClick={() => setIsOpen(!isOpen)}
-                        className="font-pretendard text-[14px] font-semibold text-font-activeButton"
-                    >
-                        확인
-                    </button>
+                        <button
+                            onClick={() => setIsOpen(!isOpen)}
+                            className="font-pretendard text-[14px] font-semibold text-font-activeButton"
+                        >
+                            닫기
+                        </button>
+                    </div>
                 </div>
             </div>
         );

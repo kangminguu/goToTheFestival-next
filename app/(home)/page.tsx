@@ -5,6 +5,7 @@ import { Suspense } from "react";
 import RegionButton from "./components/RegionSelector/RegionButton";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
+import SearchBar from "./components/SearchBar/SearchBar";
 
 export function generateMetadata() {
     return {
@@ -34,8 +35,9 @@ export default async function Page() {
                 <div className="md:mt-[40px] mt-[30px]">
                     <RegionSelector />
                 </div>
-                <div className="md:mt-[40px] mt-[30px]">
+                <div className="md:mt-[40px] mt-[30px] flex flex-col md:flex-row gap-[20px]">
                     <DateSelector />
+                    <SearchBar />
                 </div>
             </div>
         </>
