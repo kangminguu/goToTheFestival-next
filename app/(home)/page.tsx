@@ -4,7 +4,7 @@ import Banner from "./components/Banner/Banner";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
 import SearchBar from "./components/SearchBar/SearchBar";
-import FestivalCard from "../../components/MiniFestivalCard/FestivalCard";
+import FestivalCard from "../../components/FestivalCard/FestivalCard";
 
 export function generateMetadata() {
     return {
