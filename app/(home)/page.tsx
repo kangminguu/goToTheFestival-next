@@ -47,9 +47,8 @@ export default async function Page() {
                         <FestivalCard festival={festivalList[1]} />
                         <FestivalCard festival={festivalList[2]} />
                         <FestivalCard festival={festivalList[3]} />
-                        <FestivalCard festival={festivalList[3]} />
-                        <FestivalCard festival={festivalList[3]} />
-                        <FestivalCard festival={festivalList[3]} />
+                        <FestivalCard festival={festivalList[4]} />
+                        <FestivalCard festival={festivalList[5]} />
                     </div>
                 </div>
             </div>

@@ -31,19 +31,20 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
 
             <div className="flex flex-col w-full">
                 {/* 태그, 제목 */}
-                <div className="flex flex-row gap-[10px] items-top">
+                <div className="flex flex-row gap-[8px] items-top">
                     <Tag
                         eventStartDate={festival.eventstartdate}
                         eventEndDate={festival.eventenddate}
                     />
-                    <div className="h-[52px]">
-                        <span className="line-clamp-2">{festival.title}</span>
-                    </div>
+
+                    <span className="line-clamp-2 h-[52px]">
+                        {festival.title}
+                    </span>
                 </div>
 
                 {/* 평점, 위치, 기간 */}
                 <div className="flex flex-col md:gap-[8px] gap-[5px]">
-                    <Rating rating={5} />
+                    <Rating rating={4.7} />
 
                     <Address address={festival.addr1} sizeType="card" />
 
