@@ -1,26 +1,67 @@
-type ratingType = 0 | 1 | 2 | 3 | 4 | 5;
+type ratingType = "card" | "detailPage" | "ratingSection" | "rating";
 
 interface RatingProps {
-    rating?: ratingType;
-    size?: number;
+    rating?: number;
+    sizeType?: ratingType;
 }
 
-export default function Rating({ rating = 0, size = 24 }: RatingProps) {
-    const ratingSize = `h-[${String(size)}px]`;
+const styles = {
+    card: {
+        div: "",
+        img: "w-[15px] md:w-[20px]",
+        text: "md:text-[15px] text-[14px]",
+    },
+    detailPage: {
+        div: "",
+        img: "",
+        text: "",
+    },
+    ratingSection: {
+        div: "",
+        img: "",
+        text: "",
+    },
+    rating: {
+        div: "",
+        img: "",
+        text: "",
+    },
+};
+
+export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
+    const { div, img, text } = styles[sizeType];
 
     return (
-        <div className={`flex flex-row ${ratingSize}`}>
-            {Array.from({ length: rating }, (_, i) => (
-                <img key={i} src="/assets/flame/flame.svg" alt="rating" />
-            ))}
+        <div className="row-center gap-[5px]">
+            <div className={`row-center`}>
+                {Array.from({ length: rating }, (_, i) => (
+                    <img
+                        key={i}
+                        src="/assets/flame/flame.svg"
+                        alt="rating"
+                        className={`${img} hidden md:block`}
+                    />
+                ))}
 
-            {Array.from({ length: 5 - rating }, (_, i) => (
+                {Array.from({ length: 5 - Math.floor(rating) }, (_, i) => (
+                    <img
+                        key={rating + i}
+                        src="/assets/flame/flame_gray.svg"
+                        alt="rating"
+                        className={`${img} hidden md:block`}
+                    />
+                ))}
+
                 <img
-                    key={rating + i}
-                    src="/assets/flame/flame_gray.svg"
+                    src="/assets/flame/flame.svg"
                     alt="rating"
+                    className={`${img} md:hidden block`}
                 />
-            ))}
+            </div>
+
+            <span className={`text-font-secondary ${text}`}>
+                {rating.toFixed(1)}
+            </span>
         </div>
     );
 }

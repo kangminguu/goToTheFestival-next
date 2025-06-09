@@ -10,7 +10,7 @@ type FestivalState = "진행중" | "종료" | "예정";
 const tagStyles = {
     종료: "bg-font-secondary",
     진행중: "bg-background-highlight",
-    예정: "hidden",
+    예정: "bg-font-activeButton",
 };
 
 export default function Tag({ eventStartDate, eventEndDate }: TagProps) {
@@ -24,7 +24,7 @@ export default function Tag({ eventStartDate, eventEndDate }: TagProps) {
 
     return (
         <div
-            className={`${tagStyles[state]} h-fit w-fit px-[10px] py-[4px] rounded-[6px] font-pretendard font-semibold text-[12px] text-font-inverted whitespace-nowrap`}
+            className={`${tagStyles[state]} h-fit w-fit px-[10px] py-[4px] rounded-[6px] font-semibold text-[12px] text-font-inverted whitespace-nowrap`}
         >
             {state}
         </div>

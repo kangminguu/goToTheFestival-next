@@ -7,19 +7,19 @@ interface AddressProps {
 
 const styles = {
     banner: {
-        div: "gap-[5px] text-font-primary",
-        img: "md:w-[24px] w-[12px]",
+        div: "gap-[5px]",
+        img: "md:w-[24px] w-[15px]",
         svg: "location",
-        text: "md:text-[20px] text-[12px]",
+        text: "md:text-[20px] text-[14px]",
     },
     card: {
         div: "gap-[5px] text-font-secondary",
-        img: "md:w-[15px] w-[12px]",
+        img: "w-[15px]",
         svg: "location_gray",
-        text: "md:text-[15px] text-[12px]",
+        text: "md:text-[15px] text-[14px]",
     },
     detailPage: {
-        div: "md:gap-[10px] gap-[5px] text-font-primary",
+        div: "md:gap-[10px] gap-[5px]",
         img: "md:w-[20px] w-[15px]",
         svg: "location",
         text: "md:text-[18px] text-[15px]",
@@ -43,9 +43,7 @@ export default function Address({ address, sizeType }: AddressProps) {
                 src={`/assets/location/${svg}.svg`}
                 alt="location"
             />
-            <p className={`font-pretendard font-medium ${text}`}>
-                {formattedAddress}
-            </p>
+            <p className={`${text} line-clamp-1`}>{formattedAddress}</p>
         </div>
     );
 }

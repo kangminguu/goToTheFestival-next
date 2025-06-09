@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MiniFestivalCard from "./MiniFestivalCard";
+import MiniFestivalCard from "./FestivalCard";
 
 const meta: Meta<typeof MiniFestivalCard> = {
     title: "Components/MiniFestivalCard",

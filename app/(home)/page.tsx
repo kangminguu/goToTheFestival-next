@@ -1,11 +1,10 @@
-import { getFestivalList } from "../../lib/api/festival/index";
-import { getLastDayOfMonth, getToday } from "../../lib/utils";
-import Banner from "./components/Banner/Banner";
 import { Suspense } from "react";
-import RegionButton from "./components/RegionSelector/RegionButton";
+
+import Banner from "./components/Banner/Banner";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
 import SearchBar from "./components/SearchBar/SearchBar";
+import FestivalCard from "../../components/FestivalCard/FestivalCard";
 
 export function generateMetadata() {
     return {
@@ -35,9 +34,22 @@ export default async function Page() {
                 <div className="md:mt-[40px] mt-[30px]">
                     <RegionSelector />
                 </div>
+
                 <div className="md:mt-[40px] mt-[30px] flex flex-col md:flex-row gap-[20px]">
                     <DateSelector />
                     <SearchBar />
+                </div>
+
+                <div className="mt-[80px] flex flex-col gap-[15px]">
+                    <span>날짜순 | 거리순</span>
+                    <div className="w-full flex flex-wrap gap-[10px] lg:grid lg:grid-cols-4 md:grid md:grid-cols-3">
+                        <FestivalCard festival={festivalList[0]} />
+                        <FestivalCard festival={festivalList[1]} />
+                        <FestivalCard festival={festivalList[2]} />
+                        <FestivalCard festival={festivalList[3]} />
+                        <FestivalCard festival={festivalList[4]} />
+                        <FestivalCard festival={festivalList[5]} />
+                    </div>
                 </div>
             </div>
         </>
