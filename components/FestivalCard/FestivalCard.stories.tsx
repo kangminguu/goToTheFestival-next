@@ -1,14 +1,14 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import MiniFestivalCard from "./FestivalCard";
+import FestivalCard from "./FestivalCard";
 
-const meta: Meta<typeof MiniFestivalCard> = {
-    title: "Components/MiniFestivalCard",
-    component: MiniFestivalCard,
+const meta: Meta<typeof FestivalCard> = {
+    title: "Components/FestivalCard",
+    component: FestivalCard,
     tags: ["autodocs"],
     parameters: {
         docs: {
             description: {
-                component: "축제를 표시하는 작은 카드 컴포넌트입니다.",
+                component: "축제를 표시하는 카드 컴포넌트입니다.",
             },
         },
     },
@@ -16,9 +16,9 @@ const meta: Meta<typeof MiniFestivalCard> = {
 };
 
 export default meta;
-type Story = StoryObj<typeof MiniFestivalCard>;
+type Story = StoryObj<typeof FestivalCard>;
 
-export const MiniFestivalCard_default: Story = {
+export const FestivalCard_default: Story = {
     args: {
         festival: {
             addr1: "서울특별시 송파구 올림픽로 424 (방이동)",
@@ -33,7 +33,7 @@ export const MiniFestivalCard_default: Story = {
     },
 };
 
-export const MiniFestivalCard_loading: Story = {
+export const FestivalCard_loading: Story = {
     args: {
         festival: {
             addr1: "서울특별시 송파구 올림픽로 424 (방이동)",

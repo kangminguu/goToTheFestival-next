@@ -8,7 +8,7 @@ export default function MiniFestivalCardSkeleton() {
                 {/* 태그, 제목 */}
                 <div className="flex flex-row gap-[8px] items-top h-[52px]">
                     <div className="h-[26px] w-[50px] rounded bg-background-hover" />
-                    <div className="h-[26px] w-full bg-background-hover rounded" />
+                    <div className="h-[26px] w-[60%] bg-background-hover rounded" />
                 </div>
 
                 <div className="flex flex-col md:gap-[8px] gap-[5px] mt-[3px]">
