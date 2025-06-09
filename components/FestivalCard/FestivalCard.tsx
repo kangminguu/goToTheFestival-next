@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 import Tag from "../Tag/Tag";
 import Address from "../Address/Address";
@@ -7,16 +5,10 @@ import EventDate from "../EventDate/EventDate";
 import Link from "next/link";
 import FestivalCardSkeleton from "./FestivalCardSkeleton";
 import Rating from "../Rating/Rating";
-import { useFavoriteStore } from "../../stores";
+import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
 export default function MiniFestivalCard({ festival, isLoading = false }) {
     if (isLoading) return <FestivalCardSkeleton />;
-
-    const { favorites, clickFavorite } = useFavoriteStore();
-
-    const handleFavorite = () => {
-        clickFavorite(festival.contentid);
-    };
 
     return (
         <Link
@@ -34,34 +26,10 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
                 />
 
                 {/* 찜 버튼 */}
-                <button
-                    onClick={(e) => {
-                        e.preventDefault();
-                        e.stopPropagation();
-                        handleFavorite();
-                    }}
-                    className="absolute group md:w-[30px] w-[24px] top-[5px] right-[5px] md:top-[10px] md:right-[10px]"
-                >
-                    {favorites.includes(festival.contentid) ? (
-                        <img
-                            src="/assets/favorite/favorite_active.svg"
-                            alt="favorite"
-                        />
-                    ) : (
-                        <>
-                            <img
-                                src="/assets/favorite/favorite.svg"
-                                alt="favorite"
-                                className="group-hover:hidden block"
-                            />
-                            <img
-                                src="/assets/favorite/favorite_hover.svg"
-                                alt="favorite"
-                                className="hidden group-hover:block"
-                            />
-                        </>
-                    )}
-                </button>
+                <FavoriteButton
+                    contentId={festival.contentid}
+                    sizeType="card"
+                />
             </div>
 
             <div className="flex flex-col w-full">
