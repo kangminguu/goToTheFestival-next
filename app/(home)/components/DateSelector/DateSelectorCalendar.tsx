@@ -23,7 +23,7 @@ export default function DateSelectorCalendar({
     const { eventDate, setEventDate } = useEventDateStore();
 
     return (
-        <div className="relative md:max-w-[335px] w-full">
+        <div className="relative md:max-w-[335px] w-full md:z-10">
             <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base bg-background-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent animation-color md:absolute">
                 {/* icon | MM.DD (e) ~ MM.DD (e) */}
                 <div className="row-center gap-[10px]">
