@@ -11,13 +11,19 @@ import {
 } from "../../stores";
 import FestivalCardSkeleton from "../FestivalCard/FestivalCardSkeleton";
 import { sortByDate, sortByDistance } from "./utils";
+import Button from "../Button/Button";
+import EmptyCardList from "./EmptyCardList";
 
 export default function FestivalCardList() {
-    const [sortOption, setSortOption] = useState<"date" | "distance">(
-        "distance"
-    );
+    const [sortOption, setSortOption] = useState<"date" | "distance">("date");
+
     const [festivalList, setFestivalList] = useState<any[]>([]);
+
     const [isLoading, setIsLoading] = useState(true);
+
+    const [page, setPage] = useState(12);
+    const [showList, setShowList] = useState([]);
+    const [totalCount, setTotalCount] = useState(0);
 
     const { regionCode } = useRegionStore();
     const { eventDate } = useEventDateStore();
@@ -25,6 +31,8 @@ export default function FestivalCardList() {
 
     useEffect(() => {
         const fetchData = async () => {
+            setIsLoading(true);
+
             const eventStartDate = convertDateToYYYYMMDD(eventDate[0]);
             const eventEndDate = convertDateToYYYYMMDD(eventDate[1]);
 
@@ -40,11 +48,19 @@ export default function FestivalCardList() {
             const res = await fetch(`/api/festival?${params.toString()}`);
             const data = await res.json();
 
-            setFestivalList(
-                (sortOption === "date"
-                    ? sortByDate(data.festivalList)
-                    : sortByDistance(data.festivalList)) || []
-            );
+            const sortedList =
+                sortOption === "date"
+                    ? sortByDate(data.festivalList || [])
+                    : sortByDistance(data.festivalList || []);
+
+            setFestivalList(sortedList || []); // 전체 리스트
+            setTotalCount(data.totalCount); // 전체 카운트
+
+            const slicedList = sortedList.slice(0, 12);
+
+            setShowList(slicedList || []);
+
+            setPage(12);
 
             setIsLoading(false);
         };
@@ -52,23 +68,42 @@ export default function FestivalCardList() {
         fetchData();
     }, [eventDate, regionCode, searchForm, sortOption]);
 
+    useEffect(() => {
+        setShowList(festivalList.slice(0, page));
+    }, [page]);
+
     return (
         <div className="flex flex-col gap-[15px]">
             <SortSelector
                 sortOption={sortOption}
                 setSortOption={setSortOption}
             />
+
             <div className="w-full flex flex-wrap gap-[10px] lg:grid lg:grid-cols-4 md:grid md:grid-cols-3">
                 {isLoading
-                    ? Array.from({ length: 12 }).map((_, index) => (
+                    ? Array.from({ length: page }).map((_, index) => (
                           <FestivalCardSkeleton key={index} />
                       ))
-                    : festivalList.map((festival) => (
+                    : showList.map((festival) => (
                           <FestivalCard
                               key={festival.contentid}
                               festival={festival}
                           />
                       ))}
+            </div>
+
+            {!isLoading && totalCount === 0 ? <EmptyCardList /> : null}
+
+            <div className="w-full row-center justify-center mt-[20px] mb-[100px]">
+                {page / 12 !== Math.floor(totalCount / 12 + 1) ? (
+                    <Button
+                        onClick={() => setPage(page + 12)}
+                        title={`더 보기 ${page / 12} / ${Math.floor(
+                            totalCount / 12 + 1
+                        )}`}
+                        isBorder
+                    />
+                ) : null}
             </div>
         </div>
     );

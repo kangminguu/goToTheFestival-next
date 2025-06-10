@@ -42,7 +42,7 @@ export default async function Page() {
                     <SearchBar />
                 </div>
 
-                <div className="mt-[60px]">
+                <div className="mt-[60px] min-h-[400px] md:min-h-[600px]">
                     <FestivalCardList />
                 </div>
             </div>
