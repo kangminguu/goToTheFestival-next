@@ -51,7 +51,7 @@ export default function FestivalCardList() {
             const sortedList =
                 sortOption === "date"
                     ? sortByDate(data.festivalList || [])
-                    : sortByDistance(data.festivalList || []);
+                    : await sortByDistance(data.festivalList || []);
 
             setFestivalList(sortedList || []); // 전체 리스트
             setTotalCount(data.totalCount); // 전체 카운트
