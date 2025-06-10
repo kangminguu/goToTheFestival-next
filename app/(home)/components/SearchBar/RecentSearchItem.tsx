@@ -1,13 +1,16 @@
 import { useInputValueStore, useSearchStore } from "../../../../stores/index";
 
 export default function RecentSearchItem({ keyword }: { keyword: string }) {
-    const { setInputValue } = useInputValueStore();
+    const { setInputValue, setSearchForm } = useInputValueStore();
     const { delKeyword } = useSearchStore();
 
     return (
         <button className="row-center gap-[2px]">
             <span
-                onClick={() => setInputValue(keyword)}
+                onClick={() => {
+                    setInputValue(keyword);
+                    setSearchForm(keyword);
+                }}
                 className="font-semibold text-[14px] text-font-secondary"
             >
                 {keyword}

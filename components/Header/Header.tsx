@@ -21,7 +21,7 @@ export default function Header({ mockPathname }: { mockPathname?: string }) {
                 {/* mobile */}
                 <Link href={`/login`} className="h-[30px] block md:hidden">
                     <img
-                        src="assets/profile.svg"
+                        src="/assets/profile.svg"
                         alt="profile"
                         className="h-full"
                     />

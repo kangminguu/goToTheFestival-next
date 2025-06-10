@@ -1,4 +1,4 @@
-export default function MiniFestivalCardSkeleton() {
+export default function FestivalCardSkeleton() {
     return (
         <div className="flex md:flex-col flex-row-reverse w-full min-h-[145px] gap-[10px] p-[10px] rounded bg-background-base animate-pulse">
             {/* 이미지 부분 */}

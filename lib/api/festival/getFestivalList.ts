@@ -4,7 +4,7 @@ interface GetFestivalListParams {
     eventStartDate: string;
     eventEndDate: string;
     keyword?: string;
-    areaCode?: number;
+    areaCode?: string;
 }
 
 /**

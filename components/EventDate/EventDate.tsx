@@ -19,7 +19,7 @@ const styles = {
         div: "gap-[5px] text-font-secondary",
         img: "w-[15px]",
         svg: "calendar_gray",
-        text: "md:text-[15px] text-[14px]",
+        text: "md:text-[15px] text-[12px]",
     },
     detailPage: {
         div: "md:gap-[10px] gap-[5px]",
