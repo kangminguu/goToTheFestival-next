@@ -1,5 +1,6 @@
 interface ButtonParams {
     title: string;
+    icon?: string;
     isBorder?: boolean;
     onClick?: () => void;
 }
@@ -11,6 +12,7 @@ interface ButtonParams {
  */
 export default function Button({
     title,
+    icon,
     isBorder = false,
     onClick,
 }: ButtonParams) {
@@ -24,10 +26,11 @@ export default function Button({
     return (
         <button
             onClick={onClick}
-            className={`${baseClass} ${fontStyle} ${backgroundStyle} ${
+            className={`row-center gap-[6px] ${baseClass} ${fontStyle} ${backgroundStyle} ${
                 isBorder ? borderStyle : ""
             }`}
         >
+            {icon ? <img src={icon} className=" w-[15px] h-[15px]" /> : null}
             {title}
         </button>
     );
