@@ -1,0 +1,12 @@
+/* 보여주는 이미지 슬라이드 */
+.detailImageSwiper.mainImageSwiper {
+    @apply md:h-[516px] h-[250px] rounded-[8px] mb-[5px] md:mb-[10px]
+}
+
+/*  */
+.detailImageSwiper .swiper-button-prev {
+
+}
+.detailImageSwiper .swiper-button-next {
+
+}

@@ -1,4 +1,5 @@
 import DetailHeader from "./components/DetailHeader";
+import DetailImageSwiper from "./components/DetailImageSwiper";
 
 interface DetailPageParams {
     params: { id: string };
@@ -19,7 +20,7 @@ export default async function DetailPage({ params }: DetailPageParams) {
         <div className="min-max-padding">
             <DetailHeader/>
 
-            
+            <DetailImageSwiper/>
         </div>
     );
 }
