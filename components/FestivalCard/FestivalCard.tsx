@@ -3,13 +3,10 @@ import Tag from "../Tag/Tag";
 import Address from "../Address/Address";
 import EventDate from "../EventDate/EventDate";
 import Link from "next/link";
-import FestivalCardSkeleton from "./FestivalCardSkeleton";
 import Rating from "../Rating/Rating";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
 
-export default function MiniFestivalCard({ festival, isLoading = false }) {
-    if (isLoading) return <FestivalCardSkeleton />;
-
+export default function FestivalCard({ festival }) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
@@ -18,7 +15,11 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
             {/* 이미지 */}
             <div className="relative shrink-0 w-[125px] h-[125px] overflow-hidden rounded-[6px] md:w-full md:h-[190px]">
                 <Image
-                    src={festival.firstimage}
+                    src={
+                        festival.firstimage ||
+                        festival.firstimage2 ||
+                        "/assets/no_image.png"
+                    }
                     alt={festival.title}
                     fill
                     className="object-cover"
@@ -34,15 +35,15 @@ export default function MiniFestivalCard({ festival, isLoading = false }) {
 
             <div className="flex flex-col w-full">
                 {/* 태그, 제목 */}
-                <div className="flex flex-row gap-[8px] items-top">
+                <div className="flex flex-row gap-[8px] items-top h-[52px]">
                     <Tag
                         eventStartDate={festival.eventstartdate}
                         eventEndDate={festival.eventenddate}
                     />
 
-                    <span className="line-clamp-2 h-[52px]">
+                    <p className="line-clamp-2 break-words break-all text-[15px] md:text-[16px] h-fit">
                         {festival.title}
-                    </span>
+                    </p>
                 </div>
 
                 {/* 평점, 위치, 기간 */}

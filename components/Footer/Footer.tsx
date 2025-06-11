@@ -8,7 +8,7 @@ export default function Footer() {
             <div className="min-max-padding row-center justify-between">
                 <div className="w-fit flex flex-1 flex-col items-start gap-[10px]">
                     <img
-                        src="assets/logo/logo_gray.svg"
+                        src="/assets/logo/logo_gray.svg"
                         alt="logo"
                         className="md:h-[26px] h-[18px]"
                     />
@@ -19,7 +19,7 @@ export default function Footer() {
 
                 <div className="flex flex-1 flex-row whitespace-normal break-words justify-end gap-[32px]">
                     <Link href={emailLink} className="w-[32px] h-[32px]">
-                        <img src="assets/mail.svg" alt="email" />
+                        <img src="/assets/mail.svg" alt="email" />
                     </Link>
 
                     <a
@@ -28,7 +28,7 @@ export default function Footer() {
                         rel="noopener noreferrer"
                         className="w-[32px] h-[32px]"
                     >
-                        <img src="assets/github.svg" alt="github" />
+                        <img src="/assets/github.svg" alt="github" />
                     </a>
                 </div>
             </div>

@@ -8,7 +8,7 @@ import { useInputValueStore, useSearchStore } from "../../../../stores/index";
  * @returns SearchBar
  */
 export default function SearchBar() {
-    const { inputValue, setInputValue } = useInputValueStore();
+    const { inputValue, setInputValue, setSearchForm } = useInputValueStore();
     const { addKeyword, delKeyword } = useSearchStore();
 
     // 검색 폼 제출 이벤트
@@ -16,9 +16,9 @@ export default function SearchBar() {
         e.preventDefault();
         const trimed = inputValue.trim();
 
-        if (!trimed) return;
+        setSearchForm(trimed);
 
-        console.log(trimed);
+        if (!trimed) return;
 
         delKeyword(trimed);
         addKeyword(trimed);
@@ -38,7 +38,10 @@ export default function SearchBar() {
             {inputValue !== "" ? (
                 <button
                     type="button"
-                    onClick={() => setInputValue("")}
+                    onClick={() => {
+                        setInputValue("");
+                        setSearchForm("");
+                    }}
                     className="absolute h-[15px] w-[15px] right-[60px] top-1/2 -translate-y-1/2 flex justify-center items-center bg-font-muted rounded-full"
                 >
                     <img
