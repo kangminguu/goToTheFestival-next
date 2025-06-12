@@ -1,99 +1,80 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { FreeMode, Navigation, Thumbs } from "swiper/modules";
+import { FreeMode, Navigation, Thumbs, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/free-mode";
+import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 import "../../../../styles/detailImage.swiper.css";
 
 import { useState } from "react";
+import Image from "next/image";
 
-export default function DetailImageSwiper() {
+export default function DetailImageSwiper({ imageList }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     return (
-        <div className="">
+        <div className="drag-prevent">
             <Swiper
                 loop
-                spaceBetween={10}
+                pagination={{
+                    type: "fraction",
+                }}
                 navigation={true}
                 thumbs={{ swiper: thumbsSwiper }}
-                modules={[FreeMode, Navigation, Thumbs]}
-                className="detailImageSwiper mainImageSwiper"
+                modules={[FreeMode, Navigation, Thumbs, Pagination]}
+                className="mainImageSwiper"
             >
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                </SwiperSlide>
+                {imageList.map((festival, index) => (
+                    <SwiperSlide
+                        key={festival.serialnum}
+                        className="relative md:h-[516px] h-[250px]"
+                    >
+                        <Image
+                            src={festival.originimgurl}
+                            alt={festival.imgname}
+                            fill
+                            className="object-cover blur-sm opacity-60"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                            priority={index === 0}
+                        />
+
+                        <div className="relative z-10 flex items-center justify-center h-full">
+                            <Image
+                                src={festival.originimgurl}
+                                alt={festival.imgname}
+                                fill
+                                className="object-contain"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                                priority={index === 0} // ← 첫 슬라이드에만 적용
+                            />
+                        </div>
+                    </SwiperSlide>
+                ))}
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
                 loop
-                spaceBetween={10}
-                slidesPerView={4}
+                spaceBetween={5}
+                slidesPerView={5}
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className=""
+                className="thumbSwiper"
             >
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-1.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-2.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-3.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-4.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-5.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-6.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-7.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-8.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-9.jpg" />
-                </SwiperSlide>
-                <SwiperSlide>
-                    <img src="https://swiperjs.com/demos/images/nature-10.jpg" />
-                </SwiperSlide>
+                {imageList.map((festival) => (
+                    <SwiperSlide key={festival.serialnum}>
+                        <Image
+                            src={festival.originimgurl}
+                            alt={festival.imgname}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                        />
+                    </SwiperSlide>
+                ))}
             </Swiper>
         </div>
     );
