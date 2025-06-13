@@ -26,8 +26,6 @@ export default async function DetailPage({ params }: DetailPageParams) {
         },
     ];
 
-    console.log(festivalImageList);
-
     return (
         <div className="min-max-padding">
             <DetailHeader />
