@@ -60,7 +60,7 @@ export default function DateSelectorCalendar({
                     nextLabel={
                         <img
                             src="/assets/arrow.svg"
-                            alt="prev"
+                            alt="next"
                             className="w-[24px]"
                         />
                     }
