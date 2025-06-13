@@ -1,3 +1,4 @@
+import Alert from "../components/Alert/Alert";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import "./globals.css";
@@ -15,6 +16,8 @@ export default function RootLayout({
                 <main className="flex-1">{children}</main>
 
                 <Footer />
+
+                <Alert />
             </body>
         </html>
     );

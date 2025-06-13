@@ -12,7 +12,8 @@ module.exports = {
                 button: '8px', // 버튼 radius
             },
             boxShadow: {
-                window: "5px 5px 30px rgba(0, 0, 0, 0.06)"
+                window: "5px 5px 20px rgba(0, 0, 0, 0.06)",
+                alert: "5px 5px 20px rgba(0, 0, 0, 0.1)"
             }
         },
         colors: {
