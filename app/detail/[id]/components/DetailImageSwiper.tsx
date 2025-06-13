@@ -48,7 +48,7 @@ export default function DetailImageSwiper({ imageList }) {
                                 fill
                                 className="object-contain"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
-                                priority={index === 0} // ← 첫 슬라이드에만 적용
+                                priority={index === 0}
                             />
                         </div>
                     </SwiperSlide>
@@ -56,7 +56,6 @@ export default function DetailImageSwiper({ imageList }) {
             </Swiper>
             <Swiper
                 onSwiper={setThumbsSwiper}
-                loop
                 spaceBetween={5}
                 slidesPerView={5}
                 freeMode={true}
