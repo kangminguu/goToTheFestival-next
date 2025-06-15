@@ -32,6 +32,10 @@ body {
 .animation-color {
     @apply transition-colors duration-200 ease-in-out;
 }
+/* alert 나타나거나 사라지는 애니메이션 */
+.animation-color {
+    @apply transition-transform duration-200 ease-in-out;
+}
 
 /* 가로 최대 크기 설정 및 패딩값 */
 .min-max-padding {

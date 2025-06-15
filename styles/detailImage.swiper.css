@@ -1,6 +1,6 @@
 /* 보여주는 이미지 슬라이드 */
 .mainImageSwiper {
-    @apply md:h-[516px] h-[250px] rounded-[8px] mb-[5px] md:mb-[10px] border border-border-base;
+    @apply md:h-[516px] h-[250px] z-10 rounded-[8px] mb-[5px] md:mb-[10px] border border-border-base;
 }
 
 /* swiper 버튼 커스텀 */

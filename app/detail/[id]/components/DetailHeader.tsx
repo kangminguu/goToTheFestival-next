@@ -2,6 +2,7 @@
 
 import Button from "../../../../components/Button/Button";
 import { usePathname, useRouter } from "next/navigation";
+import { useAlertStore } from "../../../../stores/useAlertStore";
 
 export default function DetailHeader() {
     const router = useRouter();
@@ -9,12 +10,16 @@ export default function DetailHeader() {
     const domain = "localhost:3000";
     const urlPath = usePathname();
 
+    const { open, close } = useAlertStore();
+
     const handleCopy = async () => {
+        close();
+
         try {
             await navigator.clipboard.writeText(`${domain}${urlPath}`);
-            alert("클립보드에 복사되었습니다.");
+            open("클립보드에 복사되었습니다.");
         } catch {
-            alert("URL 복사에 실패했습니다.");
+            open("URL 복사에 실패했습니다.");
         }
     };
 
