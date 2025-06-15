@@ -37,6 +37,8 @@ export default async function DetailPage({ params }: DetailPageParams) {
             <DetailHeader />
 
             <DetailImageSwiper imageList={festivalImageList} />
+
+            <div className="bg-font-muted h-[2000px] w-full"></div>
         </div>
     );
 }

@@ -10,14 +10,16 @@ export default function DetailHeader() {
     const domain = "localhost:3000";
     const urlPath = usePathname();
 
-    const openAlert = useAlertStore((alert) => alert.open);
+    const { open, close } = useAlertStore();
 
     const handleCopy = async () => {
+        close();
+
         try {
             await navigator.clipboard.writeText(`${domain}${urlPath}`);
-            openAlert("클립보드에 복사되었습니다.");
+            open("클립보드에 복사되었습니다.");
         } catch {
-            openAlert("URL 복사에 실패했습니다.");
+            open("URL 복사에 실패했습니다.");
         }
     };
 
