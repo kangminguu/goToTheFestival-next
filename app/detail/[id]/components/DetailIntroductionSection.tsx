@@ -1,6 +1,7 @@
 "use client";
 
 import Address from "../../../../components/Address/Address";
+import Button from "../../../../components/Button/Button";
 import EventDate from "../../../../components/EventDate/EventDate";
 import { useAlertStore } from "../../../../stores/useAlertStore";
 import IconIntroduction from "./IconIntroduction";
@@ -41,8 +42,18 @@ export default function DetailIntroductionSection({
         }
     };
 
+    // 홈페이지 링크
+    const homepageLink =
+        homepage !== ""
+            ? homepage
+                  .split(" ")
+                  .filter((a) => a.includes("href"))[0]
+                  .replace("href=", "")
+                  .replace(/["']/g, "")
+            : "";
+
     return (
-        <div className="border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px]">
+        <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px]">
             <div className="flex flex-col md:gap-[20px] gap-[10px]">
                 {/* 주소 */}
                 <button className="row-center md:gap-[10px] gap-[5px]">
@@ -84,6 +95,23 @@ export default function DetailIntroductionSection({
                     </button>
                 </div>
             </div>
+
+            {/* 홈페이지 */}
+            {homepage !== "" ? (
+                <a
+                    className="w-fit"
+                    href={homepageLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <Button
+                        title="공식 홈페이지"
+                        icon="/assets/open_in_new.svg"
+                        isBorder
+                        onClick={() => {}}
+                    />
+                </a>
+            ) : null}
 
             {/* 축제 상세 설명 */}
         </div>
