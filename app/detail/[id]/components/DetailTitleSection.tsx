@@ -9,7 +9,7 @@ export default function DetailTitleSection({
     contentId,
 }) {
     return (
-        <div className="flex flex-col gap-[5px] md:gap-[10px] md:my-[20px] my-[10px]">
+        <div className="flex flex-col gap-[5px] md:gap-[10px] my-[20px]">
             <div className="flex flex-row items-start justify-between gap-[10px]">
                 {/* 태그와 축제 타이틀 */}
                 <div className="flex flex-row items-start gap-[10px]">
