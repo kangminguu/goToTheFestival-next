@@ -1,5 +1,8 @@
+"use client";
+
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
+import { useAlertStore } from "../../../../stores/useAlertStore";
 import IconIntroduction from "./IconIntroduction";
 
 interface DetailIntroductionSectionProps {
@@ -8,7 +11,7 @@ interface DetailIntroductionSectionProps {
     eventEndDate: string;
     playTime?: string;
     fee?: string;
-    call?: string;
+    tel?: string;
     homepage?: string;
     info_1?: string;
     info_2?: string;
@@ -20,11 +23,24 @@ export default function DetailIntroductionSection({
     eventEndDate,
     playTime = "",
     fee = "",
-    call = "",
+    tel = "",
     homepage = "",
     info_1 = "",
     info_2 = "",
 }) {
+    const { open, close } = useAlertStore();
+
+    const handleCopy = async () => {
+        close();
+
+        try {
+            await navigator.clipboard.writeText(`${tel}`);
+            open("전화번호를 복사했습니다.");
+        } catch {
+            open("전화번호 복사에 실패했습니다.");
+        }
+    };
+
     return (
         <div className="border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px]">
             <div className="flex flex-col md:gap-[20px] gap-[10px]">
@@ -55,7 +71,21 @@ export default function DetailIntroductionSection({
                 <IconIntroduction icon="/assets/fee.svg" introduction={fee} />
 
                 {/* 전화번호 */}
+                <div className="row-center gap-[20px] justify-between md:justify-normal">
+                    <IconIntroduction
+                        icon="/assets/call.svg"
+                        introduction={tel}
+                    />
+                    <button
+                        onClick={handleCopy}
+                        className="text-[14px] font-semibold"
+                    >
+                        복사
+                    </button>
+                </div>
             </div>
+
+            {/* 축제 상세 설명 */}
         </div>
     );
 }
