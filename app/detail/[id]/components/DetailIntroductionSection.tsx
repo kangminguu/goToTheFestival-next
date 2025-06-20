@@ -119,12 +119,16 @@ export default function DetailIntroductionSection({
             <ReadMore
                 content={
                     <div className="flex flex-col gap-[20px]">
-                        <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
-                            {convertBr(info_1)}
-                        </p>
-                        <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
-                            {convertBr(info_2)}
-                        </p>
+                        {info_1 ? (
+                            <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
+                                {convertBr(info_1)}
+                            </p>
+                        ) : null}
+                        {info_2 ? (
+                            <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
+                                {convertBr(info_2)}
+                            </p>
+                        ) : null}
                     </div>
                 }
             />

@@ -63,7 +63,9 @@ export default async function DetailPage({ params }: DetailPageParams) {
                 tel={festivalCommon.tel}
                 homepage={festivalCommon.homepage}
                 info_1={festivalContents[0].infotext}
-                info_2={festivalContents[1].infotext}
+                info_2={
+                    festivalContents[1] ? festivalContents[1].infotext : null
+                }
             />
         </div>
     );
