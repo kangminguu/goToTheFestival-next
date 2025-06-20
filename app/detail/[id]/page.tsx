@@ -29,9 +29,7 @@ export default async function DetailPage({ params }: DetailPageParams) {
     const festivalIntroduction = await getFestivalIntroduction(contentId); // 종료일, 축제 장소, 시작일, 개장 시간, 스폰서1, 스폰서2, 비용
     const festivalImageList = (await getFestvalImage(contentId)) || []; // 축제 이미지 리스트
 
-    console.log(festivalCommon);
     console.log(festivalContents);
-    console.log(festivalIntroduction);
 
     // 대표이미지를 맨 앞에 추가 + 대표이미지도 없는 경우 no_image 추가
     festivalImageList.unshift({
@@ -44,7 +42,7 @@ export default async function DetailPage({ params }: DetailPageParams) {
     });
 
     return (
-        <div className="min-max-padding">
+        <div className="min-max-padding mb-[100px]">
             <DetailHeader />
 
             <DetailImageSwiper imageList={festivalImageList} />
@@ -64,9 +62,9 @@ export default async function DetailPage({ params }: DetailPageParams) {
                 fee={festivalIntroduction.usetimefestival}
                 tel={festivalCommon.tel}
                 homepage={festivalCommon.homepage}
+                info_1={festivalContents[0].infotext}
+                info_2={festivalContents[1].infotext}
             />
-
-            <div className="bg-font-muted h-[2000px] w-full"></div>
         </div>
     );
 }

@@ -1,3 +1,5 @@
+import { convertBr } from "../../../../lib/utils";
+
 interface IconIntroductionProps {
     icon: string;
     introduction: string;
@@ -7,11 +9,6 @@ export default function IconIntroduction({
     icon,
     introduction,
 }: IconIntroductionProps) {
-    const formatIntroduction =
-        introduction !== ""
-            ? introduction.replace(/<br\s*\/?>/gi, "<br>").split("<br>") // <Br>의 경우도 <br>로 바꿔줘서 처리할 수 있도록
-            : [introduction];
-
     if (introduction === "") return null;
 
     return (
@@ -23,13 +20,9 @@ export default function IconIntroduction({
                     className="md:w-[20px] w-[15px]"
                 />
             </div>
-            <div className="flex flex-col gap-[3px]">
-                {formatIntroduction.map((item, index) => (
-                    <p key={index} className="md:text-[18px] text-[15px]">
-                        {item.trim()}
-                    </p>
-                ))}
-            </div>
+            <p className="md:text-[18px] text-[15px] whitespace-pre-line">
+                {convertBr(introduction)}
+            </p>
         </div>
     );
 }

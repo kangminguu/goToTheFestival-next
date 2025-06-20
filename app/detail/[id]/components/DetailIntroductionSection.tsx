@@ -3,6 +3,8 @@
 import Address from "../../../../components/Address/Address";
 import Button from "../../../../components/Button/Button";
 import EventDate from "../../../../components/EventDate/EventDate";
+import ReadMore from "../../../../components/ReadMore/ReadMore";
+import { convertBr } from "../../../../lib/utils";
 import { useAlertStore } from "../../../../stores/useAlertStore";
 import IconIntroduction from "./IconIntroduction";
 
@@ -82,7 +84,7 @@ export default function DetailIntroductionSection({
                 <IconIntroduction icon="/assets/fee.svg" introduction={fee} />
 
                 {/* 전화번호 */}
-                <div className="row-center gap-[20px] justify-between md:justify-normal">
+                <div className="row-center gap-[20px]">
                     <IconIntroduction
                         icon="/assets/call.svg"
                         introduction={tel}
@@ -96,7 +98,7 @@ export default function DetailIntroductionSection({
                 </div>
             </div>
 
-            {/* 홈페이지 */}
+            {/* 홈페이지 새창 열기 버튼 */}
             {homepage !== "" ? (
                 <a
                     className="w-fit"
@@ -114,6 +116,18 @@ export default function DetailIntroductionSection({
             ) : null}
 
             {/* 축제 상세 설명 */}
+            <ReadMore
+                content={
+                    <div className="flex flex-col gap-[20px]">
+                        <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
+                            {convertBr(info_1)}
+                        </p>
+                        <p className="text-font-secondary md:text-[16px] text-[15px] font-normal whitespace-pre-line">
+                            {convertBr(info_2)}
+                        </p>
+                    </div>
+                }
+            />
         </div>
     );
 }
