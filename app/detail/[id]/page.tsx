@@ -61,6 +61,7 @@ export default async function DetailPage({ params }: DetailPageParams) {
                 eventStartDate={festivalIntroduction.eventstartdate}
                 eventEndDate={festivalIntroduction.eventenddate}
                 playTime={festivalIntroduction.playtime}
+                fee={festivalIntroduction.usetimefestival}
             />
 
             <div className="bg-font-muted h-[2000px] w-full"></div>
