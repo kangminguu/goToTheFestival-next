@@ -6,6 +6,7 @@ import {
 } from "../../../lib/api/festival";
 import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
+import DetailIntroductionSection from "./components/DetailIntroductionSection";
 import DetailTitleSection from "./components/DetailTitleSection";
 
 interface DetailPageParams {
@@ -28,6 +29,10 @@ export default async function DetailPage({ params }: DetailPageParams) {
     const festivalIntroduction = await getFestivalIntroduction(contentId); // 종료일, 축제 장소, 시작일, 개장 시간, 스폰서1, 스폰서2, 비용
     const festivalImageList = (await getFestvalImage(contentId)) || []; // 축제 이미지 리스트
 
+    console.log(festivalCommon);
+    console.log(festivalContents);
+    console.log(festivalIntroduction);
+
     // 대표이미지를 맨 앞에 추가 + 대표이미지도 없는 경우 no_image 추가
     festivalImageList.unshift({
         originimgurl:
@@ -49,6 +54,13 @@ export default async function DetailPage({ params }: DetailPageParams) {
                 eventStartDate={festivalIntroduction.eventstartdate}
                 eventEndDate={festivalIntroduction.eventenddate}
                 contentId={festivalCommon.contentid}
+            />
+
+            <DetailIntroductionSection
+                address={festivalCommon.addr1}
+                eventStartDate={festivalIntroduction.eventstartdate}
+                eventEndDate={festivalIntroduction.eventenddate}
+                playTime={festivalIntroduction.playtime}
             />
 
             <div className="bg-font-muted h-[2000px] w-full"></div>
