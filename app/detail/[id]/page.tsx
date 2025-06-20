@@ -1,6 +1,12 @@
-import { getFestivalCommon, getFestvalImage } from "../../../lib/api/festival";
+import {
+    getFestivalCommon,
+    getFestivalContents,
+    getFestivalIntroduction,
+    getFestvalImage,
+} from "../../../lib/api/festival";
 import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
+import DetailTitleSection from "./components/DetailTitleSection";
 
 interface DetailPageParams {
     params: { id: string };
@@ -17,16 +23,16 @@ export async function generateMetadata({ params }: DetailPageParams) {
 export default async function DetailPage({ params }: DetailPageParams) {
     const contentId = (await params).id;
 
-    const festivalInfo = await getFestivalCommon(contentId);
+    const festivalCommon = await getFestivalCommon(contentId); // 축제 이름, 전화번호, 홈페이지, 대표이미지, 주소, 좌표값, 소개1
+    const festivalContents = await getFestivalContents(contentId); // 설명1, 설명2
+    const festivalIntroduction = await getFestivalIntroduction(contentId); // 종료일, 축제 장소, 시작일, 개장 시간, 스폰서1, 스폰서2, 비용
+    const festivalImageList = (await getFestvalImage(contentId)) || []; // 축제 이미지 리스트
 
-    // 이미지가 없을 경우 처리
-    const festivalImageList = (await getFestvalImage(contentId)) || [];
-
-    // 대표 이미지 + 축제 이미지 모두 없는 축제도 있음
+    // 대표이미지를 맨 앞에 추가 + 대표이미지도 없는 경우 no_image 추가
     festivalImageList.unshift({
         originimgurl:
-            festivalInfo.firstimage ||
-            festivalInfo.firstimage2 ||
+            festivalCommon.firstimage ||
+            festivalCommon.firstimage2 ||
             "/assets/no_image.png",
         imgname: "대표이미지",
         serialnum: contentId + "_0",
@@ -37,6 +43,13 @@ export default async function DetailPage({ params }: DetailPageParams) {
             <DetailHeader />
 
             <DetailImageSwiper imageList={festivalImageList} />
+
+            <DetailTitleSection
+                title={festivalCommon.title}
+                eventStartDate={festivalIntroduction.eventstartdate}
+                eventEndDate={festivalIntroduction.eventenddate}
+                contentId={festivalCommon.contentid}
+            />
 
             <div className="bg-font-muted h-[2000px] w-full"></div>
         </div>

@@ -8,54 +8,59 @@ interface RatingProps {
 const styles = {
     card: {
         div: "",
-        img: "w-[15px] md:w-[20px]",
+        spread_img: "w-[15px] md:w-[20px] hidden md:block",
+        img: "w-[15px] md:w-[20px] md:hidden block",
         text: "md:text-[15px] text-[14px]",
     },
     detailPage: {
         div: "",
-        img: "",
-        text: "",
+        spread_img: "hidden",
+        img: "md:w-[24px] w-[20px]",
+        text: "md:text-[16px] text-[14px]",
     },
     ratingSection: {
         div: "",
+        spread_img: "",
         img: "",
         text: "",
     },
     rating: {
         div: "",
+        spread_img: "",
         img: "",
         text: "",
     },
 };
 
 export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
-    const { div, img, text } = styles[sizeType];
+    const { div, spread_img, img, text } = styles[sizeType];
 
     return (
         <div className="row-center gap-[5px]">
             <div className={`row-center`}>
+                {/* 펼쳐진 평점 */}
                 {Array.from({ length: rating }, (_, i) => (
                     <img
                         key={i}
                         src="/assets/flame/flame.svg"
                         alt="rating"
-                        className={`${img} hidden md:block`}
+                        className={`${spread_img}`}
                     />
                 ))}
-
                 {Array.from({ length: 5 - Math.floor(rating) }, (_, i) => (
                     <img
                         key={rating + i}
                         src="/assets/flame/flame_gray.svg"
                         alt="rating"
-                        className={`${img} hidden md:block`}
+                        className={`${spread_img}`}
                     />
                 ))}
 
+                {/* 접힌 평점 */}
                 <img
                     src="/assets/flame/flame.svg"
                     alt="rating"
-                    className={`${img} md:hidden block`}
+                    className={`${img}`}
                 />
             </div>
 

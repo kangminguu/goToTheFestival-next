@@ -52,14 +52,14 @@ export default function DateSelectorCalendar({
                     formatDay={(_, date) => String(date.getDate())}
                     prevLabel={
                         <img
-                            src="/assets/arrow.svg"
+                            src="/assets/arrow/arrow.svg"
                             alt="prev"
                             className="w-[24px]"
                         />
                     }
                     nextLabel={
                         <img
-                            src="/assets/arrow.svg"
+                            src="/assets/arrow/arrow.svg"
                             alt="next"
                             className="w-[24px]"
                         />
