@@ -10,7 +10,7 @@ export default function DetailTitleSection({
 }) {
     return (
         <div className="flex flex-col gap-[5px] md:gap-[10px] md:my-[20px] my-[10px]">
-            <div className="flex flex-row items-start justify-between">
+            <div className="flex flex-row items-start justify-between gap-[10px]">
                 {/* 태그와 축제 타이틀 */}
                 <div className="flex flex-row items-start gap-[10px]">
                     <div className="h-[27px] md:h-[36px] row-center">
@@ -25,7 +25,12 @@ export default function DetailTitleSection({
                 </div>
 
                 {/* 찜 버튼 */}
-                <FavoriteButton contentId={contentId} sizeType="detailPage" />
+                <div className="md:h-[36px] row-center">
+                    <FavoriteButton
+                        contentId={contentId}
+                        sizeType="detailPage"
+                    />
+                </div>
             </div>
 
             <div className="row-center gap-[10px]">
@@ -33,12 +38,12 @@ export default function DetailTitleSection({
 
                 <span className="bg-font-secondary w-[3px] h-[3px] rounded-full"></span>
 
-                <button className="row-center gap-[5px] text-font-secondary">
+                <button className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]">
                     14개 평가
                     <img
                         src="/assets/arrow/arrow_gray.svg"
                         alt="rating"
-                        className=" rotate-180"
+                        className=" rotate-180 w-[14px] md:w-[16px]"
                     />
                 </button>
             </div>
