@@ -30,7 +30,9 @@ export default function Button({
                 isBorder ? borderStyle : ""
             }`}
         >
-            {icon ? <img src={icon} className=" w-[15px] h-[15px]" /> : null}
+            {icon ? (
+                <img src={icon} alt={icon} className=" w-[15px] h-[15px]" />
+            ) : null}
             {title}
         </button>
     );

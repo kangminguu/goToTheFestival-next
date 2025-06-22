@@ -8,6 +8,7 @@ import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
 import DetailIntroductionSection from "./components/DetailIntroductionSection";
 import DetailTitleSection from "./components/DetailTitleSection";
+import { convertBr } from "../../../lib/utils";
 
 interface DetailPageParams {
     params: { id: string };
@@ -16,8 +17,11 @@ interface DetailPageParams {
 export async function generateMetadata({ params }: DetailPageParams) {
     const id = (await params).id;
 
+    const festivalCommon = await getFestivalCommon(id);
+
     return {
-        title: id,
+        title: `${festivalCommon.title} - 축제가자`,
+        description: `${convertBr(festivalCommon.overview)}`,
     };
 }
 
@@ -28,8 +32,6 @@ export default async function DetailPage({ params }: DetailPageParams) {
     const festivalContents = await getFestivalContents(contentId); // 설명1, 설명2
     const festivalIntroduction = await getFestivalIntroduction(contentId); // 종료일, 축제 장소, 시작일, 개장 시간, 스폰서1, 스폰서2, 비용
     const festivalImageList = (await getFestvalImage(contentId)) || []; // 축제 이미지 리스트
-
-    console.log(festivalContents);
 
     // 대표이미지를 맨 앞에 추가 + 대표이미지도 없는 경우 no_image 추가
     festivalImageList.unshift({
