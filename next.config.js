@@ -1,5 +1,5 @@
 module.exports = {
     images: {
-        domains: ['tong.visitkorea.or.kr', 'swiperjs.com'],
+        domains: ['tong.visitkorea.or.kr'],
     },
 };

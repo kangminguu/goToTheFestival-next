@@ -25,7 +25,10 @@ export default function DetailHeader() {
 
     return (
         <div className="row-center justify-between md:my-[20px] mb-[10px]">
-            <button onClick={() => router.back()} className="row-center">
+            <button
+                onClick={() => router.back()}
+                className="row-center font-semibold"
+            >
                 <img
                     src="/assets/arrow/arrow.svg"
                     alt="뒤로"
@@ -38,7 +41,6 @@ export default function DetailHeader() {
                 title="URL 복사"
                 icon="/assets/link.svg"
                 onClick={handleCopy}
-                isBorder
             />
         </div>
     );

@@ -55,7 +55,7 @@ export default function DetailIntroductionSection({
             : "";
 
     return (
-        <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px]">
+        <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
             <div className="flex flex-col md:gap-[20px] gap-[10px]">
                 {/* 주소 */}
                 <button className="row-center md:gap-[10px] gap-[5px]">
@@ -84,14 +84,14 @@ export default function DetailIntroductionSection({
                 <IconIntroduction icon="/assets/fee.svg" introduction={fee} />
 
                 {/* 전화번호 */}
-                <div className="row-center gap-[20px]">
+                <div className="row-center gap-[15px]">
                     <IconIntroduction
                         icon="/assets/call.svg"
                         introduction={tel}
                     />
                     <button
                         onClick={handleCopy}
-                        className="text-[14px] font-semibold"
+                        className="text-[14px] font-semibold whitespace-nowrap text-font-activeButton"
                     >
                         복사
                     </button>
@@ -109,7 +109,6 @@ export default function DetailIntroductionSection({
                     <Button
                         title="공식 홈페이지"
                         icon="/assets/open_in_new.svg"
-                        isBorder
                         onClick={() => {}}
                     />
                 </a>
