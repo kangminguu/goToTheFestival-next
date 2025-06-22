@@ -1,4 +1,3 @@
-import { describe } from "node:test";
 import {
     getFestivalCommon,
     getFestivalContents,
