@@ -44,6 +44,12 @@ export default function DetailIntroductionSection({
         }
     };
 
+    const handleMoveScrollToLocation = () => {
+        document.getElementById("location-section").scrollIntoView({
+            behavior: "smooth",
+        });
+    };
+
     // 홈페이지 링크
     const homepageLink =
         homepage !== ""
@@ -58,7 +64,10 @@ export default function DetailIntroductionSection({
         <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
             <div className="flex flex-col md:gap-[20px] gap-[10px]">
                 {/* 주소 */}
-                <button className="row-center md:gap-[10px] gap-[5px]">
+                <button
+                    onClick={handleMoveScrollToLocation}
+                    className="row-center md:gap-[10px] gap-[5px]"
+                >
                     <Address address={address} sizeType="detailPage" />
                     <img
                         src="/assets/arrow/arrow.svg"
