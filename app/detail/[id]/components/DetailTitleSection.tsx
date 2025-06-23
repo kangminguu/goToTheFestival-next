@@ -36,7 +36,7 @@ export default function DetailTitleSection({
             <div className="row-center gap-[10px]">
                 <Rating sizeType="detailPage" />
 
-                <span className="bg-font-secondary w-[3px] h-[3px] rounded-full"></span>
+                <span className="bg-font-secondary w-[4px] h-[4px] rounded-full" />
 
                 <button className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]">
                     14개 평가
