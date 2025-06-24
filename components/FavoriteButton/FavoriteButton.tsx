@@ -5,7 +5,13 @@ import { useFavoriteStore } from "../../stores";
 type FavoriteButtonSizeType = "card" | "detailPage";
 
 interface FavoriteButtonProps {
-    contentId: string;
+    contentid: string;
+    firstimage: string;
+    firstimage2: string;
+    title: string;
+    eventstartdate: string;
+    eventenddate: string;
+    addr1: string;
     sizeType?: string;
 }
 
@@ -17,14 +23,28 @@ const styles = {
 };
 
 export default function FavoriteButton({
-    contentId,
+    contentid,
+    firstimage,
+    firstimage2,
+    title,
+    eventstartdate,
+    eventenddate,
+    addr1,
     sizeType = "card",
 }: FavoriteButtonProps) {
     const { button } = styles[sizeType];
     const { favorites, clickFavorite } = useFavoriteStore();
 
     const handleFavorite = () => {
-        clickFavorite(contentId);
+        clickFavorite({
+            contentid,
+            firstimage,
+            firstimage2,
+            title,
+            eventstartdate,
+            eventenddate,
+            addr1,
+        });
     };
 
     return (
@@ -36,7 +56,7 @@ export default function FavoriteButton({
             }}
             className={`${button}`}
         >
-            {favorites.includes(contentId) ? (
+            {Object.keys(favorites).includes(contentid) ? (
                 <img
                     src="/assets/favorite/favorite_active.svg"
                     alt="favorite"

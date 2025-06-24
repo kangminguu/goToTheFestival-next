@@ -28,7 +28,13 @@ export default function FestivalCard({ festival }) {
 
                 {/* 찜 버튼 */}
                 <FavoriteButton
-                    contentId={festival.contentid}
+                    contentid={festival.contentid}
+                    firstimage={festival.firstimage}
+                    firstimage2={festival.firstimage2}
+                    title={festival.title}
+                    eventstartdate={festival.eventstartdate}
+                    eventenddate={festival.eventenddate}
+                    addr1={festival.addr1}
                     sizeType="card"
                 />
             </div>
