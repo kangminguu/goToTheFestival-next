@@ -1,7 +1,14 @@
-import Link from "next/link";
-import Button from "../components/Button/Button";
+"use client";
 
-export default function NotFound() {
+import Link from "next/link";
+import Button from "../../../components/Button/Button";
+import { useEffect } from "react";
+
+export default function Error({ error }: { error: Error }) {
+    useEffect(() => {
+        console.error("에러 발생:", error);
+    }, [error]);
+
     return (
         <div className="min-max-padding min-h-[400px] md:min-h-[600px] col-center gap-[10px] justify-center">
             <img
