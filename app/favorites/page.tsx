@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import EmptyFavoriteList from "./components/EmptyFavoriteList";
 import FavoriteList from "./components/FavoriteList";
 import { useFavoriteStore } from "../../stores";
+import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
 
 export default function FavoritesPage() {
     useEffect(() => {
@@ -12,7 +13,8 @@ export default function FavoritesPage() {
 
     return (
         <div className="min-max-padding min-h-[400px] md:min-h-[600px]">
-            <FavoriteList />
+            {/* <FavoriteList /> */}
+            <FestivalCardList listType="favorite" />
         </div>
     );
 }

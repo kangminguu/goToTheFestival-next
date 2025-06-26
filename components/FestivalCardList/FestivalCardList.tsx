@@ -6,6 +6,7 @@ import FestivalCard from "../FestivalCard/FestivalCard";
 import { convertDateToYYYYMMDD } from "../../lib/utils";
 import {
     useEventDateStore,
+    useFavoriteStore,
     useInputValueStore,
     useRegionStore,
 } from "../../stores";
@@ -14,10 +15,14 @@ import { sortByDate, sortByDistance } from "./utils";
 import Button from "../Button/Button";
 import EmptyCardList from "./EmptyCardList";
 
-export default function FestivalCardList() {
+type ListType = "home" | "favorite";
+
+export default function FestivalCardList({ listType }: { listType: ListType }) {
     const [sortOption, setSortOption] = useState<"date" | "distance">("date");
 
     const [festivalList, setFestivalList] = useState<any[]>([]);
+
+    const { favorites } = useFavoriteStore();
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -65,8 +70,73 @@ export default function FestivalCardList() {
             setIsLoading(false);
         };
 
-        fetchData();
-    }, [eventDate, regionCode, searchForm, sortOption]);
+        if (listType === "home") fetchData();
+    }, [eventDate, regionCode, searchForm]);
+
+    useEffect(() => {
+        const fetchFavoriteData = async () => {
+            setIsLoading(true);
+
+            const params = new URLSearchParams({
+                pageNo: "1",
+                numOfRows: "10000",
+                eventStartDate: "20000101",
+            });
+
+            const res = await fetch(`/api/festivalList?${params.toString()}`);
+            const data = await res.json();
+
+            const favoriteSet = new Set(favorites);
+
+            const filteredFavorties = data.festivalList.filter((obj) =>
+                favoriteSet.has(obj.contentid)
+            );
+
+            const sortedList =
+                sortOption === "date"
+                    ? sortByDate(filteredFavorties || [])
+                    : await sortByDistance(filteredFavorties || []);
+
+            setFestivalList(sortedList || []); // 전체 리스트
+
+            setTotalCount(filteredFavorties.length); // 전체 카운트
+
+            const slicedList = sortedList.slice(0, 12);
+
+            setShowList(slicedList || []);
+
+            setPage(12);
+
+            setIsLoading(false);
+        };
+
+        if (listType === "favorite") fetchFavoriteData();
+    }, [favorites]);
+
+    useEffect(() => {
+        const sortList = async () => {
+            setIsLoading(true);
+
+            const sortedList =
+                sortOption === "date"
+                    ? sortByDate(festivalList || [])
+                    : await sortByDistance(festivalList || []);
+
+            setFestivalList(festivalList || []); // 전체 리스트
+
+            setTotalCount(festivalList.length); // 전체 카운트
+
+            const slicedList = sortedList.slice(0, 12);
+
+            setShowList(slicedList || []);
+
+            setPage(12);
+
+            setIsLoading(false);
+        };
+
+        sortList();
+    }, [sortOption]);
 
     useEffect(() => {
         setShowList(festivalList.slice(0, page));
