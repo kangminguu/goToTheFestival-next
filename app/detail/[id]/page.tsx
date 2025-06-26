@@ -54,10 +54,15 @@ export default async function DetailPage({ params }: DetailPageParams) {
 
             {/* 축제 제목, 찜, 평점 */}
             <DetailTitleSection
+                contentid={festivalCommon.contentid}
+                firstimage={festivalCommon.firstimage}
+                firstimage2={festivalCommon.firstimage2}
                 title={festivalCommon.title}
-                eventStartDate={festivalIntroduction.eventstartdate}
-                eventEndDate={festivalIntroduction.eventenddate}
-                contentId={festivalCommon.contentid}
+                eventstartdate={festivalIntroduction.eventstartdate}
+                eventenddate={festivalIntroduction.eventenddate}
+                addr1={festivalCommon.addr1}
+                mapx={festivalCommon.mapx}
+                mapy={festivalCommon.mapy}
             />
 
             {/* 축제 상세 설명 */}

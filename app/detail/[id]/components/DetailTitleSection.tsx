@@ -3,10 +3,15 @@ import Rating from "../../../../components/Rating/Rating";
 import Tag from "../../../../components/Tag/Tag";
 
 export default function DetailTitleSection({
+    contentid,
+    firstimage,
+    firstimage2,
     title,
-    eventStartDate,
-    eventEndDate,
-    contentId,
+    eventstartdate,
+    eventenddate,
+    addr1,
+    mapx,
+    mapy
 }) {
     return (
         <div className="flex flex-col gap-[5px] md:gap-[10px] my-[20px]">
@@ -15,8 +20,8 @@ export default function DetailTitleSection({
                 <div className="flex flex-row items-start gap-[10px]">
                     <div className="h-[27px] md:h-[36px] row-center">
                         <Tag
-                            eventStartDate={eventStartDate}
-                            eventEndDate={eventEndDate}
+                            eventStartDate={eventstartdate}
+                            eventEndDate={eventenddate}
                         />
                     </div>
                     <h2 className="text-[18px] md:text-[24px] line-clamp-2 break-words break-all h-fit">
@@ -27,7 +32,15 @@ export default function DetailTitleSection({
                 {/* 찜 버튼 */}
                 <div className="md:h-[36px] row-center">
                     <FavoriteButton
-                        contentId={contentId}
+                        contentid={contentid}
+                        firstimage={firstimage}
+                        firstimage2={firstimage2}
+                        title={title}
+                        eventstartdate={eventstartdate}
+                        eventenddate={eventenddate}
+                        addr1={addr1}
+                        mapx={mapx}
+                        mapy={mapy}
                         sizeType="detailPage"
                     />
                 </div>

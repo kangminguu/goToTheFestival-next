@@ -45,7 +45,7 @@ export default function FestivalCardList() {
                 keyword: searchForm,
             });
 
-            const res = await fetch(`/api/festival?${params.toString()}`);
+            const res = await fetch(`/api/festivalList?${params.toString()}`);
             const data = await res.json();
 
             const sortedList =
