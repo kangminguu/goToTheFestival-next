@@ -16,10 +16,12 @@ export async function GET(request: Request) {
         firstimage: festivalCommon.firstimage,
         firstimage2: festivalCommon.firstimage2,
         title: festivalCommon.title,
-        eventstartdate : festivalIntroduction.eventstartdate,
-        eventenddate:  festivalIntroduction.eventenddate,
-        addr1:  festivalCommon.addr1
-    }
+        eventstartdate: festivalIntroduction.eventstartdate,
+        eventenddate: festivalIntroduction.eventenddate,
+        addr1: festivalCommon.addr1,
+        mapx: festivalCommon.mapx,
+        mapy: festivalCommon.mapy,
+    };
 
     return NextResponse.json(festivalCardInfo);
 }

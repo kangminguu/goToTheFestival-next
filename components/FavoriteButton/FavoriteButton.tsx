@@ -12,6 +12,8 @@ interface FavoriteButtonProps {
     eventstartdate: string;
     eventenddate: string;
     addr1: string;
+    mapx: string;
+    mapy: string;
     sizeType?: string;
 }
 
@@ -30,6 +32,8 @@ export default function FavoriteButton({
     eventstartdate,
     eventenddate,
     addr1,
+    mapx,
+    mapy,
     sizeType = "card",
 }: FavoriteButtonProps) {
     const { button } = styles[sizeType];
@@ -44,6 +48,8 @@ export default function FavoriteButton({
             eventstartdate,
             eventenddate,
             addr1,
+            mapx,
+            mapy,
         });
     };
 

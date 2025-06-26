@@ -9,6 +9,8 @@ type FestivalInfo = {
     eventstartdate: string;
     eventenddate: string;
     addr1: string;
+    mapx: string;
+    mapy: string;
 };
 
 type FavoriteStore = {

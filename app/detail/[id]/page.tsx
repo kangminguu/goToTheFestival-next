@@ -61,6 +61,8 @@ export default async function DetailPage({ params }: DetailPageParams) {
                 eventstartdate={festivalIntroduction.eventstartdate}
                 eventenddate={festivalIntroduction.eventenddate}
                 addr1={festivalCommon.addr1}
+                mapx={festivalCommon.mapx}
+                mapy={festivalCommon.mapy}
             />
 
             {/* 축제 상세 설명 */}

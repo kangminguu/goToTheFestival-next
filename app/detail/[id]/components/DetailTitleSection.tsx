@@ -10,6 +10,8 @@ export default function DetailTitleSection({
     eventstartdate,
     eventenddate,
     addr1,
+    mapx,
+    mapy
 }) {
     return (
         <div className="flex flex-col gap-[5px] md:gap-[10px] my-[20px]">
@@ -37,6 +39,8 @@ export default function DetailTitleSection({
                         eventstartdate={eventstartdate}
                         eventenddate={eventenddate}
                         addr1={addr1}
+                        mapx={mapx}
+                        mapy={mapy}
                         sizeType="detailPage"
                     />
                 </div>

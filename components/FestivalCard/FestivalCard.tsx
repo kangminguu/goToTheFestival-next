@@ -35,6 +35,8 @@ export default function FestivalCard({ festival }) {
                     eventstartdate={festival.eventstartdate}
                     eventenddate={festival.eventenddate}
                     addr1={festival.addr1}
+                    mapx={festival.mapx}
+                    mapy={festival.mapy}
                     sizeType="card"
                 />
             </div>
