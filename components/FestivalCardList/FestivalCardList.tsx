@@ -6,6 +6,7 @@ import FestivalCard from "../FestivalCard/FestivalCard";
 import { convertDateToYYYYMMDD } from "../../lib/utils";
 import {
     useEventDateStore,
+    useFavoriteStore,
     useInputValueStore,
     useRegionStore,
 } from "../../stores";
@@ -14,23 +15,50 @@ import { sortByDate, sortByDistance } from "./utils";
 import Button from "../Button/Button";
 import EmptyCardList from "./EmptyCardList";
 
-export default function FestivalCardList() {
+type ListType = "home" | "favorite";
+
+export default function FestivalCardList({ listType }: { listType: ListType }) {
     const [sortOption, setSortOption] = useState<"date" | "distance">("date");
 
     const [festivalList, setFestivalList] = useState<any[]>([]);
-
     const [isLoading, setIsLoading] = useState(true);
-
     const [page, setPage] = useState(12);
-    const [showList, setShowList] = useState([]);
+    const [showList, setShowList] = useState<any[]>([]);
     const [totalCount, setTotalCount] = useState(0);
 
+    const { favorites } = useFavoriteStore();
     const { regionCode } = useRegionStore();
     const { eventDate } = useEventDateStore();
     const { searchForm } = useInputValueStore();
 
+    // 축제 리스트 상태와 정렬
+    const updateFestivalList = async (list: any[]) => {
+        if (!list || list.length === 0) {
+            setFestivalList([]);
+            setShowList([]);
+            setTotalCount(0);
+            setPage(12);
+            setIsLoading(false);
+            return;
+        }
+
+        const sortedList =
+            sortOption === "date"
+                ? sortByDate(list)
+                : await sortByDistance(list);
+
+        setFestivalList(sortedList);
+        setTotalCount(sortedList.length);
+        setShowList(sortedList.slice(0, 12));
+        setPage(12);
+        setIsLoading(false);
+    };
+
+    // 메인페이지 검색 리스트
     useEffect(() => {
-        const fetchData = async () => {
+        if (listType !== "home") return;
+
+        const fetchSearchData = async () => {
             setIsLoading(true);
 
             const eventStartDate = convertDateToYYYYMMDD(eventDate[0]);
@@ -48,26 +76,57 @@ export default function FestivalCardList() {
             const res = await fetch(`/api/festivalList?${params.toString()}`);
             const data = await res.json();
 
-            const sortedList =
-                sortOption === "date"
-                    ? sortByDate(data.festivalList || [])
-                    : await sortByDistance(data.festivalList || []);
-
-            setFestivalList(sortedList || []); // 전체 리스트
-            setTotalCount(data.totalCount); // 전체 카운트
-
-            const slicedList = sortedList.slice(0, 12);
-
-            setShowList(slicedList || []);
-
-            setPage(12);
-
-            setIsLoading(false);
+            await updateFestivalList(data.festivalList || []);
         };
 
-        fetchData();
-    }, [eventDate, regionCode, searchForm, sortOption]);
+        fetchSearchData();
+    }, [eventDate, regionCode, searchForm]);
 
+    // 찜 페이지 리스트
+    useEffect(() => {
+        if (listType !== "favorite") return;
+
+        const fetchFavoriteData = async () => {
+            setIsLoading(true);
+
+            if (favorites.length === 0) {
+                await updateFestivalList([]);
+                return;
+            }
+
+            const params = new URLSearchParams({
+                pageNo: "1",
+                numOfRows: "10000",
+                eventStartDate: "20000101",
+            });
+
+            const res = await fetch(`/api/festivalList?${params.toString()}`);
+            const data = await res.json();
+
+            const favoriteSet = new Set(favorites);
+            const filteredFavorites = (data.festivalList || []).filter((obj) =>
+                favoriteSet.has(obj.contentid)
+            );
+
+            await updateFestivalList(filteredFavorites || []);
+        };
+
+        fetchFavoriteData();
+    }, [favorites]);
+
+    // 정렬 옵션 변경 시 정렬 재적용
+    useEffect(() => {
+        const sortList = async () => {
+            if (festivalList.length === 0) return;
+
+            setIsLoading(true);
+            await updateFestivalList(festivalList);
+        };
+
+        sortList();
+    }, [sortOption]);
+
+    // 페이지 변경 시 보여주는 리스트 갱신
     useEffect(() => {
         setShowList(festivalList.slice(0, page));
     }, [page]);
@@ -92,7 +151,9 @@ export default function FestivalCardList() {
                       ))}
             </div>
 
-            {!isLoading && totalCount === 0 ? <EmptyCardList /> : null}
+            {!isLoading && totalCount === 0 && (
+                <EmptyCardList listType={listType} />
+            )}
 
             <div className="w-full row-center justify-center mt-[20px] mb-[100px]">
                 {page / 12 !== Math.floor(totalCount / 12 + 1) ? (

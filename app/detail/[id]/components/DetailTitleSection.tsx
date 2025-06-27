@@ -4,14 +4,9 @@ import Tag from "../../../../components/Tag/Tag";
 
 export default function DetailTitleSection({
     contentid,
-    firstimage,
-    firstimage2,
     title,
     eventstartdate,
     eventenddate,
-    addr1,
-    mapx,
-    mapy
 }) {
     return (
         <div className="flex flex-col gap-[5px] md:gap-[10px] my-[20px]">
@@ -33,14 +28,6 @@ export default function DetailTitleSection({
                 <div className="md:h-[36px] row-center">
                     <FavoriteButton
                         contentid={contentid}
-                        firstimage={firstimage}
-                        firstimage2={firstimage2}
-                        title={title}
-                        eventstartdate={eventstartdate}
-                        eventenddate={eventenddate}
-                        addr1={addr1}
-                        mapx={mapx}
-                        mapy={mapy}
                         sizeType="detailPage"
                     />
                 </div>
