@@ -156,14 +156,18 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             )}
 
             <div className="w-full row-center justify-center mt-[20px] mb-[100px]">
-                {page / 12 !== Math.floor(totalCount / 12 + 1) ? (
-                    <Button
-                        onClick={() => setPage(page + 12)}
-                        title={`더 보기 ${page / 12} / ${Math.floor(
-                            totalCount / 12 + 1
-                        )}`}
-                        isBorder
-                    />
+                {page !== totalCount ? (
+                    page / 12 !== Math.floor(totalCount / 12 + 1) ? (
+                        <Button
+                            onClick={() => setPage(page + 12)}
+                            title={`더 보기 ${page / 12} / ${Math.floor(
+                                totalCount % 12 === 0
+                                    ? totalCount / 12
+                                    : totalCount / 12 + 1
+                            )}`}
+                            isBorder
+                        />
+                    ) : null
                 ) : null}
             </div>
         </div>
