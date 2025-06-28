@@ -8,6 +8,8 @@ import {
     getToday,
     convertYYYYMMDDToDate,
 } from "../../../../lib/utils";
+import { start } from "repl";
+import Button from "../../../../components/Button/Button";
 
 interface DateSelectorCalendarProps {
     close: () => void;
@@ -21,6 +23,31 @@ export default function DateSelectorCalendar({
     close,
 }: DateSelectorCalendarProps) {
     const { eventDate, setEventDate } = useEventDateStore();
+
+    const thisYear = new Date().getFullYear();
+
+    const setPeriod = {
+        lastYear: {
+            start: convertYYYYMMDDToDate(`${thisYear - 1}0101`),
+            end: convertYYYYMMDDToDate(`${thisYear - 1}1231`),
+        },
+        thisYear: {
+            start: convertYYYYMMDDToDate(`${thisYear}0101`),
+            end: convertYYYYMMDDToDate(`${thisYear}1231`),
+        },
+        nextYear: {
+            start: convertYYYYMMDDToDate(`${thisYear + 1}0101`),
+            end: convertYYYYMMDDToDate(`${thisYear + 1}1231`),
+        },
+        today: {
+            start: convertYYYYMMDDToDate(getToday()),
+            end: convertYYYYMMDDToDate(getToday()),
+        },
+        full: {
+            start: convertYYYYMMDDToDate("20100101"),
+            end: convertYYYYMMDDToDate("20501231"),
+        },
+    };
 
     return (
         <div className="relative md:max-w-[335px] w-full md:z-10">
@@ -50,32 +77,84 @@ export default function DateSelectorCalendar({
                     selectRange
                     calendarType="gregory"
                     formatDay={(_, date) => String(date.getDate())}
+                    prev2Label={
+                        <img
+                            src="/assets/arrow/double_arrow.svg"
+                            alt="prev_year"
+                            className="w-[24px]"
+                        />
+                    }
                     prevLabel={
                         <img
                             src="/assets/arrow/arrow.svg"
-                            alt="prev"
+                            alt="prev_month"
                             className="w-[24px]"
                         />
                     }
                     nextLabel={
                         <img
                             src="/assets/arrow/arrow.svg"
-                            alt="next"
+                            alt="next_month"
                             className="w-[24px]"
                         />
                     }
-                    prev2Label={null}
-                    next2Label={null}
+                    next2Label={
+                        <img
+                            src="/assets/arrow/double_arrow.svg"
+                            alt="next_year"
+                            className="w-[24px]"
+                        />
+                    }
                     value={eventDate}
                 />
+
+                {/* 2024년 2025년 2026년 전체 */}
+                <div className="flex flex-wrap gap-[5px]">
+                    <Button
+                        title="전체"
+                        onClick={() => {
+                            setEventDate([
+                                setPeriod.full.start,
+                                setPeriod.full.end,
+                            ]);
+                        }}
+                    />
+                    <Button
+                        title={`작년 (${thisYear - 1}년)`}
+                        onClick={() => {
+                            setEventDate([
+                                setPeriod.lastYear.start,
+                                setPeriod.lastYear.end,
+                            ]);
+                        }}
+                    />
+                    <Button
+                        title={`올해 (${thisYear}년)`}
+                        onClick={() => {
+                            setEventDate([
+                                setPeriod.thisYear.start,
+                                setPeriod.thisYear.end,
+                            ]);
+                        }}
+                    />
+                    <Button
+                        title={`내년 (${thisYear + 1}년)`}
+                        onClick={() => {
+                            setEventDate([
+                                setPeriod.nextYear.start,
+                                setPeriod.nextYear.end,
+                            ]);
+                        }}
+                    />
+                </div>
 
                 {/* icon 초기화 | 닫기 */}
                 <div className="row-center justify-between">
                     <button
                         onClick={() =>
                             setEventDate([
-                                convertYYYYMMDDToDate(getToday()),
-                                convertYYYYMMDDToDate(getLastDayOfMonth()),
+                                setPeriod.today.start,
+                                setPeriod.today.end,
                             ])
                         }
                         className="flex flex-row gap-[5px]"
@@ -85,9 +164,7 @@ export default function DateSelectorCalendar({
                             alt="calendar"
                             className="w-[14px]"
                         />
-                        <span className="font-semibold text-[14px]">
-                            초기화
-                        </span>
+                        <span className="font-semibold text-[14px]">오늘로 초기화</span>
                     </button>
 
                     <button
