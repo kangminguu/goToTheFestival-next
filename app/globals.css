@@ -19,6 +19,11 @@ body {
     @apply flex flex-row items-center;
 }
 
+/* 마우스 hover시 또는 모바일 active시 색상 변경 */
+.hover-active {
+    @apply bg-background-base md:hover:bg-background-hover active:bg-background-hover animation-color
+}
+
 /* 드래그 방지 */
 .drag-prevent {
     -ms-user-select: none;

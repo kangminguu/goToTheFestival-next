@@ -1,3 +1,10 @@
+.hover-active {
+    @apply bg-background-base md:hover:bg-background-hover active:bg-background-hover animation-color
+}
+.animation-color {
+    @apply transition-colors duration-200 ease-in-out;
+}
+
 /* react-calendar 커스텀 */
 .react-calendar {
     @apply font-pretendard font-semibold;
@@ -14,11 +21,18 @@
     @apply text-[14px];
 }
 
+/* 년, 월 버튼 */
+.react-calendar__navigation__prev2-button {
+    @apply w-fit p-[5px] rounded-[6px] mr-[8px] hover-active;
+}
 .react-calendar__navigation__prev-button {
-    @apply flex items-center justify-center;
+    @apply w-fit p-[5px] rounded-[6px] hover-active;
 }
 .react-calendar__navigation__next-button {
-    @apply flex items-center justify-center rotate-180;
+    @apply rotate-180 w-fit p-[5px] rounded-[6px] hover-active;
+}
+.react-calendar__navigation__next2-button {
+    @apply rotate-180 w-fit p-[5px] rounded-[6px] ml-[8px] hover-active;
 }
 
 .react-calendar__viewContainer {
