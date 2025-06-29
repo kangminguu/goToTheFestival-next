@@ -3,13 +3,9 @@ import "../../../../styles/calendar.custom.css";
 
 import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
-import {
-    getLastDayOfMonth,
-    getToday,
-    convertYYYYMMDDToDate,
-} from "../../../../lib/utils";
-import { start } from "repl";
+import { getToday, convertYYYYMMDDToDate } from "../../../../lib/utils";
 import Button from "../../../../components/Button/Button";
+import { useEffect, useRef } from "react";
 
 interface DateSelectorCalendarProps {
     close: () => void;
@@ -23,6 +19,24 @@ export default function DateSelectorCalendar({
     close,
 }: DateSelectorCalendarProps) {
     const { eventDate, setEventDate } = useEventDateStore();
+
+    const ref = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                close(); // 외부영역 클릭 및 터치 시 닫기
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("touchstart", handleClickOutside);
+        };
+    }, [close]);
 
     const thisYear = new Date().getFullYear();
 
@@ -50,7 +64,7 @@ export default function DateSelectorCalendar({
     };
 
     return (
-        <div className="relative md:max-w-[335px] w-full md:z-10">
+        <div ref={ref} className="relative md:max-w-[335px] w-full md:z-10">
             <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base bg-background-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent animation-color md:absolute">
                 {/* icon | MM.DD (e) ~ MM.DD (e) */}
                 <div className="row-center gap-[10px]">
@@ -164,7 +178,9 @@ export default function DateSelectorCalendar({
                             alt="calendar"
                             className="w-[14px]"
                         />
-                        <span className="font-semibold text-[14px]">오늘로 초기화</span>
+                        <span className="font-semibold text-[14px]">
+                            오늘로 초기화
+                        </span>
                     </button>
 
                     <button
