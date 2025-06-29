@@ -3,17 +3,25 @@ import "../../../../styles/calendar.custom.css";
 
 import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
-import {
-    getLastDayOfMonth,
-    getToday,
-    convertYYYYMMDDToDate,
-} from "../../../../lib/utils";
-import { start } from "repl";
+import { getToday, convertYYYYMMDDToDate } from "../../../../lib/utils";
 import Button from "../../../../components/Button/Button";
+import { useEffect, useRef } from "react";
 
 interface DateSelectorCalendarProps {
     close: () => void;
 }
+
+const thisYear = new Date().getFullYear(); // 올해 년도
+
+const PERIODS = {
+    full: ["20100101", "20501231"], // 전체기간
+    lastYear: [`${thisYear - 1}0101`, `${thisYear - 1}1231`], // 작년
+    thisYear: [`${thisYear}0101`, `${thisYear}1231`], // 올해
+    nextYear: [`${thisYear + 1}0101`, `${thisYear + 1}1231`], // 내년
+    today: [getToday(), getToday()], // 오늘
+};
+
+const getConvertedPeriod = (key) => PERIODS[key].map(convertYYYYMMDDToDate);
 
 /**
  * @param 클릭 이벤트 : 닫힘 상태로 변경
@@ -23,34 +31,31 @@ export default function DateSelectorCalendar({
     close,
 }: DateSelectorCalendarProps) {
     const { eventDate, setEventDate } = useEventDateStore();
+    const ref = useRef<HTMLDivElement>(null);
 
-    const thisYear = new Date().getFullYear();
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent | TouchEvent) => {
+            if (ref.current && !ref.current.contains(event.target as Node)) {
+                close(); // 외부영역 클릭 및 터치 시 닫기
+            }
+        };
 
-    const setPeriod = {
-        lastYear: {
-            start: convertYYYYMMDDToDate(`${thisYear - 1}0101`),
-            end: convertYYYYMMDDToDate(`${thisYear - 1}1231`),
-        },
-        thisYear: {
-            start: convertYYYYMMDDToDate(`${thisYear}0101`),
-            end: convertYYYYMMDDToDate(`${thisYear}1231`),
-        },
-        nextYear: {
-            start: convertYYYYMMDDToDate(`${thisYear + 1}0101`),
-            end: convertYYYYMMDDToDate(`${thisYear + 1}1231`),
-        },
-        today: {
-            start: convertYYYYMMDDToDate(getToday()),
-            end: convertYYYYMMDDToDate(getToday()),
-        },
-        full: {
-            start: convertYYYYMMDDToDate("20100101"),
-            end: convertYYYYMMDDToDate("20501231"),
-        },
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("touchstart", handleClickOutside);
+
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("touchstart", handleClickOutside);
+        };
+    }, [close]);
+
+    // 기간 간편 선택 클릭 이벤트
+    const handleSetPeriod = (key) => {
+        setEventDate(getConvertedPeriod(key));
     };
 
     return (
-        <div className="relative md:max-w-[335px] w-full md:z-10">
+        <div ref={ref} className="relative md:max-w-[335px] w-full md:z-10">
             <div className="min-w-[335px] md:max-w-[335px] py-[16px] px-[14px] border border-border-base bg-background-base flex flex-col rounded-[8px] gap-[20px] md:shadow-window drag-prevent animation-color md:absolute">
                 {/* icon | MM.DD (e) ~ MM.DD (e) */}
                 <div className="row-center gap-[10px]">
@@ -108,55 +113,30 @@ export default function DateSelectorCalendar({
                     value={eventDate}
                 />
 
-                {/* 2024년 2025년 2026년 전체 */}
+                {/* 빠른 기간 선택 버튼 */}
                 <div className="flex flex-wrap gap-[5px]">
                     <Button
                         title="전체"
-                        onClick={() => {
-                            setEventDate([
-                                setPeriod.full.start,
-                                setPeriod.full.end,
-                            ]);
-                        }}
+                        onClick={() => handleSetPeriod("full")}
                     />
                     <Button
                         title={`작년 (${thisYear - 1}년)`}
-                        onClick={() => {
-                            setEventDate([
-                                setPeriod.lastYear.start,
-                                setPeriod.lastYear.end,
-                            ]);
-                        }}
+                        onClick={() => handleSetPeriod("lastYear")}
                     />
                     <Button
                         title={`올해 (${thisYear}년)`}
-                        onClick={() => {
-                            setEventDate([
-                                setPeriod.thisYear.start,
-                                setPeriod.thisYear.end,
-                            ]);
-                        }}
+                        onClick={() => handleSetPeriod("thisYear")}
                     />
                     <Button
                         title={`내년 (${thisYear + 1}년)`}
-                        onClick={() => {
-                            setEventDate([
-                                setPeriod.nextYear.start,
-                                setPeriod.nextYear.end,
-                            ]);
-                        }}
+                        onClick={() => handleSetPeriod("nextYear")}
                     />
                 </div>
 
                 {/* icon 초기화 | 닫기 */}
                 <div className="row-center justify-between">
                     <button
-                        onClick={() =>
-                            setEventDate([
-                                setPeriod.today.start,
-                                setPeriod.today.end,
-                            ])
-                        }
+                        onClick={() => handleSetPeriod("today")}
                         className="flex flex-row gap-[5px]"
                     >
                         <img
@@ -164,7 +144,7 @@ export default function DateSelectorCalendar({
                             alt="calendar"
                             className="w-[14px]"
                         />
-                        <span className="font-semibold text-[14px]">오늘로 초기화</span>
+                        <span className="font-semibold text-[14px]">오늘</span>
                     </button>
 
                     <button
