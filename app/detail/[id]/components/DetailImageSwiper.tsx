@@ -15,10 +15,6 @@ import Image from "next/image";
 export default function DetailImageSwiper({ imageList }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-    // const imageURLs = [
-    //     ...new Set([...imageList.map((festival) => festival.originimgurl)]),
-    // ];
-
     const imageURLs = [];
     const filteredImages = imageList.filter((festival) => {
         if (!imageURLs.includes(festival.originimgurl)) {
