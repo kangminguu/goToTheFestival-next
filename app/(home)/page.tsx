@@ -24,6 +24,7 @@ export default async function Page() {
         numOfRows: 6,
         eventStartDate: today,
         eventEndDate: lastDate,
+        arrange: "Q",
     });
 
     return (
