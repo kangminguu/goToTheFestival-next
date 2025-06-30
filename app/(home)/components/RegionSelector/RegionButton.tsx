@@ -12,7 +12,7 @@ export default function RegionButton({
     const style = {
         button: isSelect
             ? "bg-background-highlight border-background-highlight animation-color"
-            : "bg-background-base border-border-base hover:bg-background-hover animation-color",
+            : "border-border-base hover-active",
         span: isSelect ? "text-font-inverted" : "text-font-primary",
     };
 
