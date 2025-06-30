@@ -17,7 +17,7 @@ export const useSearchStore = create<SearchStore>()(
             keywords: [],
             addKeyword: (keyword) =>
                 set((state) => ({
-                    keywords: [...state.keywords.slice(-4), keyword], // 최대 5개까지 저장
+                    keywords: [keyword, ...state.keywords.slice(-9)], // 최대 10개까지 저장
                 })),
             delKeyword: (keyword) =>
                 set((state) => ({

@@ -63,7 +63,7 @@ export default function SearchBar() {
                 />
             </button>
 
-            <div className="absolute top-[65px] left-[20px]">
+            <div className="absolute h-[49px] overflow-hidden top-[65px] left-[20px]">
                 <RecentSearchList />
             </div>
         </form>
