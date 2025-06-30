@@ -10,7 +10,7 @@ export default function FestivalCard({ festival }) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
-            className="flex md:flex-col flex-row-reverse w-full min-h-[145px] gap-[10px] p-[10px] rounded-[8px] bg-background-base hover:bg-background-hover animation-color"
+            className="flex md:flex-col flex-row-reverse w-full min-h-[145px] gap-[10px] p-[10px] rounded-[8px] hover-active animation-color"
         >
             {/* 이미지 */}
             <div className="relative shrink-0 w-[125px] h-[125px] overflow-hidden rounded-[6px] md:w-full md:h-[190px]">
