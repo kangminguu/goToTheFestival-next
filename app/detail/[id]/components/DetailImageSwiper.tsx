@@ -15,6 +15,18 @@ import Image from "next/image";
 export default function DetailImageSwiper({ imageList }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
+    const imageURLs = [];
+    const filteredImages = imageList.filter((festival) => {
+        if (!imageURLs.includes(festival.originimgurl)) {
+            imageURLs.push(festival.originimgurl);
+            return festival;
+        }
+    });
+
+    const sortedImages = filteredImages.sort((festival, _) => {
+        if (festival.imgname.includes("포스터")) return -1;
+    });
+
     return (
         <div className="drag-prevent">
             <Swiper
@@ -27,7 +39,7 @@ export default function DetailImageSwiper({ imageList }) {
                 modules={[FreeMode, Navigation, Thumbs, Pagination]}
                 className="mainImageSwiper"
             >
-                {imageList.map((festival, index) => (
+                {sortedImages.map((festival, index) => (
                     <SwiperSlide
                         key={festival.serialnum}
                         className="relative md:h-[516px] h-[250px]"
@@ -63,7 +75,7 @@ export default function DetailImageSwiper({ imageList }) {
                 modules={[FreeMode, Navigation, Thumbs]}
                 className="thumbSwiper"
             >
-                {imageList.map((festival) => (
+                {sortedImages.map((festival) => (
                     <SwiperSlide key={festival.serialnum}>
                         <Image
                             src={festival.originimgurl}
