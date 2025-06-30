@@ -46,12 +46,12 @@ export default function FavoriteButton({
                     <img
                         src="/assets/favorite/favorite.svg"
                         alt="favorite"
-                        className="group-hover:hidden block"
+                        className="md:group-hover:hidden group-active:hidden block"
                     />
                     <img
                         src="/assets/favorite/favorite_hover.svg"
                         alt="favorite"
-                        className="hidden group-hover:block"
+                        className="hidden md:group-hover:block group-active:block"
                     />
                 </>
             )}

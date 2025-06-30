@@ -15,7 +15,7 @@ export default function DateSelectorButton({ open }: DateSelectorButtonProps) {
     return (
         <button
             onClick={open}
-            className="md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover:bg-background-hover row-center justify-between rounded-[8px] drag-prevent animation-color"
+            className="md:max-w-[335px] w-full py-[16px] px-[14px] border border-border-base hover-active row-center justify-between rounded-[8px] drag-prevent"
         >
             <div className="row-center gap-[10px]">
                 <img

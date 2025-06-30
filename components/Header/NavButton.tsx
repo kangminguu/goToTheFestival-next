@@ -19,7 +19,7 @@ export default function NavButton({ url, text }: NavButtonProps) {
                 }`}
             />
             <span
-                className={`font-pretendard font-semibold hover:text-font-primary md:text-[20px] text-[16px] ${
+                className={`font-pretendard font-semibold md:hover:text-font-primary active:text-font-primary md:text-[20px] text-[16px] ${
                     isActive ? "text-font-primary" : "text-font-secondary"
                 }`}
             >
