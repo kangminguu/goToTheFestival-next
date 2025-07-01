@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
+import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 
 export default function FavoritesPage() {
     useEffect(() => {
@@ -9,8 +10,12 @@ export default function FavoritesPage() {
     }, []);
 
     return (
-        <div className="min-max-padding min-h-[400px] md:min-h-[600px] mt-[20px] md:mt-[60px]">
-            <FestivalCardList listType="favorite" />
-        </div>
+        <>
+            <div className="min-max-padding min-h-[400px] md:min-h-[600px] mt-[20px] md:mt-[60px]">
+                <FestivalCardList listType="favorite" />
+            </div>
+
+            <BackToTopButton />
+        </>
     );
 }
