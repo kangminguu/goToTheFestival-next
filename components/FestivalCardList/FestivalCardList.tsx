@@ -155,7 +155,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
                 <EmptyCardList listType={listType} />
             )}
 
-            <div className="w-full row-center justify-center mt-[20px] mb-[100px]">
+            <div className="w-full row-center justify-center mt-[20px] mb-[60px]">
                 {page !== totalCount ? (
                     page / 12 !== Math.floor(totalCount / 12 + 1) ? (
                         <Button

@@ -10,6 +10,7 @@ import DetailIntroductionSection from "./components/DetailIntroductionSection";
 import DetailTitleSection from "./components/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
+import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
 
 interface DetailPageParams {
     params: { id: string };
@@ -45,42 +46,48 @@ export default async function DetailPage({ params }: DetailPageParams) {
     });
 
     return (
-        <div className="min-max-padding">
-            {/* 뒤로가기, URL복사 버튼 */}
-            <DetailHeader />
+        <>
+            <div className="min-max-padding">
+                {/* 뒤로가기, URL복사 버튼 */}
+                <DetailHeader />
 
-            {/* 축제 이미지 스와이퍼 */}
-            <DetailImageSwiper imageList={festivalImageList} />
+                {/* 축제 이미지 스와이퍼 */}
+                <DetailImageSwiper imageList={festivalImageList} />
 
-            {/* 축제 제목, 찜, 평점 */}
-            <DetailTitleSection
-                contentid={festivalCommon.contentid}
-                title={festivalCommon.title}
-                eventstartdate={festivalIntroduction.eventstartdate}
-                eventenddate={festivalIntroduction.eventenddate}
-            />
+                {/* 축제 제목, 찜, 평점 */}
+                <DetailTitleSection
+                    contentid={festivalCommon.contentid}
+                    title={festivalCommon.title}
+                    eventstartdate={festivalIntroduction.eventstartdate}
+                    eventenddate={festivalIntroduction.eventenddate}
+                />
 
-            {/* 축제 상세 설명 */}
-            <DetailIntroductionSection
-                address={festivalCommon.addr1}
-                eventStartDate={festivalIntroduction.eventstartdate}
-                eventEndDate={festivalIntroduction.eventenddate}
-                playTime={festivalIntroduction.playtime}
-                fee={festivalIntroduction.usetimefestival}
-                tel={festivalCommon.tel}
-                homepage={festivalCommon.homepage}
-                info_1={festivalContents[0].infotext}
-                info_2={
-                    festivalContents[1] ? festivalContents[1].infotext : null
-                }
-            />
+                {/* 축제 상세 설명 */}
+                <DetailIntroductionSection
+                    address={festivalCommon.addr1}
+                    eventStartDate={festivalIntroduction.eventstartdate}
+                    eventEndDate={festivalIntroduction.eventenddate}
+                    playTime={festivalIntroduction.playtime}
+                    fee={festivalIntroduction.usetimefestival}
+                    tel={festivalCommon.tel}
+                    homepage={festivalCommon.homepage}
+                    info_1={festivalContents[0].infotext}
+                    info_2={
+                        festivalContents[1]
+                            ? festivalContents[1].infotext
+                            : null
+                    }
+                />
 
-            {/* 축제 위치 지도 */}
-            <DetailLocationSection
-                address={festivalCommon.addr1}
-                mapx={festivalCommon.mapx}
-                mapy={festivalCommon.mapy}
-            />
-        </div>
+                {/* 축제 위치 지도 */}
+                <DetailLocationSection
+                    address={festivalCommon.addr1}
+                    mapx={festivalCommon.mapx}
+                    mapy={festivalCommon.mapy}
+                />
+            </div>
+
+            <BackToTopButton />
+        </>
     );
 }

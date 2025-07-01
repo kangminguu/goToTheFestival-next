@@ -7,6 +7,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
 import { getLastDayOfMonth, getToday } from "../../lib/utils";
 import { getFestivalList } from "../../lib/api/festival";
+import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 
 export function generateMetadata() {
     return {
@@ -47,6 +48,8 @@ export default async function Page() {
                     <FestivalCardList listType="home" />
                 </div>
             </div>
+
+            <BackToTopButton />
         </>
     );
 }

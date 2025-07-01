@@ -3,6 +3,7 @@ import Link from "next/link";
 export default function Footer() {
     const emailLink = "mailto:mingudat9909@gmail.com";
     const githubLink = "https://github.com/kangminguu";
+
     return (
         <footer className="bg-background-hover py-[50px]">
             <div className="min-max-padding row-center justify-between">
