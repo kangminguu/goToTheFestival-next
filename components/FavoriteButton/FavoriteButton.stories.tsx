@@ -21,14 +21,14 @@ type Story = StoryObj<typeof FavoriteButton>;
 
 export const FavoriteButton_Card: Story = {
     args: {
-        contentId: "1841539",
+        contentid: "1841539",
         sizeType: "card",
     },
 };
 
 export const FavoriteButton_DetailPage: Story = {
     args: {
-        contentId: "1841539",
+        contentid: "1841539",
         sizeType: "detailPage",
     },
 };
