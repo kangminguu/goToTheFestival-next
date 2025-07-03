@@ -12,8 +12,12 @@ import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
 
-export async function generateMetadata({ params }: { params: { id: string } }) {
-    const id = params.id;
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ id: string }>;
+}) {
+    const { id } = await params;
 
     const festivalCommon = await getFestivalCommon(id);
 
@@ -26,9 +30,9 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 export default async function DetailPage({
     params,
 }: {
-    params: { id: string };
+    params: Promise<{ id: string }>;
 }) {
-    const contentId = params.id;
+    const { id: contentId } = await params;
 
     const festivalCommon = await getFestivalCommon(contentId); // 축제 이름, 전화번호, 홈페이지, 대표이미지, 주소, 좌표값, 소개1
     const festivalContents = await getFestivalContents(contentId); // 설명1, 설명2
