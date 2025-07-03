@@ -28,6 +28,7 @@ export async function generateMetadata({ params }: DetailPageParams) {
 }
 
 export default async function DetailPage({ params }: DetailPageParams) {
+
     const contentId = params.id;
 
     const festivalCommon = await getFestivalCommon(contentId); // 축제 이름, 전화번호, 홈페이지, 대표이미지, 주소, 좌표값, 소개1
