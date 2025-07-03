@@ -48,7 +48,7 @@ export default function FestivalCard({ festival }) {
 
                 {/* 평점, 위치, 기간 */}
                 <div className="flex flex-col md:gap-[8px] gap-[5px]">
-                    <Rating rating={4.7} />
+                    <Rating rating={0} />
 
                     <Address address={festival.addr1} sizeType="card" />
 
