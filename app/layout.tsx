@@ -1,3 +1,8 @@
+import Alert from "../components/Alert/Alert";
+import Footer from "../components/Footer/Footer";
+import Header from "../components/Header/Header";
+import "./globals.css";
+
 export default function RootLayout({
     children,
 }: {
@@ -5,7 +10,15 @@ export default function RootLayout({
 }) {
     return (
         <html lang="ko">
-            <body>{children}</body>
+            <body className="flex flex-col justify-center min-h-screen">
+                <Header />
+
+                <main className="flex-1">{children}</main>
+
+                <Footer />
+
+                <Alert />
+            </body>
         </html>
     );
 }

@@ -1,0 +1,48 @@
+@import "../styles/font.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    /* 기본 font 스타일 */
+    @apply font-pretendard font-medium text-[16px] text-font-primary;
+    @apply box-border;
+}
+
+/* 세로정렬 */
+.col-center {
+    @apply flex flex-col items-center;
+}
+/* 가로정렬 */
+.row-center {
+    @apply flex flex-row items-center;
+}
+
+/* 마우스 hover시 또는 모바일 active시 색상 변경 */
+.hover-active {
+    @apply bg-background-base md:hover:bg-background-hover active:bg-background-hover animation-color
+}
+
+/* 드래그 방지 */
+.drag-prevent {
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    user-select: none;
+}
+
+/* 색상 변경 애니메이션 */
+.animation-color {
+    @apply transition-colors duration-200 ease-in-out;
+}
+/* alert 나타나거나 사라지는 애니메이션 */
+.animation-color {
+    @apply transition-transform duration-200 ease-in-out;
+}
+
+/* 가로 최대 크기 설정 및 패딩값 */
+.min-max-padding {
+    @apply min-w-[320px] max-w-[1180px] mx-auto w-full px-[20px];
+}

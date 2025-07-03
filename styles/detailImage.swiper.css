@@ -1,0 +1,55 @@
+/* 보여주는 이미지 슬라이드 */
+.mainImageSwiper {
+    @apply md:h-[516px] h-[250px] z-10 rounded-[8px] mb-[5px] md:mb-[10px] border border-border-base;
+}
+
+/* swiper 버튼 커스텀 */
+.mainImageSwiper .swiper-button-prev,
+.mainImageSwiper .swiper-button-next {
+    background-color: white;
+    @apply w-[30px] h-[30px] md:w-[40px] md:h-[40px] rounded-full shadow-window mt-[-10px];
+}
+.mainImageSwiper .swiper-button-prev::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(/assets/swiper_arrow.svg);
+    background-size: 60% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.mainImageSwiper .swiper-button-next::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url(/assets/swiper_arrow.svg);
+    background-size: 60% auto;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    transform: rotate(180deg);
+}
+
+/* 하단 페이지네이션 */
+.mainImageSwiper .swiper-pagination.swiper-pagination-fraction {
+    @apply md:text-[14px] text-[12px] absolute rounded-full py-[2px] px-[10px] bg-[#33333375] w-fit left-1/2 -translate-x-1/2 items-center text-font-inverted font-normal;
+}
+
+/* 하단 Thumbs 슬라이드 */
+.thumbSwiper {
+    @apply md:h-[150px] h-[50px];
+}
+
+.thumbSwiper .swiper-slide:hover {
+    @apply bg-background-hover;
+}
+.thumbSwiper .swiper-slide {
+    @apply rounded-[8px];
+}
+.thumbSwiper .swiper-slide-thumb-active {
+    @apply border border-border-base;
+}
+
+.thumbSwiper .swiper-slide img {
+    @apply md:rounded-[14px] rounded-[6px] md:p-[7px] p-[3px];
+}
