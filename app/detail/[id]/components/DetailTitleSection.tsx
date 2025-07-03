@@ -39,7 +39,7 @@ export default function DetailTitleSection({
                 <span className="bg-font-secondary w-[4px] h-[4px] rounded-full" />
 
                 <button className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]">
-                    14개 평가
+                    평가 없음
                     <img
                         src="/assets/arrow/arrow_gray.svg"
                         alt="rating"
