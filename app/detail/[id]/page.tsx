@@ -12,11 +12,7 @@ import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
 
-interface DetailPageParams {
-    params: { id: string };
-}
-
-export async function generateMetadata({ params }: DetailPageParams) {
+export async function generateMetadata({ params }: { params: { id: string } }) {
     const id = params.id;
 
     const festivalCommon = await getFestivalCommon(id);
@@ -27,7 +23,11 @@ export async function generateMetadata({ params }: DetailPageParams) {
     };
 }
 
-export default async function DetailPage({ params }: DetailPageParams) {
+export default async function DetailPage({
+    params,
+}: {
+    params: { id: string };
+}) {
     const contentId = params.id;
 
     const festivalCommon = await getFestivalCommon(contentId); // 축제 이름, 전화번호, 홈페이지, 대표이미지, 주소, 좌표값, 소개1
