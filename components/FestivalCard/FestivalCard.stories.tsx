@@ -29,7 +29,6 @@ export const FestivalCard_default: Story = {
                 "http://tong.visitkorea.or.kr/cms/resource/39/3488939_image3_1.jpg",
             title: "MyK FESTA(마이케이 페스타)",
         },
-        isLoading: false,
     },
 };
 
@@ -44,6 +43,5 @@ export const FestivalCard_loading: Story = {
                 "http://tong.visitkorea.or.kr/cms/resource/39/3488939_image3_1.jpg",
             title: "MyK FESTA(마이케이 페스타)",
         },
-        isLoading: true,
     },
 };
