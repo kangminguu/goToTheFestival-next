@@ -21,6 +21,6 @@ type Story = StoryObj<typeof Rating>;
 export const Rating_default: Story = {
     args: {
         rating: 3,
-        size: 24,
+        sizeType: "card",
     },
 };
