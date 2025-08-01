@@ -1,41 +1,30 @@
-"use client";
-
 import Link from "next/link";
-import { createClient } from "../../lib/utils/client";
+import KakaoLoginButton from "./components/KakaoLoginButton";
+import { createClient } from "../../lib/utils/server";
+import { redirect } from "next/navigation";
 
-// export function generateMetadata() {
-//     return {
-//         title: "로그인 - 축제가자",
-//     };
-// }
+export function generateMetadata() {
+    return {
+        title: "로그인 - 축제가자",
+    };
+}
 
-export default function LoginPage() {
-    async function signInWithKakao() {
-        const supabase = await createClient();
-        // const { data, error } = await supabase.auth.signInWithOAuth({
-        //     provider: "kakao",
-        //     options: {
-        //         redirectTo: "http://localhost:3000/auth/callback",
-        //     },
-        // });
-        await supabase.auth.signInWithOAuth({
-            provider: "kakao",
-            options: {
-                redirectTo: "http://localhost:3000/auth/callback",
-            },
-        });
+export default async function LoginPage() {
+    const supabase = createClient();
+    const {
+        data: { user },
+    } = await (await supabase).auth.getUser();
+
+    // 로그인 O 라면 마이페이지로 리다이렉션
+    if (user) {
+        redirect("/mypage");
     }
 
     return (
         <div className="min-max-padding min-h-[400px] md:min-h-[600px] col-center justify-center gap-[10px]">
-            <button
-                onClick={() => signInWithKakao()}
-                className="row-center gap-[10px] bg-[#FEE500] py-[10px] px-[14px] mt-[20px] rounded-[8px] text-[#181602] font-semibold text-[14px]"
-            >
-                <img src="/assets/kakao.svg" alt="카카오 로그인" />
-                카카오로 시작하기
-            </button>
-
+            {/* 카카오 로그인 버튼 */}
+            <KakaoLoginButton />
+            {/* 홈으로 이동 버튼 */}
             <Link href="/" className="mt-[20px]">
                 <button className="row-center gap-[10px] font-semibold text-[14px]">
                     <img
