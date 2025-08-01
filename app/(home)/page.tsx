@@ -9,10 +9,6 @@ import { getLastDayOfMonth, getToday } from "../../lib/utils";
 import { getFestivalList } from "../../lib/api/festival";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 
-import { createClient } from "../../lib/utils/server";
-import SignOutButton from "./components/authButton/SignOutButton";
-import DeleteAccountButton from "./components/authButton/DeleteAccountButton";
-
 export function generateMetadata() {
     return {
         title: "축제가자",
@@ -31,13 +27,6 @@ export default async function Page() {
         eventEndDate: lastDate,
         arrange: "Q",
     });
-
-    const supabase = createClient();
-    const {
-        data: { user },
-    } = await (await supabase).auth.getUser();
-
-    console.log(user);
 
     return (
         <>
@@ -61,13 +50,6 @@ export default async function Page() {
             </div>
 
             <BackToTopButton />
-
-            <div className=" absolute top-0 left-0">
-                <div>{user ? user.user_metadata.email : "not login"}</div>
-
-                {user ? <SignOutButton /> : null}
-                {user ? <DeleteAccountButton /> : null}
-            </div>
         </>
     );
 }
