@@ -1,6 +1,6 @@
 import { createClient } from "../../lib/utils/server";
 
-export default async function Instruments() {
+export default async function Mypage() {
     const supabase = await createClient();
     const { data: instruments } = await supabase.from("instruments").select();
 
