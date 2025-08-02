@@ -1,5 +1,8 @@
 import { redirect } from "next/navigation";
 import { createClient } from "../../lib/utils/server";
+import UserInfoSection from "./components/UserInfoSection";
+import UserRatingSection from "./components/UserRatingSection";
+import UserDeleteAccountSection from "./components/UserDeleteAccountSection";
 
 export function generateMetadata() {
     return {
@@ -18,5 +21,17 @@ export default async function Mypage() {
         redirect("/login");
     }
 
-    return <div>마이페이지</div>;
+    return (
+        <div className="min-max-padding">
+            <UserInfoSection
+                name={user.user_metadata.user_name}
+                email={user.user_metadata.email}
+                profileImg={user.user_metadata.avatar_url}
+            />
+
+            <UserRatingSection />
+
+            <UserDeleteAccountSection />
+        </div>
+    );
 }

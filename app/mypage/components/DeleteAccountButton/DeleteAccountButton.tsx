@@ -1,6 +1,7 @@
 "use client";
 import { deleteAccount } from "./deleteAccount";
 import { createClient } from "../../../../lib/utils/client";
+import Button from "../../../../components/Button/Button";
 
 export default function DeleteAccountButton() {
     const supabase = createClient();
@@ -10,5 +11,5 @@ export default function DeleteAccountButton() {
         await supabase.auth.signOut(); // 로그아웃
     }
 
-    return <button onClick={handleDelete}>회원 탈퇴</button>;
+    return <Button title="회원 탈퇴" onClick={handleDelete} />;
 }

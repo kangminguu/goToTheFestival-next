@@ -3,7 +3,6 @@ import { createAdminClient } from "../../../../lib/utils/admin";
 import { createClient } from "../../../../lib/utils/server";
 
 export async function deleteAccount() {
-    // 1️⃣ 사용자 세션 가져오기
     const supabase = createClient();
     const { data: sessionData, error: sessionError } = await (
         await supabase
@@ -14,7 +13,8 @@ export async function deleteAccount() {
     const user = sessionData.session.user;
     const kakaoAccessToken = sessionData.session.provider_token; // Kakao access token
 
-    // 2️⃣ Kakao 앱 연결 해제
+    // Kakao 앱 연결 해제
+    // 다시 회원가입하는 경우 다시 동의 항목을 띄웁니다.
     if (kakaoAccessToken) {
         await fetch("https://kapi.kakao.com/v1/user/unlink", {
             method: "POST",
@@ -31,24 +31,3 @@ export async function deleteAccount() {
     if (error) throw error;
     return { success: true };
 }
-
-// export async function getKakaoAccessToken() {
-//     const supabase = createClient();
-//     const { data, error } = await (await supabase).auth.getSession();
-
-//     if (error) throw error;
-
-//     return data.session?.provider_token; // Kakao access token
-// }
-
-// export async function unlinkKakao() {
-//     const res = await fetch("https://kapi.kakao.com/v1/user/unlink", {
-//         method: "POST",
-//         headers: {
-//             Authorization: `Bearer ${getKakaoAccessToken()}`,
-//             "Content-Type": "application/x-www-form-urlencoded",
-//         },
-//     });
-//     const data = await res.json();
-//     console.log("카카오 연결 해제 결과:", data);
-// }
