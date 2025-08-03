@@ -1,8 +1,18 @@
 import Link from "next/link";
 import Button from "../Button/Button";
 import Navigation from "./Navigation";
+import { createClient } from "../../lib/utils/server";
 
-export default function Header({ mockPathname }: { mockPathname?: string }) {
+export default async function Header({
+    mockPathname,
+}: {
+    mockPathname?: string;
+}) {
+    const supabase = createClient();
+    const {
+        data: { user },
+    } = await (await supabase).auth.getUser();
+
     return (
         <header className="min-max-padding">
             <div className="md:h-[76px] h-[56px] flex justify-between items-center">
@@ -14,18 +24,15 @@ export default function Header({ mockPathname }: { mockPathname?: string }) {
                     />
                 </Link>
 
-                {/* web */}
-                <Link href={`/login`} className="hidden md:block">
-                    <Button title="로그인/회원가입" />
-                </Link>
-                {/* mobile */}
-                <Link href={`/login`} className="h-[30px] block md:hidden">
-                    <img
-                        src="/assets/profile.svg"
-                        alt="profile"
-                        className="h-full"
-                    />
-                </Link>
+                {user ? (
+                    <Link href={`/mypage`} className="row-center gap-[7px]">
+                        <Button title="마이페이지" />
+                    </Link>
+                ) : (
+                    <Link href={`/login`}>
+                        <Button title="로그인/회원가입" />
+                    </Link>
+                )}
             </div>
 
             <Navigation mockPathname={mockPathname} />
