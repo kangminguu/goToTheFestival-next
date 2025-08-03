@@ -2,6 +2,7 @@
 import Alert from "../components/Alert/Alert";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
+import Modal from "../components/Modal/Modal";
 import "./globals.css";
 
 // export const metadata: Metadata = {
@@ -26,6 +27,8 @@ export default function RootLayout({
                 <Footer />
 
                 <Alert />
+
+                <Modal />
             </body>
         </html>
     );
