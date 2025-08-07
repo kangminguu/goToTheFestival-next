@@ -10,25 +10,25 @@ const styles = {
         div: "",
         spread_img: "w-[15px] md:w-[20px] hidden md:block",
         img: "w-[15px] md:w-[20px] md:hidden block",
-        text: "md:text-[15px] text-[14px]",
+        text: "md:text-[15px] text-[14px] text-font-secondary",
     },
     detailPage: {
         div: "",
         spread_img: "hidden",
         img: "md:w-[24px] w-[20px]",
-        text: "md:text-[16px] text-[14px]",
+        text: "md:text-[16px] text-[14px] text-font-secondary",
     },
     ratingSection: {
         div: "",
-        spread_img: "",
-        img: "",
-        text: "",
+        spread_img: "md:w-[24px] w-[15px]",
+        img: "hidden",
+        text: "hidden",
     },
     rating: {
         div: "",
-        spread_img: "",
-        img: "",
-        text: "",
+        spread_img: "hidden",
+        img: "w-[24px]",
+        text: "text-[18px] font-semibold",
     },
 };
 
@@ -64,9 +64,7 @@ export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
                 />
             </div>
 
-            <span className={`text-font-secondary ${text}`}>
-                {rating.toFixed(1)}
-            </span>
+            <span className={` ${text}`}>{rating.toFixed(1)}</span>
         </div>
     );
 }
