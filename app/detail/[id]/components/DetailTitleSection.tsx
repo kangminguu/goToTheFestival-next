@@ -7,6 +7,8 @@ export default function DetailTitleSection({
     title,
     eventstartdate,
     eventenddate,
+    avgRating,
+    ratingCount,
 }) {
     return (
         <div className="flex flex-col gap-[5px] md:gap-[10px] my-[20px]">
@@ -34,12 +36,14 @@ export default function DetailTitleSection({
             </div>
 
             <div className="row-center gap-[10px]">
-                <Rating sizeType="detailPage" />
+                <Rating rating={avgRating} sizeType="detailPage" />
 
                 <span className="bg-font-secondary w-[4px] h-[4px] rounded-full" />
 
                 <button className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]">
-                    평가 없음
+                    {ratingCount === 0
+                        ? "후기가 없습니다"
+                        : `${ratingCount}개 평가`}
                     <img
                         src="/assets/arrow/arrow_gray.svg"
                         alt="rating"

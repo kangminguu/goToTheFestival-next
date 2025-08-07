@@ -21,6 +21,8 @@ export default async function Mypage() {
         redirect("/login");
     }
 
+    console.log(user);
+
     return (
         <div className="min-max-padding">
             <UserInfoSection
