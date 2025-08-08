@@ -21,7 +21,11 @@ export default async function Mypage() {
         redirect("/login");
     }
 
-    console.log(user);
+    // reviews 테이블에서 user_id가 맞는 후기만 가져옴
+    const { data: reviews } = await (await supabase)
+        .from("reviews")
+        .select("*")
+        .eq("user_id", user.id);
 
     return (
         <div className="min-max-padding">
@@ -31,7 +35,7 @@ export default async function Mypage() {
                 profileImg={user.user_metadata.avatar_url}
             />
 
-            <UserRatingSection />
+            <UserRatingSection reviews={reviews} />
 
             <UserDeleteAccountSection />
         </div>
