@@ -6,11 +6,14 @@ import { createClient } from "../../../lib/utils/client";
 import { useAlertStore } from "../../../stores/useAlertStore";
 import { useModalStore } from "../../../stores/useModalStore";
 import DeleteAccountButton from "./DeleteAccountButton/DeleteAccountButton";
+import { useState } from "react";
 
 export default function UserDeleteAccountSection({ userId }) {
     const router = useRouter();
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
+
+    const [deleteError, setDeleteError] = useState(null);
 
     const deleteAllReviews = async () => {
         const supabase = createClient();
@@ -20,7 +23,7 @@ export default function UserDeleteAccountSection({ userId }) {
             .eq("user_id", userId);
 
         if (error) {
-            alertOpen("후기가 삭제되지 못했습니다.");
+            setDeleteError(error);
         }
     };
 
@@ -41,8 +44,15 @@ export default function UserDeleteAccountSection({ userId }) {
                 // 리프레시
                 router.refresh();
 
-                // 알람
-                alertOpen("작성하신 모든 후기를 삭제했습니다.");
+                if (deleteError !== null) {
+                    // 성공알람
+                    alertOpen("작성하신 모든 후기를 삭제했습니다.");
+                } else {
+                    // 실패알람
+                    alertOpen(
+                        "후기를 삭제하지 못했습니다. 잠시 후 다시 시도해주세요."
+                    );
+                }
             }
         );
     };
