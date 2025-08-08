@@ -25,18 +25,24 @@ export default async function Mypage() {
     const { data: reviews } = await (await supabase)
         .from("reviews")
         .select("*")
-        .eq("user_id", user.id);
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+    
+    const emptyReviews = [];
 
     return (
         <div className="min-max-padding">
+            {/* 내 정보 */}
             <UserInfoSection
                 name={user.user_metadata.user_name}
                 email={user.user_metadata.email}
                 profileImg={user.user_metadata.avatar_url}
             />
 
+            {/* 내 후기 관리 */}
             <UserRatingSection reviews={reviews} />
 
+            {/* 후기 전체 삭제 및 탈퇴 */}
             <UserDeleteAccountSection />
         </div>
     );

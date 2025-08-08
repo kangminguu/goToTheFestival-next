@@ -40,7 +40,7 @@ export default function UserReview({ review }) {
                 className="flex rounded-[8px] px-[15px] py-[10px] flex-col gap-[10px] md:gap-[15px] hover-active"
             >
                 {/* 축제 이름 */}
-                <span className="text-[14px] text-start md:text-[16px]">
+                <span className="text-[14px] text-start md:text-[16px] line-clamp-1">
                     {review.title}
                 </span>
 
@@ -54,7 +54,7 @@ export default function UserReview({ review }) {
                 </div>
 
                 {/* 후기 내용 */}
-                <p className="text-font-secondary text-start text-[14px] md:text-[16px]">
+                <p className="text-font-secondary text-start text-[14px] md:text-[16px] line-clamp-2">
                     {review.content}
                 </p>
             </Link>
