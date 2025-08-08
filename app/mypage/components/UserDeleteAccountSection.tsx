@@ -1,4 +1,6 @@
 "use client";
+
+import { useRouter } from "next/navigation";
 import Button from "../../../components/Button/Button";
 import { createClient } from "../../../lib/utils/client";
 import { useAlertStore } from "../../../stores/useAlertStore";
@@ -6,6 +8,7 @@ import { useModalStore } from "../../../stores/useModalStore";
 import DeleteAccountButton from "./DeleteAccountButton/DeleteAccountButton";
 
 export default function UserDeleteAccountSection({ userId }) {
+    const router = useRouter();
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
 
@@ -35,12 +38,11 @@ export default function UserDeleteAccountSection({ userId }) {
                 // 모달창 닫기
                 modalClose();
 
-                // 새로고침하면서 홈으로 이동을 위해
-                // window.location.href = "http://localhost:3000/mypage";
-                // 다른 방식으로 상태를 업데이트하는게 필요, 페이지 안에서 전역으로 관리?
+                // 리프레시
+                router.refresh();
 
                 // 알람
-                alertOpen("작성하신 모든 후기가 삭제되었습니다.");
+                alertOpen("작성하신 모든 후기를 삭제했습니다.");
             }
         );
     };
