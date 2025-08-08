@@ -12,6 +12,7 @@ export function generateMetadata() {
 
 export default async function Mypage() {
     const supabase = createClient();
+
     const {
         data: { user },
     } = await (await supabase).auth.getUser();
@@ -27,8 +28,6 @@ export default async function Mypage() {
         .select("*")
         .eq("user_id", user.id)
         .order("created_at", { ascending: false });
-    
-    const emptyReviews = [];
 
     return (
         <div className="min-max-padding">
@@ -43,7 +42,7 @@ export default async function Mypage() {
             <UserRatingSection reviews={reviews} />
 
             {/* 후기 전체 삭제 및 탈퇴 */}
-            <UserDeleteAccountSection />
+            <UserDeleteAccountSection userId={user.id} />
         </div>
     );
 }
