@@ -7,6 +7,7 @@ export default function UserReviewList({ userReviews }) {
     const [page, setPage] = useState(3);
     const [showReviews, setShowReviews] = useState(userReviews.slice(0, 3));
 
+    // 더보기 버튼 클릭 이벤트
     const handleShowMoreReview = () => {
         const nextPage = page + 3;
 
