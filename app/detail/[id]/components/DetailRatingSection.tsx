@@ -1,62 +1,86 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "../../../../lib/utils/client";
 import Button from "../../../../components/Button/Button";
 import Rating from "../../../../components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
+import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
+import { useAlertStore } from "../../../../stores/useAlertStore";
+import { createClient } from "../../../../lib/utils/client";
+import { useRouter } from "next/navigation";
+import { error } from "console";
 
 export default function DetailRatingSection({
     contentId,
+    title,
     avgRating,
     ratingCount,
     reviews,
 }: {
     contentId: string;
+    title: string;
     avgRating: number;
     ratingCount: number;
     reviews: any;
 }) {
-    // const [rating, setRating] = useState(5);
-    // const [content, setContent] = useState("");
-    // const [error, setError] = useState<string | null>(null);
+    const router = useRouter();
 
-    // async function handleSubmit(e: React.FormEvent) {
-    //     e.preventDefault();
-    //     setError(null);
+    const { open: writeModalOpen, close: writeModalClose } =
+        useWriteReviewModalStore();
+    const { open: alertOpen, close: alertClose } = useAlertStore();
 
-    //     const supabase = createClient();
-    //     const {
-    //         data: { user },
-    //     } = await supabase.auth.getUser();
-
-    //     const { data, error } = await supabase.from("reviews").insert([
-    //         {
-    //             festival_id: contentId,
-    //             user_id: user.id,
-    //             rating,
-    //             content,
-    //         },
-    //     ]);
-
-    //     if (error) {
-    //         setError(error.message);
-    //         return;
-    //     }
-
-    //     alert("후기가 성공적으로 등록되었습니다!");
-    //     setRating(5);
-    //     setContent("");
-    // }
-
+    // 보여줄 리뷰 수
     const [page, setPage] = useState(3);
-    const [showReviews, setShowReviews] = useState(reviews.slice(0, 3));
+    const [showReviews, setShowReviews] = useState(reviews.slice(0, page));
+
+    useEffect(() => {
+        setShowReviews(reviews ? reviews.slice(0, page) : []);
+    }, [reviews, page]);
 
     const handleShowMoreReview = () => {
         const nextPage = page + 3;
 
         setShowReviews(reviews.slice(0, nextPage));
         setPage(nextPage);
+    };
+
+    const writeReview = async (rating: number, content: string) => {
+        const supabase = createClient();
+        const {
+            data: { user },
+        } = await supabase.auth.getUser();
+
+        const { error } = await supabase.from("reviews").insert([
+            {
+                festival_id: contentId,
+                user_id: user.id,
+                rating,
+                content,
+            },
+        ]);
+
+        return error;
+    };
+
+    const handleWriteReview = () => {
+        alertClose();
+
+        writeModalOpen(title, contentId, async (rating, content) => {
+            // 축제 후기 작성
+            const error = await writeReview(rating, content);
+
+            writeModalClose();
+
+            router.refresh();
+
+            if (!error) {
+                alertOpen("후기가 성공적으로 등록되었습니다.");
+            } else {
+                alertOpen(
+                    "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요."
+                );
+            }
+        });
     };
 
     return (
@@ -66,7 +90,12 @@ export default function DetailRatingSection({
                     축제 후기
                 </h2>
 
-                <Button title="후기 작성" icon="/assets/review.svg" />
+                {/* 후기 작성 버튼 */}
+                <Button
+                    onClick={handleWriteReview}
+                    title="후기 작성"
+                    icon="/assets/review.svg"
+                />
             </div>
 
             <div className="row-center gap-[10px]">
@@ -105,36 +134,6 @@ export default function DetailRatingSection({
                     </div>
                 )}
             </div>
-
-            {/* <form onSubmit={handleSubmit}>
-                <label>
-                    별점:
-                    <select
-                        value={rating}
-                        onChange={(e) => setRating(Number(e.target.value))}
-                    >
-                        {[1, 2, 3, 4, 5].map((n) => (
-                            <option key={n} value={n}>
-                                {n}점
-                            </option>
-                        ))}
-                    </select>
-                </label>
-
-                <label>
-                    후기 내용:
-                    <textarea
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                        rows={4}
-                        required
-                    />
-                </label>
-
-                {error && <p className="text-red-600">{error}</p>}
-
-                <button type="submit">후기 등록</button>
-            </form> */}
         </div>
     );
 }
