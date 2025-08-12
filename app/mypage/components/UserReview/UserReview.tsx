@@ -33,6 +33,7 @@ export default function UserReview({ review }) {
 
     return (
         <>
+            <span className="w-full bg-border-base h-[1px]" />
             <Link
                 href={`/detail/${review.contentId}`}
                 target="_blank"
@@ -58,8 +59,6 @@ export default function UserReview({ review }) {
                     {review.content}
                 </p>
             </Link>
-
-            <span className="w-full bg-border-base h-[1px]" />
         </>
     );
 }

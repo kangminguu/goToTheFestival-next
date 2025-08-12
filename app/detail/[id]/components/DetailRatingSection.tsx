@@ -8,7 +8,6 @@ import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModal
 import { useAlertStore } from "../../../../stores/useAlertStore";
 import { createClient } from "../../../../lib/utils/client";
 import { useRouter } from "next/navigation";
-import { error } from "console";
 
 export default function DetailRatingSection({
     contentId,
