@@ -80,7 +80,7 @@ export default async function DetailPage({
 
                 {/* 축제 제목, 찜, 평점 */}
                 <DetailTitleSection
-                    contentid={festivalCommon.contentid}
+                    contentid={contentId}
                     title={festivalCommon.title}
                     eventstartdate={festivalIntroduction.eventstartdate}
                     eventenddate={festivalIntroduction.eventenddate}
@@ -108,6 +108,7 @@ export default async function DetailPage({
                 {/* 축제 후기 */}
                 <DetailRatingSection
                     contentId={contentId}
+                    title={festivalCommon.title}
                     avgRating={avgRating}
                     ratingCount={ratingCount}
                     reviews={reviews}

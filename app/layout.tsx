@@ -4,6 +4,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import "./globals.css";
+import WriteReviewModal from "./detail/[id]/components/WriteReviewModal/WriteReviewModal";
 
 // export const metadata: Metadata = {
 //     title: "축제가자",
@@ -26,9 +27,12 @@ export default function RootLayout({
 
                 <Footer />
 
+                {/* 알람 */}
                 <Alert />
-
+                {/* 확인 모달창 */}
                 <Modal />
+                {/* 리뷰 쟉성/수정 모달창 */}
+                <WriteReviewModal />
             </body>
         </html>
     );
