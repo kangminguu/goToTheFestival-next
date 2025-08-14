@@ -10,7 +10,8 @@ export default async function KakaoLoginButton() {
         await supabase.auth.signInWithOAuth({
             provider: "kakao",
             options: {
-                redirectTo: "http://localhost:3000/auth/callback",
+                redirectTo: "https://gotofestival.vercel.app/auth/callback",
+                // redirectTo: "http://localhost:3000/auth/callback",
             },
         });
     }

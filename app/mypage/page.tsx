@@ -12,6 +12,7 @@ export function generateMetadata() {
 
 export default async function Mypage() {
     const supabase = createClient();
+
     const {
         data: { user },
     } = await (await supabase).auth.getUser();
@@ -21,17 +22,27 @@ export default async function Mypage() {
         redirect("/login");
     }
 
+    // reviews 테이블에서 user_id가 맞는 후기만 가져옴
+    const { data: reviews } = await (await supabase)
+        .from("reviews")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("created_at", { ascending: false });
+
     return (
         <div className="min-max-padding">
+            {/* 내 정보 */}
             <UserInfoSection
                 name={user.user_metadata.user_name}
                 email={user.user_metadata.email}
                 profileImg={user.user_metadata.avatar_url}
             />
 
-            <UserRatingSection />
+            {/* 내 후기 관리 */}
+            <UserRatingSection reviews={reviews} />
 
-            <UserDeleteAccountSection />
+            {/* 후기 전체 삭제 및 탈퇴 */}
+            <UserDeleteAccountSection userId={user.id} />
         </div>
     );
 }

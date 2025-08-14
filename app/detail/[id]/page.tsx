@@ -11,6 +11,8 @@ import DetailTitleSection from "./components/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
+import DetailRatingSection from "./components/DetailRatingSection";
+import { createClient } from "../../../lib/utils/server";
 
 export async function generateMetadata({
     params,
@@ -49,6 +51,24 @@ export default async function DetailPage({
         serialnum: contentId + "_0",
     });
 
+    const supabase = createClient();
+    const { data, error } = await (await supabase)
+        .from("festival_ratings")
+        .select("avg_rating, review_count")
+        .eq("festival_id", contentId)
+        .maybeSingle();
+
+    const { data: reviews, error: review_error } = await (await supabase)
+        .from("review_with_user")
+        .select("*")
+        .eq("festival_id", contentId)
+        .order("created_at", { ascending: false });
+
+    // 평균 평점
+    const avgRating = !error && data?.avg_rating ? data.avg_rating : 0;
+    // 후기 개수
+    const ratingCount = !error && data?.review_count ? data.review_count : 0;
+
     return (
         <>
             <div className="min-max-padding">
@@ -60,10 +80,12 @@ export default async function DetailPage({
 
                 {/* 축제 제목, 찜, 평점 */}
                 <DetailTitleSection
-                    contentid={festivalCommon.contentid}
+                    contentid={contentId}
                     title={festivalCommon.title}
                     eventstartdate={festivalIntroduction.eventstartdate}
                     eventenddate={festivalIntroduction.eventenddate}
+                    avgRating={avgRating}
+                    ratingCount={ratingCount}
                 />
 
                 {/* 축제 상세 설명 */}
@@ -81,6 +103,15 @@ export default async function DetailPage({
                             ? festivalContents[1].infotext
                             : null
                     }
+                />
+
+                {/* 축제 후기 */}
+                <DetailRatingSection
+                    contentId={contentId}
+                    title={festivalCommon.title}
+                    avgRating={avgRating}
+                    ratingCount={ratingCount}
+                    reviews={reviews}
                 />
 
                 {/* 축제 위치 지도 */}
