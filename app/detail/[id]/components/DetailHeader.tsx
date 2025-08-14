@@ -7,7 +7,7 @@ import { useAlertStore } from "../../../../stores/useAlertStore";
 export default function DetailHeader() {
     const router = useRouter();
 
-    const domain = "localhost:3000";
+    const domain = "https://gotofestival.vercel.app/";
     const urlPath = usePathname();
 
     const { open, close } = useAlertStore();

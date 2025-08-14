@@ -11,7 +11,7 @@ export default function SignOutButton() {
         await supabase.auth.signOut();
 
         // 새로고침하면서 홈으로 이동을 위해
-        window.location.href = "http://localhost:3000/";
+        window.location.href = "https://gotofestival.vercel.app/";
     }
 
     return <Button title="로그아웃" onClick={handleLogout} />;
