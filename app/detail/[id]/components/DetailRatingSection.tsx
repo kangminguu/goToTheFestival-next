@@ -23,7 +23,6 @@ export default function DetailRatingSection({
     reviews: any;
 }) {
     const router = useRouter();
-
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
@@ -31,6 +30,21 @@ export default function DetailRatingSection({
     // 보여줄 리뷰 수
     const [page, setPage] = useState(3);
     const [showReviews, setShowReviews] = useState(reviews.slice(0, page));
+
+    // 사용자 여부(로그인 여부)
+    const [user, setUser] = useState(null);
+    const supabase = createClient();
+
+    useEffect(() => {
+        const fetchUser = async () => {
+            const {
+                data: { user },
+            } = await supabase.auth.getUser();
+            setUser(user);
+        };
+
+        fetchUser();
+    }, []);
 
     useEffect(() => {
         setShowReviews(reviews ? reviews.slice(0, page) : []);
@@ -44,11 +58,6 @@ export default function DetailRatingSection({
     };
 
     const writeReview = async (rating: number, content: string) => {
-        const supabase = createClient();
-        const {
-            data: { user },
-        } = await supabase.auth.getUser();
-
         const { error } = await supabase.from("reviews").insert([
             {
                 festival_id: contentId,
@@ -64,22 +73,30 @@ export default function DetailRatingSection({
     const handleWriteReview = () => {
         alertClose();
 
-        writeModalOpen(title, contentId, async (rating, content) => {
-            // 축제 후기 작성
-            const error = await writeReview(rating, content);
+        if (user) {
+            // 로그인 한 경우
+            console.log("로그인 한 경우");
+            writeModalOpen(title, contentId, async (rating, content) => {
+                // 축제 후기 작성
+                const error = await writeReview(rating, content);
 
-            writeModalClose();
+                writeModalClose();
 
-            router.refresh();
+                router.refresh();
 
-            if (!error) {
-                alertOpen("후기가 성공적으로 등록되었습니다.");
-            } else {
-                alertOpen(
-                    "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요."
-                );
-            }
-        });
+                if (!error) {
+                    alertOpen("후기가 성공적으로 등록되었습니다.");
+                } else {
+                    alertOpen(
+                        "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요."
+                    );
+                }
+            });
+        } else {
+            // 로그인 하지 않은 경우
+            console.log("로그인 하지 않은 경우");
+            alertOpen("로그인이 필요한 서비스입니다.");
+        }
     };
 
     return (
