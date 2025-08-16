@@ -3,6 +3,7 @@
 import { createClient } from "../../../lib/utils/client";
 
 export default async function KakaoLoginButton() {
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
     const supabase = createClient();
 
     // 카카오 로그인
@@ -10,8 +11,7 @@ export default async function KakaoLoginButton() {
         await supabase.auth.signInWithOAuth({
             provider: "kakao",
             options: {
-                redirectTo: "https://gotofestival.vercel.app/auth/callback",
-                // redirectTo: "http://localhost:3000/auth/callback",
+                redirectTo: `${baseUrl}/auth/callback`,
             },
         });
     }
