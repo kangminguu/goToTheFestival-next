@@ -8,6 +8,7 @@ import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModal
 import { useAlertStore } from "../../../../stores/useAlertStore";
 import { createClient } from "../../../../lib/utils/client";
 import { useRouter } from "next/navigation";
+import { useModalStore } from "../../../../stores/useModalStore";
 
 export default function DetailRatingSection({
     contentId,
@@ -26,6 +27,7 @@ export default function DetailRatingSection({
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
+    const { open: modalOpen, close: modalClose } = useModalStore();
 
     // 보여줄 리뷰 수
     const [page, setPage] = useState(3);
@@ -75,7 +77,6 @@ export default function DetailRatingSection({
 
         if (user) {
             // 로그인 한 경우
-            console.log("로그인 한 경우");
             writeModalOpen(title, contentId, async (rating, content) => {
                 // 축제 후기 작성
                 const error = await writeReview(rating, content);
@@ -94,8 +95,15 @@ export default function DetailRatingSection({
             });
         } else {
             // 로그인 하지 않은 경우
-            console.log("로그인 하지 않은 경우");
-            alertOpen("로그인이 필요한 서비스입니다.");
+            modalOpen(
+                "후기 작성",
+                "후기 작성은 로그인이 필요한 서비스입니다.",
+                "로그인 하기",
+                () => {
+                    modalClose();
+                    router.push("/login"); // 로그인 페이지로 이동
+                }
+            );
         }
     };
 
