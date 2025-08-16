@@ -18,7 +18,7 @@ export default function DeleteAccountButton() {
                 await supabase.auth.signOut(); // 로그아웃
 
                 // 새로고침하면서 홈으로 이동을 위해
-                window.location.href = "https://gotofestival.vercel.app/";
+                window.location.href = "/";
             }
         );
     }
