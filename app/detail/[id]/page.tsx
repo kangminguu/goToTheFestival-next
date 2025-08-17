@@ -64,6 +64,11 @@ export default async function DetailPage({
         .eq("festival_id", contentId)
         .order("created_at", { ascending: false });
 
+    const {
+        data: { user },
+        error: user_error,
+    } = await (await supabase).auth.getUser();
+
     // 평균 평점
     const avgRating = !error && data?.avg_rating ? data.avg_rating : 0;
     // 후기 개수
@@ -112,6 +117,7 @@ export default async function DetailPage({
                     avgRating={avgRating}
                     ratingCount={ratingCount}
                     reviews={reviews}
+                    userId={user.id}
                 />
 
                 {/* 축제 위치 지도 */}
