@@ -24,7 +24,7 @@ export default function DetailRatingSection({
     avgRating: number;
     ratingCount: number;
     reviews: any;
-    userId: string;
+    userId: any;
 }) {
     const router = useRouter();
     const { open: writeModalOpen, close: writeModalClose } =
@@ -52,8 +52,6 @@ export default function DetailRatingSection({
         // };
 
         const fetchUserRating = async () => {
-            console.log("dodo");
-
             const { data, error } = await supabase
                 .from("reviews")
                 .select("*")
@@ -158,7 +156,8 @@ export default function DetailRatingSection({
                 </span>
             </div>
 
-            {userRating ? <div>{JSON.stringify(userRating)}</div> : null}
+            {/* {userRating ? <MyRating userRating={userRating} /> : null} */}
+            {userRating ? <MyRating userRating={userRating} /> : null}
 
             {/* 축제 후기 */}
             <div className="flex flex-col gap-[20px]">

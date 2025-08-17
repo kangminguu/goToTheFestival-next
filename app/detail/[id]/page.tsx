@@ -52,6 +52,7 @@ export default async function DetailPage({
     });
 
     const supabase = createClient();
+    
     const { data, error } = await (await supabase)
         .from("festival_ratings")
         .select("avg_rating, review_count")
@@ -117,7 +118,7 @@ export default async function DetailPage({
                     avgRating={avgRating}
                     ratingCount={ratingCount}
                     reviews={reviews}
-                    userId={user.id}
+                    userId={user ? user.id : null}
                 />
 
                 {/* 축제 위치 지도 */}
