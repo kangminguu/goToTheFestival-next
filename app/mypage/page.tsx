@@ -11,6 +11,9 @@ export function generateMetadata() {
 }
 
 export default async function Mypage() {
+    // 로딩 페이지 개발을 위해 무한 대기
+    // await new Promise(() => {});
+
     const supabase = createClient();
 
     const {

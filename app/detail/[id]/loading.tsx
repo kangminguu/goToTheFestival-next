@@ -40,14 +40,15 @@ export default function Loading() {
                     <Button title="후기 작성" icon="/assets/open_in_new.svg" />
                 </div>
                 <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover" />
-                <span className="w-full bg-border-base h-[1px]" />
                 <div className="row-center justify-between">
-                    <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover" />
-                    <div className="h-[21px] md:h-[24px] w-[24px] rounded bg-background-hover" />
+                    <div className="h-[21px] md:h-[24px] w-[10%] rounded bg-background-hover" />
+                    <div className="h-[18px] md:h-[20px] md:w-[36px] w-[30px] rounded bg-background-hover" />
                 </div>
 
-                <div className="h-[21px] md:h-[24px] w-[70%] rounded bg-background-hover" />
-                <div className="h-[21px] md:h-[24px] w-[100%] rounded bg-background-hover" />
+                <div className="flex flex-col gap-[5px]">
+                    <div className="h-[21px] md:h-[24px] w-[100%] rounded bg-background-hover" />
+                    <div className="h-[21px] md:h-[24px] w-[70%] rounded bg-background-hover" />
+                </div>
             </div>
 
             {/* 축제 상세 정보 */}
