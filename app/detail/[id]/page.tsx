@@ -11,7 +11,7 @@ import DetailTitleSection from "./components/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
-import DetailRatingSection from "./components/DetailRatingSection";
+import DetailRatingSection from "./components/DetailRatingSection/DetailRatingSection";
 import { createClient } from "../../../lib/utils/server";
 
 export async function generateMetadata({
@@ -35,7 +35,9 @@ export default async function DetailPage({
     params: Promise<{ id: string }>;
 }) {
     const { id: contentId } = await params;
+    const supabase = createClient();
 
+    // 모든 축제 정보
     const festivalCommon = await getFestivalCommon(contentId); // 축제 이름, 전화번호, 홈페이지, 대표이미지, 주소, 좌표값, 소개1
     const festivalContents = await getFestivalContents(contentId); // 설명1, 설명2
     const festivalIntroduction = await getFestivalIntroduction(contentId); // 종료일, 축제 장소, 시작일, 개장 시간, 스폰서1, 스폰서2, 비용
@@ -51,29 +53,31 @@ export default async function DetailPage({
         serialnum: contentId + "_0",
     });
 
-    const supabase = createClient();
-    
-    const { data, error } = await (await supabase)
+    // 축제 평균 점수와 후기 개수 패칭
+    const { data, error: festivalRatings_error } = await (await supabase)
         .from("festival_ratings")
         .select("avg_rating, review_count")
         .eq("festival_id", contentId)
         .maybeSingle();
 
-    const { data: reviews, error: review_error } = await (await supabase)
+    // 평균 평점 : 오류가 나거나 평점이 없다면 0으로
+    const avgRating =
+        !festivalRatings_error && data?.avg_rating ? data.avg_rating : 0; // data가 null인경우 처리를 좀 더 가독성 좋게
+    // 후기 개수 : 오류가 나거나 후기 개수가 없다면 0으로
+    const ratingCount =
+        !festivalRatings_error && data?.review_count ? data.review_count : 0;
+
+    // 해당 축제 전체 후기 패칭
+    const { data: reviews, error: reviews_error } = await (await supabase)
         .from("review_with_user")
         .select("*")
         .eq("festival_id", contentId)
         .order("created_at", { ascending: false });
 
+    // 사용자 로그인 여부 및 사용자 uuid
     const {
         data: { user },
-        error: user_error,
     } = await (await supabase).auth.getUser();
-
-    // 평균 평점
-    const avgRating = !error && data?.avg_rating ? data.avg_rating : 0;
-    // 후기 개수
-    const ratingCount = !error && data?.review_count ? data.review_count : 0;
 
     return (
         <>
@@ -120,6 +124,8 @@ export default async function DetailPage({
                     reviews={reviews}
                     userId={user ? user.id : null}
                 />
+                {/* 에러가 난 경우 해당 섹션만 "후기를 불러오지 못했습니다." 보여주도록 */}
+                {/* 정신 나갈거 같은 부분, next를 사용한 이유인 서버 액션 구조로 바꾸자 제발 */}
 
                 {/* 축제 위치 지도 */}
                 <DetailLocationSection

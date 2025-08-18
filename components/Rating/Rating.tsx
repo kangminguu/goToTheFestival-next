@@ -22,7 +22,7 @@ const styles = {
         div: "",
         spread_img: "md:w-[24px] w-[15px]",
         img: "hidden",
-        text: "hidden",
+        text: "text-[12px] md:text-[14px] text-font-secondary",
     },
     rating: {
         div: "",
@@ -64,7 +64,7 @@ export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
                 />
             </div>
 
-            <span className={` ${text}`}>{rating.toFixed(1)}</span>
+            <span className={`text-center ${text}`}>{rating.toFixed(1)}</span>
         </div>
     );
 }

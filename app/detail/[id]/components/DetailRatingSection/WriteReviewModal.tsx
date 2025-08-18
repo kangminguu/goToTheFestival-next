@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
 import RatingButtons from "./RatingButtons";
-import { useRouter } from "next/navigation";
 
 export default function WriteReviewModal() {
     // 모달창

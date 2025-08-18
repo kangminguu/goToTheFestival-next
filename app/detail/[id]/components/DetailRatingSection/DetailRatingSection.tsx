@@ -1,15 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "../../../../components/Button/Button";
-import Rating from "../../../../components/Rating/Rating";
+import Button from "../../../../../components/Button/Button";
+import Rating from "../../../../../components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
-import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
-import { useAlertStore } from "../../../../stores/useAlertStore";
-import { createClient } from "../../../../lib/utils/client";
+import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
+import { useAlertStore } from "../../../../../stores/useAlertStore";
+import { createClient } from "../../../../../lib/utils/client";
 import { useRouter } from "next/navigation";
-import { useModalStore } from "../../../../stores/useModalStore";
-import MyRating from "./MyRating/MyRating";
+import { useModalStore } from "../../../../../stores/useModalStore";
+import MyRating from "./MyRating";
 
 export default function DetailRatingSection({
     contentId,
@@ -43,38 +43,28 @@ export default function DetailRatingSection({
     const supabase = createClient();
 
     useEffect(() => {
-        // const fetchUser = async () => {
-        //     const {
-        //         data: { user },
-        //     } = await supabase.auth.getUser();
-
-        //     setUser(user);
-        // };
-
-        const fetchUserRating = async () => {
-            const { data, error } = await supabase
-                .from("reviews")
-                .select("*")
-                .eq("festival_id", contentId) // 특정 축제 ID
-                .eq("user_id", userId) // 특정 유저 ID
-                .single(); // 하나만 가져옴
-
-            if (error) {
-                console.error("리뷰 가져오기 실패:", error);
-                return null;
-            }
-
-            setUserRating(data);
-        };
-
-        // fetchUser();
-
         if (userId !== null) fetchUserRating();
     }, []);
 
     useEffect(() => {
         setShowReviews(reviews ? reviews.slice(0, page) : []);
     }, [reviews, page]);
+
+    const fetchUserRating = async () => {
+        const { data, error } = await supabase
+            .from("reviews")
+            .select("*")
+            .eq("festival_id", contentId) // 특정 축제 ID
+            .eq("user_id", userId) // 특정 유저 ID
+            .single(); // 하나만 가져옴
+
+        if (error) {
+            console.error("리뷰 가져오기 실패:", error);
+            return null;
+        }
+
+        setUserRating(data);
+    };
 
     const handleShowMoreReview = () => {
         const nextPage = page + 3;
@@ -106,6 +96,8 @@ export default function DetailRatingSection({
                 const error = await writeReview(rating, content);
 
                 writeModalClose();
+
+                fetchUserRating();
 
                 router.refresh();
 
@@ -157,7 +149,13 @@ export default function DetailRatingSection({
             </div>
 
             {/* {userRating ? <MyRating userRating={userRating} /> : null} */}
-            {userRating ? <MyRating userRating={userRating} /> : null}
+            {userRating ? (
+                <MyRating
+                    userRating={userRating}
+                    setUserRating={setUserRating}
+                    title={title}
+                />
+            ) : null}
 
             {/* 축제 후기 */}
             <div className="flex flex-col gap-[20px]">
