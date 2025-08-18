@@ -4,14 +4,20 @@ import { useEffect, useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
 import RatingButtons from "./RatingButtons";
-import { useRouter } from "next/navigation";
 
 export default function WriteReviewModal() {
     // 모달창
-    const { isOpen, title, close, onSubmitReview } = useWriteReviewModalStore();
+    const {
+        isOpen,
+        title,
+        close,
+        initialRating,
+        initialContent,
+        onSubmitReview,
+    } = useWriteReviewModalStore();
 
-    const [rating, setRating] = useState(0);
-    const [content, setContent] = useState("");
+    const [rating, setRating] = useState(initialRating || 0);
+    const [content, setContent] = useState(initialContent || "");
 
     // 후기 모달창 닫기
     const ref = useRef<HTMLDivElement>(null);
@@ -32,6 +38,13 @@ export default function WriteReviewModal() {
             document.removeEventListener("touchstart", handleClickOutside);
         };
     }, [close]);
+
+    useEffect(() => {
+        if (isOpen) {
+            setRating(initialRating || 0);
+            setContent(initialContent || "");
+        }
+    }, [isOpen, initialRating, initialContent]);
 
     if (!isOpen) return null;
 
