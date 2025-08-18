@@ -9,10 +9,13 @@ import { createClient } from "../../../../../lib/utils/client";
 import getDifferenceDates from "../../../../../lib/utils/getDifferenceDates";
 import { useModalStore } from "../../../../../stores/useModalStore";
 import { useAlertStore } from "../../../../../stores/useAlertStore";
+import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
 
 export default function MyRating({ userRating, setUserRating, title }) {
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
+    const { open: writeModalOpen, close: writeModalClose } =
+        useWriteReviewModalStore();
 
     const router = useRouter();
 
@@ -41,6 +44,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
 
     const supabase = createClient();
 
+    // 후기 삭제
     const deleteReview = async () => {
         const { error } = await supabase.from("reviews").delete().match({
             festival_id: userRating.festival_id,
@@ -78,6 +82,61 @@ export default function MyRating({ userRating, setUserRating, title }) {
         );
     };
 
+    const editReview = async (rating: number, content: string) => {
+        const { error } = await supabase
+            .from("reviews")
+            .update({ rating, content })
+            .eq("festival_id", userRating.festival_id)
+            .eq("user_id", userRating.user_id);
+
+        return error;
+    };
+
+    const fetchUserRating = async () => {
+        const { data, error } = await supabase
+            .from("reviews")
+            .select("*")
+            .eq("festival_id", userRating.festival_id) // 특정 축제 ID
+            .eq("user_id", userRating.user_id) // 특정 유저 ID
+            .single(); // 하나만 가져옴
+
+        if (error) {
+            console.error("리뷰 가져오기 실패:", error);
+            return null;
+        }
+
+        setUserRating(data);
+    };
+
+    const handleEditReview = () => {
+        alertClose();
+
+        writeModalOpen(
+            title,
+            userRating.user_id,
+            async (rating, content) => {
+                // 축제 후기 작성
+                const error = await editReview(rating, content);
+
+                writeModalClose();
+
+                fetchUserRating();
+
+                router.refresh();
+
+                if (!error) {
+                    alertOpen("후기를 수정하였습니다.");
+                } else {
+                    alertOpen(
+                        "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요."
+                    );
+                }
+            },
+            userRating.rating,
+            userRating.content
+        );
+    };
+
     return (
         <div className="flex flex-col gap-[10px] md:gap-[15px]">
             <span className="font-semibolds text-[18px] ">내 후기</span>
@@ -98,15 +157,13 @@ export default function MyRating({ userRating, setUserRating, title }) {
 
             <div className="w-full row-center gap-[15px] md:gap-[20px] justify-end">
                 <button
-                    onClick={() => {}}
+                    onClick={handleEditReview}
                     className="font-semibold text-[14px] w-fit"
                 >
                     수정
                 </button>
                 <button
-                    onClick={() => {
-                        handleDelete();
-                    }}
+                    onClick={handleDelete}
                     className="font-semibold text-[14px] w-fit"
                 >
                     삭제

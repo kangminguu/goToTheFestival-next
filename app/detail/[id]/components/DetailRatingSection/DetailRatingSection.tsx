@@ -58,10 +58,10 @@ export default function DetailRatingSection({
             .eq("user_id", userId) // 특정 유저 ID
             .single(); // 하나만 가져옴
 
-        if (error) {
-            console.error("리뷰 가져오기 실패:", error);
-            return null;
-        }
+        // if (error) {
+        //     console.error("리뷰 가져오기 실패:", error);
+        //     return null;
+        // }
 
         setUserRating(data);
     };
