@@ -43,7 +43,8 @@ export default function DetailRatingSection({
     const supabase = createClient();
 
     useEffect(() => {
-        if (userId !== null) fetchUserRating();
+        // 로그인 하지 않았거나 리뷰 개수가 0개라면 사용자의 후기를 패칭하지 않음
+        if (userId !== null && reviews.length !== 0) fetchUserRating();
     }, []);
 
     useEffect(() => {
@@ -148,7 +149,6 @@ export default function DetailRatingSection({
                 </span>
             </div>
 
-            {/* {userRating ? <MyRating userRating={userRating} /> : null} */}
             {userRating ? (
                 <MyRating
                     userRating={userRating}

@@ -70,14 +70,13 @@ export default async function DetailPage({
     const ratingCount =
         !festivalRatings_error && data?.review_count ? data.review_count : 0;
 
-    // 해당 축제 전체 후기 패칭
+    // 해당 축제 전체 후기 패칭 : 해당 축제에 대한 리뷰가 없으면 reviews = [], 빈 배열
     const { data: reviews, error: reviews_error } = await (await supabase)
         .from("review_with_user")
         .select("*")
         .eq("festival_id", contentId)
         .order("created_at", { ascending: false });
 
-    // 사용자 로그인 여부 및 사용자 uuid
     const {
         data: { user },
     } = await (await supabase).auth.getUser();
