@@ -34,6 +34,9 @@ export default async function DetailPage({
 }: {
     params: Promise<{ id: string }>;
 }) {
+    // 로딩 페이지 개발을 위해 무한 대기
+    // await new Promise(() => {});
+
     const { id: contentId } = await params;
     const supabase = createClient();
 
