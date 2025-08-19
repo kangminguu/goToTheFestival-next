@@ -64,26 +64,39 @@ export default function WriteReviewModal() {
                             e.preventDefault();
                             onSubmitReview(rating, content);
                         }}
-                        className="flex flex-col gap-[16px]"
+                        className="flex flex-col gap-[10px]"
                     >
                         <label>
                             <textarea
                                 value={content}
+                                maxLength={200}
                                 onChange={(e) => setContent(e.target.value)}
-                                placeholder="해당 축제에 대한 여러분의 경험을 공유해주세요."
-                                className="w-full h-[100px] resize-none bg-background-hover rounded-[8px] px-[20px] py-[15px] placeholder:text-font-muted"
+                                placeholder="해당 축제에 대한 여러분의 경험을 공유해주세요. "
+                                className="w-full h-[100px] resize-none bg-background-hover rounded-[8px] px-[20px] py-[15px] placeholder:text-font-muted placeholder:font-normal"
                             />
                         </label>
 
                         <div className="flex flex-col gap-[32px]">
-                            <div className="row-center gap-[5px]">
-                                <img
-                                    className="w-[15px] md:w-[20px]"
-                                    src="/assets/info.svg"
-                                    alt="info"
-                                />
-                                <span className="text-[12px] md:text-[14px] text-font-secondary">
-                                    축제가자 서비스 전반에 공유됨
+                            <div className="flex flex-row justify-between">
+                                <div className="row-center gap-[5px]">
+                                    <img
+                                        className="w-[20px]"
+                                        src="/assets/info.svg"
+                                        alt="info"
+                                    />
+                                    <span className="text-[14px] text-font-secondary">
+                                        축제가자 서비스 전반에 공유됨
+                                    </span>
+                                </div>
+                                {/* 굴자수 200 제한 표시 */}
+                                <span
+                                    className={`${
+                                        content.length === 200
+                                            ? "text-font-highlight"
+                                            : "text-font-muted"
+                                    } text-[14px]`}
+                                >
+                                    {`(${content.length}/200)`}
                                 </span>
                             </div>
 
