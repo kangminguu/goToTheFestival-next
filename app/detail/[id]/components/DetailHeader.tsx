@@ -12,6 +12,7 @@ export default function DetailHeader() {
 
     const { open, close } = useAlertStore();
 
+    //  URL 복사 이벤트
     const handleCopy = async () => {
         close();
 
@@ -23,18 +24,23 @@ export default function DetailHeader() {
         }
     };
 
+    // 창 닫기
+    const handleClosedWindow = () => {
+        window.close();
+    };
+
     return (
         <div className="row-center justify-between md:my-[20px] mb-[10px]">
             <button
-                onClick={() => router.back()}
+                onClick={handleClosedWindow}
                 className="row-center font-semibold"
             >
                 <img
-                    src="/assets/arrow/arrow.svg"
-                    alt="뒤로"
-                    className="w-[24px] h-[24px]"
+                    src="/assets/closed/closed_black.svg"
+                    alt="탭 닫기"
+                    className="w-[22px] h-[22px] mr-[5px]"
                 />
-                뒤로
+                탭 닫기
             </button>
 
             <Button
