@@ -35,7 +35,7 @@ export default function BannerCard({ festival }) {
                         </p>
                     </div>
 
-                    <div className="font-bold md:text-[32px] text-[20px]">
+                    <div className="font-bold md:text-[32px] text-[20px] line-clamp-1">
                         {festival.title}
                     </div>
 
