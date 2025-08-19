@@ -7,7 +7,7 @@ import {
 import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
 import DetailIntroductionSection from "./components/DetailIntroductionSection";
-import DetailTitleSection from "./components/DetailTitleSection";
+import DetailTitleSection from "./components/DetailTitleSection/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";

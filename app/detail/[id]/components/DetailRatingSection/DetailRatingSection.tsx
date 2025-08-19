@@ -125,7 +125,7 @@ export default function DetailRatingSection({
     };
 
     return (
-        <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
+        <div id="rating-section" className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
             <div className="row-center justify-between">
                 <h2 className="md:text-[24px] text-[16px] font-semibold">
                     축제 후기
