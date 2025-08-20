@@ -1,6 +1,7 @@
-import FavoriteButton from "../../../../components/FavoriteButton/FavoriteButton";
-import Rating from "../../../../components/Rating/Rating";
-import Tag from "../../../../components/Tag/Tag";
+import FavoriteButton from "../../../../../components/FavoriteButton/FavoriteButton";
+import Rating from "../../../../../components/Rating/Rating";
+import Tag from "../../../../../components/Tag/Tag";
+import ScrollToRatingSectionButton from "./ScrollToRatingSectionButton";
 
 export default function DetailTitleSection({
     contentid,
@@ -40,16 +41,7 @@ export default function DetailTitleSection({
 
                 <span className="bg-font-secondary w-[4px] h-[4px] rounded-full" />
 
-                <button className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]">
-                    {ratingCount === 0
-                        ? "후기가 없습니다"
-                        : `${ratingCount}개 평가`}
-                    <img
-                        src="/assets/arrow/arrow_gray.svg"
-                        alt="rating"
-                        className=" rotate-180 w-[14px] md:w-[16px]"
-                    />
-                </button>
+                <ScrollToRatingSectionButton ratingCount={ratingCount} />
             </div>
         </div>
     );
