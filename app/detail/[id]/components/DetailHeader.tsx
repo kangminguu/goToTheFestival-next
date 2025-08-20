@@ -1,12 +1,10 @@
 "use client";
 
 import Button from "../../../../components/Button/Button";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAlertStore } from "../../../../stores/useAlertStore";
 
 export default function DetailHeader() {
-    const router = useRouter();
-
     const domain = process.env.NEXT_PUBLIC_BASE_URL;
     const urlPath = usePathname();
 
