@@ -7,7 +7,11 @@ export default function BannerCard({ festival }) {
     const thisMonth = parseInt(getToday().substring(4, 6)); // 이번 달
 
     return (
-        <Link href={`/detail/${festival.contentid}`}>
+        <Link
+            href={`/detail/${festival.contentid}`}
+            target="_blank"
+            rel="noopener noreferrer"
+        >
             <div
                 className="w-full h-full bg-cover bg-center"
                 style={{
@@ -31,7 +35,7 @@ export default function BannerCard({ festival }) {
                         </p>
                     </div>
 
-                    <div className="font-bold md:text-[32px] text-[20px]">
+                    <div className="font-bold md:text-[32px] text-[20px] line-clamp-1">
                         {festival.title}
                     </div>
 

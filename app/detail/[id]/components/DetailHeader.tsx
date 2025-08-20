@@ -1,17 +1,16 @@
 "use client";
 
 import Button from "../../../../components/Button/Button";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useAlertStore } from "../../../../stores/useAlertStore";
 
 export default function DetailHeader() {
-    const router = useRouter();
-
-    const domain = "https://gotofestival.vercel.app/";
+    const domain = process.env.NEXT_PUBLIC_BASE_URL;
     const urlPath = usePathname();
 
     const { open, close } = useAlertStore();
 
+    //  URL 복사 이벤트
     const handleCopy = async () => {
         close();
 
@@ -24,19 +23,7 @@ export default function DetailHeader() {
     };
 
     return (
-        <div className="row-center justify-between md:my-[20px] mb-[10px]">
-            <button
-                onClick={() => router.back()}
-                className="row-center font-semibold"
-            >
-                <img
-                    src="/assets/arrow/arrow.svg"
-                    alt="뒤로"
-                    className="w-[24px] h-[24px]"
-                />
-                뒤로
-            </button>
-
+        <div className="row-center justify-end md:my-[20px] mb-[10px]">
             <Button
                 title="URL 복사"
                 icon="/assets/link.svg"

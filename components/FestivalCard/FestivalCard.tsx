@@ -36,6 +36,8 @@ export default function FestivalCard({ festival }) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex md:flex-col flex-row-reverse w-full min-h-[145px] gap-[10px] p-[10px] rounded-[8px] hover-active animation-color"
         >
             {/* 이미지 */}

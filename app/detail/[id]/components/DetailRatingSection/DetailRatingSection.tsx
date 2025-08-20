@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "../../../../components/Button/Button";
-import Rating from "../../../../components/Rating/Rating";
+import Button from "../../../../../components/Button/Button";
+import Rating from "../../../../../components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
-import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
-import { useAlertStore } from "../../../../stores/useAlertStore";
-import { createClient } from "../../../../lib/utils/client";
+import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
+import { useAlertStore } from "../../../../../stores/useAlertStore";
+import { createClient } from "../../../../../lib/utils/client";
 import { useRouter } from "next/navigation";
+import { useModalStore } from "../../../../../stores/useModalStore";
+import MyRating from "./MyRating";
 
 export default function DetailRatingSection({
     contentId,
@@ -15,40 +17,55 @@ export default function DetailRatingSection({
     avgRating,
     ratingCount,
     reviews,
+    userId,
 }: {
     contentId: string;
     title: string;
     avgRating: number;
     ratingCount: number;
     reviews: any;
+    userId: any;
 }) {
     const router = useRouter();
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
+    const { open: modalOpen, close: modalClose } = useModalStore();
 
     // 보여줄 리뷰 수
     const [page, setPage] = useState(3);
     const [showReviews, setShowReviews] = useState(reviews.slice(0, page));
 
     // 사용자 여부(로그인 여부)
-    const [user, setUser] = useState(null);
+    // const [user, setUser] = useState(null);
+    const [userRating, setUserRating] = useState(null);
+
     const supabase = createClient();
 
     useEffect(() => {
-        const fetchUser = async () => {
-            const {
-                data: { user },
-            } = await supabase.auth.getUser();
-            setUser(user);
-        };
-
-        fetchUser();
+        // 로그인 하지 않았거나 리뷰 개수가 0개라면 사용자의 후기를 패칭하지 않음
+        if (userId !== null && reviews.length !== 0) fetchUserRating();
     }, []);
 
     useEffect(() => {
         setShowReviews(reviews ? reviews.slice(0, page) : []);
     }, [reviews, page]);
+
+    const fetchUserRating = async () => {
+        const { data, error } = await supabase
+            .from("reviews")
+            .select("*")
+            .eq("festival_id", contentId) // 특정 축제 ID
+            .eq("user_id", userId) // 특정 유저 ID
+            .single(); // 하나만 가져옴
+
+        // if (error) {
+        //     console.error("리뷰 가져오기 실패:", error);
+        //     return null;
+        // }
+
+        setUserRating(data);
+    };
 
     const handleShowMoreReview = () => {
         const nextPage = page + 3;
@@ -61,7 +78,7 @@ export default function DetailRatingSection({
         const { error } = await supabase.from("reviews").insert([
             {
                 festival_id: contentId,
-                user_id: user.id,
+                user_id: userId,
                 rating,
                 content,
             },
@@ -73,14 +90,15 @@ export default function DetailRatingSection({
     const handleWriteReview = () => {
         alertClose();
 
-        if (user) {
+        if (userId) {
             // 로그인 한 경우
-            console.log("로그인 한 경우");
             writeModalOpen(title, contentId, async (rating, content) => {
                 // 축제 후기 작성
                 const error = await writeReview(rating, content);
 
                 writeModalClose();
+
+                fetchUserRating();
 
                 router.refresh();
 
@@ -94,24 +112,32 @@ export default function DetailRatingSection({
             });
         } else {
             // 로그인 하지 않은 경우
-            console.log("로그인 하지 않은 경우");
-            alertOpen("로그인이 필요한 서비스입니다.");
+            modalOpen(
+                "후기 작성",
+                "후기 작성은 로그인이 필요한 서비스입니다.",
+                "로그인 하기",
+                () => {
+                    modalClose();
+                    router.push("/login"); // 로그인 페이지로 이동
+                }
+            );
         }
     };
 
     return (
-        <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
+        <div id="rating-section" className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
             <div className="row-center justify-between">
                 <h2 className="md:text-[24px] text-[16px] font-semibold">
                     축제 후기
                 </h2>
 
-                {/* 후기 작성 버튼 */}
-                <Button
-                    onClick={handleWriteReview}
-                    title="후기 작성"
-                    icon="/assets/review.svg"
-                />
+                {!userRating ? (
+                    <Button
+                        onClick={handleWriteReview}
+                        title="후기 작성"
+                        icon="/assets/review.svg"
+                    />
+                ) : null}
             </div>
 
             <div className="row-center gap-[10px]">
@@ -122,6 +148,14 @@ export default function DetailRatingSection({
                         : `${ratingCount}개 평가`}
                 </span>
             </div>
+
+            {userRating ? (
+                <MyRating
+                    userRating={userRating}
+                    setUserRating={setUserRating}
+                    title={title}
+                />
+            ) : null}
 
             {/* 축제 후기 */}
             <div className="flex flex-col gap-[20px]">

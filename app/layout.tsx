@@ -4,7 +4,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import "./globals.css";
-import WriteReviewModal from "./detail/[id]/components/WriteReviewModal/WriteReviewModal";
+import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/WriteReviewModal";
 
 // export const metadata: Metadata = {
 //     title: "축제가자",
