@@ -24,25 +24,8 @@ export default function DetailHeader() {
         }
     };
 
-    // 창 닫기
-    const handleClosedWindow = () => {
-        window.close();
-    };
-
     return (
-        <div className="row-center justify-between md:my-[20px] mb-[10px]">
-            <button
-                onClick={handleClosedWindow}
-                className="row-center font-semibold"
-            >
-                <img
-                    src="/assets/closed/closed_black.svg"
-                    alt="탭 닫기"
-                    className="w-[22px] h-[22px] mr-[5px]"
-                />
-                탭 닫기
-            </button>
-
+        <div className="row-center justify-end md:my-[20px] mb-[10px]">
             <Button
                 title="URL 복사"
                 icon="/assets/link.svg"
