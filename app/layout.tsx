@@ -1,17 +1,19 @@
-// import { Metadata } from "next";
 import Alert from "../components/Alert/Alert";
 import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import "./globals.css";
 import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/WriteReviewModal";
+import { Metadata } from "next";
 
-// export const metadata: Metadata = {
-//     title: "축제가자",
-//     icons: {
-//         icon: "./icon.svg",
-//     },
-// };
+export const metadata: Metadata = {
+    verification: {
+        other: {
+            "naver-site-verification":
+                "c0e1f9dba58d308e387de78793413ba2a6dc3630",
+        },
+    },
+};
 
 export default function RootLayout({
     children,
