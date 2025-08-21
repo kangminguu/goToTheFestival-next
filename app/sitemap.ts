@@ -1,13 +1,22 @@
 import { MetadataRoute } from "next";
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    // 축제 리스트
-    const festivalList = await fetch(
-        "https://www.gotothefestival.co.kr/api/festivalList?pageNo=1&numOfRows=1000",
-        { next: { revalidate: 60 * 60 * 24 } } // 24시간마다 캐시 갱신
-    ).then((res) => res.json());
+export const dynamic = "force-dynamic";
 
-    const festivals = festivalList.items ?? [];
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+    let festivals: any[] = [];
+
+    try {
+        // 축제 리스트
+        const fetchFestivalList = await fetch(
+            "/api/festivalList?pageNo=1&numOfRows=1000",
+            { next: { revalidate: 60 * 60 * 24 } } // 24시간마다 캐시 갱신
+        ).then((res) => res.json());
+
+        festivals = fetchFestivalList.festivalList ?? [];
+    } catch (err) {
+        console.error("sitemap fetch error:", err);
+        festivals = [];
+    }
 
     // 정적 페이지
     const staticPages: MetadataRoute.Sitemap = [
