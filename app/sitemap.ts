@@ -8,7 +8,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     try {
         // 축제 리스트
         const fetchFestivalList = await fetch(
-            "/api/festivalList?pageNo=1&numOfRows=1000",
+            "https://www.gotothefestival.co.kr/api/festivalList?pageNo=1&numOfRows=1000",
             { next: { revalidate: 60 * 60 * 24 } } // 24시간마다 캐시 갱신
         ).then((res) => res.json());
 
