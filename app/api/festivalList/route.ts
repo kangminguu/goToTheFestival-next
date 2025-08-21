@@ -6,8 +6,8 @@ export async function GET(request: Request) {
 
     const pageNo = Number(searchParams.get("pageNo") ?? "1");
     const numOfRows = Number(searchParams.get("numOfRows") ?? "8");
-    const eventStartDate = searchParams.get("eventStartDate") ?? "";
-    const eventEndDate = searchParams.get("eventEndDate") ?? "";
+    const eventStartDate = searchParams.get("eventStartDate") ?? "20100101";
+    const eventEndDate = searchParams.get("eventEndDate") ?? "20501231";
     const keyword = searchParams.get("keyword") ?? "";
     const areaCode = searchParams.get("areaCode") ?? "";
 

@@ -76,6 +76,8 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             const res = await fetch(`/api/festivalList?${params.toString()}`);
             const data = await res.json();
 
+            console.log(data.festivalList);
+
             await updateFestivalList(data.festivalList || []);
         };
 
