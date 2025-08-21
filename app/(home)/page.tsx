@@ -14,6 +14,22 @@ export function generateMetadata() {
         title: "축제가자",
         description:
             "전국 방방곡곡에서 열리는 특별한 축제를 소개합니다. 지역별, 일정별로 쉽게 확인하고 나만의 축제 계획을 세워보세요!",
+        openGraph: {
+            title: "축제가자",
+            description:
+                "전국 방방곡곡에서 열리는 특별한 축제를 소개합니다. 지역별, 일정별로 쉽게 확인하고 나만의 축제 계획을 세워보세요!",
+            url: "https://www.gotothefestival.co.kr",
+            siteName: "축제가자",
+            images: [
+                {
+                    url: "https://www.gotothefestival.co.kr/gotothefestival.png", // ← 원하는 대표 이미지
+                    width: 1200,
+                    height: 630,
+                },
+            ],
+            locale: "ko_KR",
+            type: "website",
+        },
     };
 }
 
