@@ -25,7 +25,16 @@ export async function generateMetadata({
 
     return {
         title: `${festivalCommon.title} - 축제가자`,
-        description: `${convertBr(festivalCommon.overview)}`,
+        description: `${convertBr(festivalCommon.overview).slice(0, 149)}`,
+
+        openGraph: {
+            title: `${festivalCommon.title} - 축제가자`,
+            description: `${convertBr(festivalCommon.overview).slice(0, 149)}`,
+            url: "https://www.gotothefestival.co.kr",
+            siteName: `${festivalCommon.title} - 축제가자`,
+            locale: "ko_KR",
+            type: "website",
+        },
     };
 }
 
