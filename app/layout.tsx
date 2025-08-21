@@ -5,6 +5,8 @@ import Modal from "../components/Modal/Modal";
 import "./globals.css";
 import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/WriteReviewModal";
 import { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 export const metadata: Metadata = {
     verification: {
@@ -35,6 +37,9 @@ export default function RootLayout({
                 <Modal />
                 {/* 리뷰 쟉성/수정 모달창 */}
                 <WriteReviewModal />
+
+                <Analytics />
+                <SpeedInsights />
             </body>
         </html>
     );
