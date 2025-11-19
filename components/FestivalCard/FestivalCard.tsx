@@ -52,6 +52,7 @@ export default function FestivalCard({ festival }) {
                     fill
                     className="object-cover"
                     sizes="(max-width: 768px) 125px, (max-width: 1024px) 50vw, 25vw"
+                    unoptimized={true}
                 />
 
                 {/* 찜 버튼 */}
