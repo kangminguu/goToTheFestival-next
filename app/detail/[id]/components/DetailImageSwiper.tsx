@@ -10,7 +10,6 @@ import "swiper/css/thumbs";
 import "../../../../styles/detailImage.swiper.css";
 
 import { useState } from "react";
-import Image from "next/image";
 
 export default function DetailImageSwiper({ imageList }) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -44,25 +43,44 @@ export default function DetailImageSwiper({ imageList }) {
                         key={festival.serialnum}
                         className="relative md:h-[516px] h-[250px]"
                     >
-                        <Image
-                            src={festival.originimgurl}
-                            alt={festival.imgname}
-                            fill
-                            className="object-cover blur-sm opacity-60"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
-                            priority={index === 0}
-                        />
-
-                        <div className="relative z-10 flex items-center justify-center h-full">
-                            <Image
+                        <div className="absolute z-10 flex items-center justify-center h-full w-full">
+                            {/* <Image
                                 src={festival.originimgurl}
                                 alt={festival.imgname}
                                 fill
                                 className="object-contain"
                                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
                                 priority={index === 0}
+                            /> */}
+                            <img
+                                src={festival.originimgurl}
+                                alt={festival.imgname}
+                                className="object-contain"
+                                style={{
+                                    width: "100%",
+                                    height: "100%",
+                                    objectFit: "contain",
+                                }}
                             />
                         </div>
+                        {/* <Image
+                            src={festival.originimgurl}
+                            alt={festival.imgname}
+                            fill
+                            className="object-cover blur-sm opacity-60"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                            priority={index === 0}
+                        /> */}
+                        <img
+                            src={festival.originimgurl}
+                            alt={festival.imgname}
+                            className="absolute object-cover blur-sm opacity-60"
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                            }}
+                        />
                     </SwiperSlide>
                 ))}
             </Swiper>
@@ -77,12 +95,22 @@ export default function DetailImageSwiper({ imageList }) {
             >
                 {sortedImages.map((festival) => (
                     <SwiperSlide key={festival.serialnum}>
-                        <Image
+                        {/* <Image
                             src={festival.originimgurl}
                             alt={festival.imgname}
                             fill
                             className="object-cover"
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
+                        /> */}
+                        <img
+                            src={festival.originimgurl}
+                            alt={festival.imgname}
+                            className="object-cover"
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                            }}
                         />
                     </SwiperSlide>
                 ))}
