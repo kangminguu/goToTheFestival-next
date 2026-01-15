@@ -2,10 +2,15 @@ import Link from "next/link";
 import { getToday } from "../../../../lib/utils";
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
+import { BannerFestival } from "./type";
 
-export default function BannerCard({ festival }) {
-    const thisMonth = parseInt(getToday().substring(4, 6)); // 이번 달
-
+export default function BannerCard({
+    festival,
+    currentMonth,
+}: {
+    festival: BannerFestival;
+    currentMonth: number;
+}) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
@@ -31,7 +36,7 @@ export default function BannerCard({ festival }) {
                         </p>
 
                         <p className="font-bold text-font-highlight md:text-[32px] text-[20px]">
-                            {thisMonth}월
+                            {currentMonth}월
                         </p>
                     </div>
 

@@ -9,8 +9,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 
 import BannerCard from "./BannerCard";
+import { BannerProps } from "./type";
 
-export default function Banner({ festivalList }) {
+export default function Banner({ festivalList, currentMonth }: BannerProps) {
     return (
         <Swiper
             className="bannerSwiper drag-prevent"
@@ -24,7 +25,10 @@ export default function Banner({ festivalList }) {
         >
             {festivalList.map((festival) => (
                 <SwiperSlide key={festival.contentid}>
-                    <BannerCard festival={festival} />
+                    <BannerCard
+                        festival={festival}
+                        currentMonth={currentMonth}
+                    />
                 </SwiperSlide>
             ))}
         </Swiper>

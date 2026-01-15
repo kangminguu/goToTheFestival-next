@@ -33,16 +33,23 @@ export function generateMetadata() {
 }
 
 export default async function Page() {
+    // 이번 달
+    const currentMonth = new Date().getMonth() + 1;
+
     // 배너용 축제 리스트 가져오기
-    const festivalList = await getBannerFestivalListFromDB({
-        month: new Date().getMonth() + 1,
-        limit: 6,
-    });
+    const festivalList =
+        (await getBannerFestivalListFromDB({
+            month: new Date().getMonth() + 1,
+            limit: 6,
+        })) || []; // 축제가 없는 경우 빈 배열 반환 -> 임시, 나중에 no_festival_banner 컴포넌트로 대체 필요
 
     return (
         <>
             <Suspense fallback={<div>Loading banner...</div>}>
-                <Banner festivalList={festivalList} />
+                <Banner
+                    festivalList={festivalList}
+                    currentMonth={currentMonth}
+                />
             </Suspense>
 
             <div className="min-max-padding">
