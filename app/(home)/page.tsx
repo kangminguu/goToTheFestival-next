@@ -1,5 +1,3 @@
-import { Suspense } from "react";
-
 import Banner from "./components/Banner/Banner";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
@@ -7,6 +5,7 @@ import SearchBar from "./components/SearchBar/SearchBar";
 import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 import { getBannerFestivalListFromDB } from "../../lib/api/festival/getFestivalListFromDB";
+import { FALLBACK_BANNER_FESTIVALS } from "../../constants/fallBackBannerFestivals";
 
 export function generateMetadata() {
     return {
@@ -21,7 +20,7 @@ export function generateMetadata() {
             siteName: "축제가자",
             images: [
                 {
-                    url: "https://www.gotothefestival.co.kr/gotothefestival.png", // ← 원하는 대표 이미지
+                    url: "https://www.gotothefestival.co.kr/gotothefestival.png",
                     width: 1200,
                     height: 630,
                 },
@@ -37,20 +36,18 @@ export default async function Page() {
     const currentMonth = new Date().getMonth() + 1;
 
     // 배너용 축제 리스트 가져오기
-    const festivalList =
-        (await getBannerFestivalListFromDB({
-            month: new Date().getMonth() + 1,
-            limit: 6,
-        })) || []; // 축제가 없는 경우 빈 배열 반환 -> 임시, 나중에 no_festival_banner 컴포넌트로 대체 필요
+    // const festivalList = [];
+    const festivalList = await getBannerFestivalListFromDB({
+        month: new Date().getMonth() + 1,
+        limit: 6,
+    });
 
     return (
         <>
-            <Suspense fallback={<div>Loading banner...</div>}>
-                <Banner
-                    festivalList={festivalList}
-                    currentMonth={currentMonth}
-                />
-            </Suspense>
+            <Banner
+                festivalList={festivalList || FALLBACK_BANNER_FESTIVALS}
+                currentMonth={currentMonth}
+            />
 
             <div className="min-max-padding">
                 <div className="md:mt-[40px] mt-[30px]">

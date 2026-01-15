@@ -12,7 +12,7 @@ import BannerCard from "./BannerCard";
 import { BannerProps } from "./type";
 
 export default function Banner({ festivalList, currentMonth }: BannerProps) {
-    return (
+    return festivalList.length >= 2 ? (
         <Swiper
             className="bannerSwiper drag-prevent"
             pagination
@@ -32,5 +32,7 @@ export default function Banner({ festivalList, currentMonth }: BannerProps) {
                 </SwiperSlide>
             ))}
         </Swiper>
+    ) : (
+        <BannerCard festival={festivalList[0]} currentMonth={currentMonth} />
     );
 }

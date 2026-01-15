@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { getToday } from "../../../../lib/utils";
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
 import { BannerFestival } from "./type";
@@ -26,7 +25,7 @@ export default function BannerCard({
                         rgba(255, 255, 255, 1) 30%,
                         rgba(255, 255, 255, 0) 100%
                     ), 
-                    url(${festival.first_image})`,
+                    url(${festival.first_image || "/gotothefestival.png"})`,
                 }}
             >
                 <div className="min-max-padding md:pt-[50px] pt-[30px] md:pb-[60px] pb-[40px] flex flex-col md:gap-[20px] gap-[10px]">
@@ -45,7 +44,10 @@ export default function BannerCard({
                     </div>
 
                     <div className="flex flex-col md:gap-[10px] gap-[3px]">
-                        <Address address={festival.addr1} sizeType="banner" />
+                        <Address
+                            address={festival.addr1 || "-"}
+                            sizeType="banner"
+                        />
 
                         <EventDate
                             eventStartDate={festival.event_start}
