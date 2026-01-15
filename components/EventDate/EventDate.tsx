@@ -35,9 +35,10 @@ export default function EventDate({
     sizeType,
 }: EventDateProps) {
     const { div, img, svg, text } = styles[sizeType];
-    const eventDate = `${convertToDotDateFormat(
-        eventStartDate
-    )} ~ ${convertToDotDateFormat(eventEndDate)}`;
+    const eventDate = `${eventStartDate.replaceAll(
+        "-",
+        "."
+    )} ~ ${eventEndDate.replaceAll("-", ".")}`;
 
     return (
         <div className={`row-center ${div}`}>

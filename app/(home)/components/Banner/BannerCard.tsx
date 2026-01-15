@@ -21,7 +21,7 @@ export default function BannerCard({ festival }) {
                         rgba(255, 255, 255, 1) 30%,
                         rgba(255, 255, 255, 0) 100%
                     ), 
-                    url(${festival.firstimage})`,
+                    url(${festival.first_image})`,
                 }}
             >
                 <div className="min-max-padding md:pt-[50px] pt-[30px] md:pb-[60px] pb-[40px] flex flex-col md:gap-[20px] gap-[10px]">
@@ -43,8 +43,8 @@ export default function BannerCard({ festival }) {
                         <Address address={festival.addr1} sizeType="banner" />
 
                         <EventDate
-                            eventStartDate={festival.eventstartdate}
-                            eventEndDate={festival.eventenddate}
+                            eventStartDate={festival.event_start}
+                            eventEndDate={festival.event_end}
                             sizeType="banner"
                         />
                     </div>

@@ -5,9 +5,8 @@ import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
-import { getLastDayOfMonth, getToday } from "../../lib/utils";
-import { getFestivalList } from "../../lib/api/festival";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
+import { getBannerFestivalListFromDB } from "../../lib/api/festival/getFestivalListFromDB";
 
 export function generateMetadata() {
     return {
@@ -34,14 +33,10 @@ export function generateMetadata() {
 }
 
 export default async function Page() {
-    const today = getToday(); // 오늘 YYYYMMDD
-    const lastDate = getLastDayOfMonth(); // 이번 달 마지막일 YYYYMMDD
-    const { festivalList } = await getFestivalList({
-        pageNo: 1,
-        numOfRows: 6,
-        eventStartDate: today,
-        eventEndDate: lastDate,
-        arrange: "Q",
+    // 배너용 축제 리스트 가져오기
+    const festivalList = await getBannerFestivalListFromDB({
+        month: new Date().getMonth() + 1,
+        limit: 6,
     });
 
     return (
