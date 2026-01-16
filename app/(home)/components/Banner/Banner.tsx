@@ -9,7 +9,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
 
 import BannerCard from "./BannerCard";
-import { BannerProps } from "./type";
+import { BannerProps } from "../../../../lib/types/festival";
 
 export default function Banner({ festivalList, currentMonth }: BannerProps) {
     return festivalList.length >= 2 ? (
