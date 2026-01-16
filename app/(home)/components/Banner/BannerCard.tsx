@@ -50,8 +50,8 @@ export default function BannerCard({
                         />
 
                         <EventDate
-                            eventStartDate={festival.event_start}
-                            eventEndDate={festival.event_end}
+                            eventStartDate={festival.event_start || "-"}
+                            eventEndDate={festival.event_end || "-"}
                             sizeType="banner"
                         />
                     </div>

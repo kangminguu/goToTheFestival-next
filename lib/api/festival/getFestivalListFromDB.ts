@@ -61,10 +61,9 @@ export async function getBannerFestivalListFromDB(options: {
         .from("festivals")
         .select("contentid, title, addr1, first_image, event_start, event_end") // 축제 id, 제목, 주소, 대표이미지, 시작일, 종료일
         .eq("deleted", false)
-        // 해당 월에 겹치는 축제 필터링
+        // 이번 달에 시작하는 축제 중, 아직 종료되지 않은 축제
         .gte("event_start", monthStart.toISOString().split("T")[0])
         .lte("event_start", monthEnd.toISOString().split("T")[0])
-        // 진행중 또는 예정 (이미 끝난 것 제외)
         .gte("event_end", now.toISOString().split("T")[0])
         // 이미지 필수 (null/빈 문자열 제외)
         .not("first_image", "is", null)

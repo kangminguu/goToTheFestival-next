@@ -36,18 +36,18 @@ export default async function Page() {
     const currentMonth = new Date().getMonth() + 1;
 
     // 배너용 축제 리스트 가져오기
-    // const festivalList = [];
-    const festivalList = await getBannerFestivalListFromDB({
-        month: new Date().getMonth() + 1,
-        limit: 6,
-    });
+    const festivalList =
+        (await getBannerFestivalListFromDB({
+            month: currentMonth,
+            limit: 6,
+        })) ?? FALLBACK_BANNER_FESTIVALS;
+
+    if (festivalList.length === 0)
+        festivalList.push(...FALLBACK_BANNER_FESTIVALS);
 
     return (
         <>
-            <Banner
-                festivalList={festivalList || FALLBACK_BANNER_FESTIVALS}
-                currentMonth={currentMonth}
-            />
+            <Banner festivalList={festivalList} currentMonth={currentMonth} />
 
             <div className="min-max-padding">
                 <div className="md:mt-[40px] mt-[30px]">

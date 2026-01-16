@@ -1,5 +1,3 @@
-import { convertToDotDateFormat } from "../../lib/utils";
-
 type EventDateSizeType = "banner" | "card" | "detailPage";
 
 interface EventDateProps {
