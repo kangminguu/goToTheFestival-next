@@ -1,13 +1,11 @@
-import { Suspense } from "react";
-
 import Banner from "./components/Banner/Banner";
 import RegionSelector from "./components/RegionSelector/RegionSelector";
 import DateSelector from "./components/DateSelector/DateSelector";
 import SearchBar from "./components/SearchBar/SearchBar";
 import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
-import { getLastDayOfMonth, getToday } from "../../lib/utils";
-import { getFestivalList } from "../../lib/api/festival";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
+import { getBannerFestivalListFromDB } from "../../lib/api/festival/getFestivalListFromDB";
+import { FALLBACK_BANNER_FESTIVALS } from "../../constants/fallBackBannerFestivals";
 
 export function generateMetadata() {
     return {
@@ -22,7 +20,7 @@ export function generateMetadata() {
             siteName: "축제가자",
             images: [
                 {
-                    url: "https://www.gotothefestival.co.kr/gotothefestival.png", // ← 원하는 대표 이미지
+                    url: "https://www.gotothefestival.co.kr/gotothefestival.png",
                     width: 1200,
                     height: 630,
                 },
@@ -34,21 +32,22 @@ export function generateMetadata() {
 }
 
 export default async function Page() {
-    const today = getToday(); // 오늘 YYYYMMDD
-    const lastDate = getLastDayOfMonth(); // 이번 달 마지막일 YYYYMMDD
-    const { festivalList } = await getFestivalList({
-        pageNo: 1,
-        numOfRows: 6,
-        eventStartDate: today,
-        eventEndDate: lastDate,
-        arrange: "Q",
-    });
+    // 이번 달
+    const currentMonth = new Date().getMonth() + 1;
+
+    // 배너용 축제 리스트 가져오기
+    const festivalList =
+        (await getBannerFestivalListFromDB({
+            month: currentMonth,
+            limit: 6,
+        })) ?? FALLBACK_BANNER_FESTIVALS;
+
+    if (festivalList.length === 0)
+        festivalList.push(...FALLBACK_BANNER_FESTIVALS);
 
     return (
         <>
-            <Suspense fallback={<div>Loading banner...</div>}>
-                <Banner festivalList={festivalList} />
-            </Suspense>
+            <Banner festivalList={festivalList} currentMonth={currentMonth} />
 
             <div className="min-max-padding">
                 <div className="md:mt-[40px] mt-[30px]">
