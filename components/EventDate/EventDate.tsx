@@ -33,9 +33,10 @@ export default function EventDate({
     sizeType,
 }: EventDateProps) {
     const { div, img, svg, text } = styles[sizeType];
+
     const eventDate = `${eventStartDate.replaceAll(
         "-",
-        "."
+        ".",
     )} ~ ${eventEndDate.replaceAll("-", ".")}`;
 
     return (

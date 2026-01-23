@@ -14,10 +14,10 @@ interface DateSelectorCalendarProps {
 const thisYear = new Date().getFullYear(); // 올해 년도
 
 const PERIODS = {
-    full: ["20100101", "20501231"], // 전체기간
-    lastYear: [`${thisYear - 1}0101`, `${thisYear - 1}1231`], // 작년
-    thisYear: [`${thisYear}0101`, `${thisYear}1231`], // 올해
-    nextYear: [`${thisYear + 1}0101`, `${thisYear + 1}1231`], // 내년
+    full: ["2010-01-01", "2050-12-31"], // 전체기간
+    lastYear: [`${thisYear - 1}-01-01`, `${thisYear - 1}-12-31`], // 작년
+    thisYear: [`${thisYear}-01-01`, `${thisYear}-12-31`], // 올해
+    nextYear: [`${thisYear + 1}-01-01`, `${thisYear + 1}-12-31`], // 내년
     today: [getToday(), getToday()], // 오늘
 };
 
@@ -67,7 +67,7 @@ export default function DateSelectorCalendar({
 
                     <span className="font-semibold text-[15px]">
                         {`${convertSelectedDateText(
-                            eventDate[0]
+                            eventDate[0],
                         )} ~ ${convertSelectedDateText(eventDate[1])}`}
                     </span>
                 </div>

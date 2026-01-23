@@ -1,24 +1,40 @@
 import { NextResponse } from "next/server";
-import getFestivalList from "../../../lib/api/festival/getFestivalList";
+import { getFestivalListFromDB } from "../../../lib/api/festival/getFestivalListFromDB";
 
 export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
-    const pageNo = Number(searchParams.get("pageNo") ?? "1");
-    const numOfRows = Number(searchParams.get("numOfRows") ?? "8");
-    const eventStartDate = searchParams.get("eventStartDate") ?? "20100101";
-    const eventEndDate = searchParams.get("eventEndDate") ?? "20501231";
+    const eventStartDate = searchParams.get("eventStartDate") ?? "2010-01-01";
+    const eventEndDate = searchParams.get("eventEndDate") ?? "2050-12-31";
     const keyword = searchParams.get("keyword") ?? "";
-    const areaCode = searchParams.get("areaCode") ?? "";
+    const regionCode = searchParams.get("areaCode") ?? "";
+    const sortBy =
+        (searchParams.get("sortBy") as "date" | "distance" | "review_count") ??
+        "date";
+    const limit = Number(searchParams.get("limit") ?? "12");
+    const offset = Number(searchParams.get("offset") ?? "0");
 
-    const festivalData = await getFestivalList({
-        pageNo,
-        numOfRows,
+    // 거리순 정렬 시 위치 정보
+    const userLat = searchParams.get("userLat")
+        ? parseFloat(searchParams.get("userLat")!)
+        : undefined;
+    const userLng = searchParams.get("userLng")
+        ? parseFloat(searchParams.get("userLng")!)
+        : undefined;
+
+    const festivalList = await getFestivalListFromDB({
+        sortBy,
+        userLat,
+        userLng,
+        limit,
+        offset,
+        regionCode: regionCode !== "0" ? regionCode : undefined,
         eventStartDate,
         eventEndDate,
-        keyword,
-        areaCode,
+        keyword: keyword ? keyword : undefined,
     });
 
-    return NextResponse.json(festivalData);
+    return NextResponse.json({
+        festivalList: festivalList || [],
+    });
 }

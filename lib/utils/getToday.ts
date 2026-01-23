@@ -16,5 +16,5 @@ export default function getToday(): string {
         .replace(/\. /g, "-")
         .replace(".", "")
         .split("-");
-    return `${year}${month}${day}`;
+    return `${year}-${month}-${day}`;
 }
