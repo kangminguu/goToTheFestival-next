@@ -47,7 +47,7 @@ export async function getFestivalListFromDB(options: {
 
     // 필터링
     if (options.regionCode && options.regionCode !== "0") {
-        query = query.like("addr1", `%${options.regionCode}%`);
+        query = query.eq("areacode", options.regionCode);
     }
     if (options.eventStartDate && options.eventEndDate) {
         query = query
@@ -67,7 +67,7 @@ export async function getFestivalListFromDB(options: {
 
     // 페이징
     if (options.limit) query = query.limit(options.limit);
-    if (options.offset) {
+    if (options.offset !== undefined) {
         query = query.range(
             options.offset,
             options.offset + (options.limit || 12) - 1,

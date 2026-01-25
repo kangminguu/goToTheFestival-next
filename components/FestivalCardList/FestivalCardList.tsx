@@ -7,11 +7,11 @@ import {
     useEventDateStore,
     useFavoriteStore,
     useInputValueStore,
-    useRegionStore,
 } from "../../stores";
 import FestivalCardSkeleton from "../FestivalCard/FestivalCardSkeleton";
 import Button from "../Button/Button";
 import EmptyCardList from "./EmptyCardList";
+import { RegionCode } from "../../constants/regions";
 
 type ListType = "home" | "favorite";
 
@@ -22,7 +22,7 @@ function convertDateToDateString(date: Date): string {
     return `${y}-${m}-${d}`;
 }
 
-export default function FestivalCardList({ listType }: { listType: ListType }) {
+export default function FestivalCardList({ region, listType }: { region: RegionCode; listType: ListType }) {
     const [sortOption, setSortOption] = useState<
         "date" | "distance" | "review_count"
     >("date");
@@ -36,7 +36,6 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
     const [hasMore, setHasMore] = useState(true);
 
     const { favorites } = useFavoriteStore();
-    const { regionCode } = useRegionStore();
     const { eventDate } = useEventDateStore();
     const { searchForm } = useInputValueStore();
 
@@ -70,7 +69,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             const params = new URLSearchParams({
                 eventStartDate: convertDateToDateString(eventDate[0]),
                 eventEndDate: convertDateToDateString(eventDate[1]),
-                areaCode: regionCode,
+                areaCode: region,
                 keyword: searchForm,
                 sortBy: sortOption,
                 limit: "13", // 12 + 1개 더 가져와서 더보기 존재 여부 확인
@@ -97,7 +96,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
         }
 
         fetchSearchData();
-    }, [eventDate, regionCode, searchForm, sortOption, userLocation, listType]);
+    }, [eventDate, region, searchForm, sortOption, userLocation, listType]);
 
     // 찜 페이지 리스트
     useEffect(() => {
@@ -144,7 +143,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
         const params = new URLSearchParams({
             eventStartDate: convertDateToDateString(eventDate[0]),
             eventEndDate: convertDateToDateString(eventDate[1]),
-            areaCode: regionCode,
+            areaCode: region,
             keyword: searchForm,
             sortBy: sortOption,
             limit: "13",
