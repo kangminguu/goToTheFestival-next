@@ -135,8 +135,6 @@ export default async function DetailPage({
                     reviews={reviews}
                     userId={user ? user.id : null}
                 />
-                {/* 에러가 난 경우 해당 섹션만 "후기를 불러오지 못했습니다." 보여주도록 */}
-                {/* 정신 나갈거 같은 부분, next를 사용한 이유인 서버 액션 구조로 바꾸자 제발 */}
 
                 {/* 축제 위치 지도 */}
                 <DetailLocationSection
