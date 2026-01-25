@@ -6,7 +6,7 @@ import {
     getToday,
 } from "../../../../../lib/utils";
 import { createClient } from "../../../../../lib/utils/client";
-import getDifferenceDates from "../../../../../lib/utils/getDifferenceDates";
+import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
 import { useModalStore } from "../../../../../stores/useModalStore";
 import { useAlertStore } from "../../../../../stores/useAlertStore";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";

@@ -1,17 +1,25 @@
+import {
+    convertDateToShowFormat,
+    convertStringDateToDate,
+} from "../../../../lib/utils";
 import { useEventDateStore } from "../../../../stores/index";
 import { convertSelectedDateText } from "./utils";
 
 interface DateSelectorButtonProps {
     open: () => void;
+    startDate: string;
+    endDate: string;
 }
 
 /**
  * @param 클릭 이벤트 : 열림 상태로 변경
  * @returns DateSelectorButton 컴포넌트
  */
-export default function DateSelectorButton({ open }: DateSelectorButtonProps) {
-    const { eventDate } = useEventDateStore();
-
+export default function DateSelectorButton({
+    open,
+    startDate,
+    endDate,
+}: DateSelectorButtonProps) {
     return (
         <button
             onClick={open}
@@ -25,9 +33,9 @@ export default function DateSelectorButton({ open }: DateSelectorButtonProps) {
                 />
 
                 <span className="font-semibold text-[15px]">
-                    {`${convertSelectedDateText(
-                        eventDate[0]
-                    )} ~ ${convertSelectedDateText(eventDate[1])}`}
+                    {`${convertDateToShowFormat(
+                        convertStringDateToDate(startDate),
+                    )} ~ ${convertDateToShowFormat(convertStringDateToDate(endDate))}`}
                 </span>
             </div>
 

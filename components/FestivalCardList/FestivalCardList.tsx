@@ -22,7 +22,17 @@ function convertDateToDateString(date: Date): string {
     return `${y}-${m}-${d}`;
 }
 
-export default function FestivalCardList({ region, listType }: { region: RegionCode; listType: ListType }) {
+export default function FestivalCardList({
+    region,
+    startDate,
+    endDate,
+    listType,
+}: {
+    region: RegionCode;
+    startDate: string;
+    endDate: string;
+    listType: ListType;
+}) {
     const [sortOption, setSortOption] = useState<
         "date" | "distance" | "review_count"
     >("date");
@@ -36,7 +46,7 @@ export default function FestivalCardList({ region, listType }: { region: RegionC
     const [hasMore, setHasMore] = useState(true);
 
     const { favorites } = useFavoriteStore();
-    const { eventDate } = useEventDateStore();
+    // const { eventDate } = useEventDateStore();
     const { searchForm } = useInputValueStore();
 
     // distance 정렬 시 위치 정보 요청
@@ -67,8 +77,8 @@ export default function FestivalCardList({ region, listType }: { region: RegionC
             setHasMore(true);
 
             const params = new URLSearchParams({
-                eventStartDate: convertDateToDateString(eventDate[0]),
-                eventEndDate: convertDateToDateString(eventDate[1]),
+                eventStartDate: startDate,
+                eventEndDate: endDate,
                 areaCode: region,
                 keyword: searchForm,
                 sortBy: sortOption,
@@ -96,7 +106,15 @@ export default function FestivalCardList({ region, listType }: { region: RegionC
         }
 
         fetchSearchData();
-    }, [eventDate, region, searchForm, sortOption, userLocation, listType]);
+    }, [
+        startDate,
+        endDate,
+        region,
+        searchForm,
+        sortOption,
+        userLocation,
+        listType,
+    ]);
 
     // 찜 페이지 리스트
     useEffect(() => {
@@ -141,8 +159,8 @@ export default function FestivalCardList({ region, listType }: { region: RegionC
         setIsLoading(true);
 
         const params = new URLSearchParams({
-            eventStartDate: convertDateToDateString(eventDate[0]),
-            eventEndDate: convertDateToDateString(eventDate[1]),
+            eventStartDate: startDate,
+            eventEndDate: endDate,
             areaCode: region,
             keyword: searchForm,
             sortBy: sortOption,

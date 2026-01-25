@@ -6,6 +6,7 @@ import DateSelector from "./DateSelector/DateSelector";
 import RegionSelector from "./RegionSelector/RegionSelector";
 import SearchBar from "./SearchBar/SearchBar";
 import { REGION_CODES, RegionCode } from "../../../constants/regions";
+import { getToday } from "../../../lib/utils";
 
 export default function SearchContainer() {
     // 검색 지역
@@ -15,8 +16,8 @@ export default function SearchContainer() {
         startDate: string;
         endDate: string;
     }>({
-        startDate: "",
-        endDate: "",
+        startDate: getToday(),
+        endDate: getToday(),
     });
     // 검색 키워드
     const [keyword, setKeyword] = useState<string>("");
@@ -28,12 +29,21 @@ export default function SearchContainer() {
             </div>
 
             <div className="md:mt-[40px] mt-[30px] flex flex-col md:flex-row gap-[20px]">
-                <DateSelector />
+                <DateSelector
+                    startDate={selectedDate.startDate}
+                    endDate={selectedDate.endDate}
+                    setSelectedDate={setSelectedDate}
+                />
                 <SearchBar />
             </div>
 
             <div className="mt-[60px] min-h-[400px] md:min-h-[600px]">
-                <FestivalCardList region={region} listType="home" />
+                <FestivalCardList
+                    region={region}
+                    startDate={selectedDate.startDate}
+                    endDate={selectedDate.endDate}
+                    listType="home"
+                />
             </div>
         </div>
     );
