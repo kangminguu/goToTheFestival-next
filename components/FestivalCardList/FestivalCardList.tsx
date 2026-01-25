@@ -73,7 +73,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
                 areaCode: regionCode,
                 keyword: searchForm,
                 sortBy: sortOption,
-                limit: "12",
+                limit: "13", // 12 + 1개 더 가져와서 더보기 존재 여부 확인
                 offset: "0",
                 ...(sortOption === "distance" &&
                     userLocation && {
@@ -86,8 +86,8 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             const data = await res.json();
 
             const newList = data.festivalList || [];
-            setFestivalList(newList);
-            setHasMore(newList.length === 12); // 12개 미만이면 더 이상 없음
+            setFestivalList(newList.slice(0, 12)); // 12개까지만 표시
+            setHasMore(newList.length > 12); // 12개 이상이면 더 있다는 뜻
             setIsLoading(false);
         };
 
@@ -147,7 +147,7 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             areaCode: regionCode,
             keyword: searchForm,
             sortBy: sortOption,
-            limit: "12",
+            limit: "13",
             offset: festivalList.length.toString(), // 현재 개수만큼 offset
             ...(sortOption === "distance" &&
                 userLocation && {
@@ -160,9 +160,10 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
         const data = await res.json();
 
         const newData = data.festivalList || [];
+
         if (newData.length > 0) {
-            setFestivalList((prev) => [...prev, ...newData]); // 누적
-            setHasMore(newData.length === 12); // 12개 미만이면 마지막
+            setFestivalList((prev) => [...prev, ...newData.slice(0, 12)]); // 누적
+            setHasMore(newData.length > 12); // 12개 이상이면 더 있다는 뜻
         } else {
             setHasMore(false);
         }
