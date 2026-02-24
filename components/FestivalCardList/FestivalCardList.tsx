@@ -3,11 +3,7 @@
 import { useEffect, useState } from "react";
 import SortSelector from "./SortSelector";
 import FestivalCard from "../FestivalCard/FestivalCard";
-import {
-    useEventDateStore,
-    useFavoriteStore,
-    useInputValueStore,
-} from "../../stores";
+import { useFavoriteStore, useInputValueStore } from "../../stores";
 import FestivalCardSkeleton from "../FestivalCard/FestivalCardSkeleton";
 import Button from "../Button/Button";
 import EmptyCardList from "./EmptyCardList";
@@ -15,12 +11,15 @@ import { RegionCode } from "../../constants/regions";
 
 type ListType = "home" | "favorite";
 
-function convertDateToDateString(date: Date): string {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, "0");
-    const d = String(date.getDate()).padStart(2, "0");
-    return `${y}-${m}-${d}`;
-}
+const setIpLocation = async () => {
+    const response = await fetch("https://ipapi.co/json/");
+    const data = await response.json();
+
+    return {
+        lat: data.latitude,
+        lng: data.longitude,
+    };
+};
 
 export default function FestivalCardList({
     region,
@@ -46,24 +45,36 @@ export default function FestivalCardList({
     const [hasMore, setHasMore] = useState(true);
 
     const { favorites } = useFavoriteStore();
-    // const { eventDate } = useEventDateStore();
     const { searchForm } = useInputValueStore();
 
     // distance 정렬 시 위치 정보 요청
     useEffect(() => {
         if (sortOption === "distance") {
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    setUserLocation({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude,
-                    });
-                },
-                () => {
-                    alert("위치 정보를 허용해주세요");
-                    setSortOption("date");
-                },
-            );
+            const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                console.log("모바일에서 위치 정보 요청", navigator.userAgent);
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        setUserLocation({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        });
+                    },
+                    () => {
+                        alert("위치 정보를 허용해주세요");
+                        setSortOption("date");
+                    },
+                );
+            } else {
+                console.log(
+                    "PC에서 IP 기반 위치 정보 요청",
+                    navigator.userAgent,
+                );
+                setIpLocation().then((location) => {
+                    setUserLocation(location);
+                });
+            }
         }
     }, [sortOption]);
 
