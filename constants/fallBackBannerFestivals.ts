@@ -1,4 +1,4 @@
-import { BannerFestival } from "../app/(home)/components/Banner/type";
+import { BannerFestival } from "../lib/types/festival";
 
 export const FALLBACK_BANNER_FESTIVALS: BannerFestival[] = [
     {
