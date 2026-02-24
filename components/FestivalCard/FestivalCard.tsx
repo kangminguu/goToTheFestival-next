@@ -44,8 +44,8 @@ export default function FestivalCard({ festival }) {
             <div className="relative shrink-0 w-[125px] h-[125px] overflow-hidden rounded-[6px] md:w-full md:h-[190px]">
                 <Image
                     src={
-                        festival.firstimage ||
-                        festival.firstimage2 ||
+                        festival.first_image ||
+                        festival.first_image2 ||
                         "/assets/no_image.png"
                     }
                     alt={festival.title}
@@ -66,8 +66,8 @@ export default function FestivalCard({ festival }) {
                 {/* 태그, 제목 */}
                 <div className="flex flex-row gap-[8px] items-top h-[52px]">
                     <Tag
-                        eventStartDate={festival.eventstartdate}
-                        eventEndDate={festival.eventenddate}
+                        eventStartDate={festival.event_start}
+                        eventEndDate={festival.event_end}
                     />
 
                     <p className="line-clamp-2 break-words break-all text-[15px] md:text-[16px] h-fit">
@@ -82,8 +82,8 @@ export default function FestivalCard({ festival }) {
                     <Address address={festival.addr1} sizeType="card" />
 
                     <EventDate
-                        eventStartDate={festival.eventstartdate}
-                        eventEndDate={festival.eventenddate}
+                        eventStartDate={festival.event_start}
+                        eventEndDate={festival.event_end}
                         sizeType="card"
                     />
                 </div>

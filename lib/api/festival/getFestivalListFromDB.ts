@@ -3,19 +3,62 @@ import { createClient } from "../../utils/server";
 // 축제 리스트를 DB에서 가져오는 함수
 export async function getFestivalListFromDB(options: {
     sortBy?: "date" | "distance" | "review_count";
+    userLat?: number;
+    userLng?: number;
     limit?: number;
     offset?: number;
+    regionCode?: string;
+    eventStartDate?: string;
+    eventEndDate?: string;
+    keyword?: string;
 }) {
     const supabase = await createClient();
+
+    // distance 정렬 시 RPC 함수 사용
+    if (options.sortBy === "distance" && options.userLat && options.userLng) {
+        const { data, error } = await supabase.rpc(
+            "get_festivals_by_distance",
+            {
+                user_lat: options.userLat,
+                user_lng: options.userLng,
+                start_date: options.eventStartDate || "2010-01-01",
+                end_date: options.eventEndDate || "2050-12-31",
+                region: options.regionCode || "",
+                search_keyword: options.keyword || "",
+                limit_count: options.limit || 12,
+                offset_count: options.offset || 0,
+            },
+        );
+
+        if (error) {
+            console.error("RPC 조회 실패:", error);
+            return null;
+        }
+
+        return data;
+    }
 
     let query = supabase
         .from("festivals")
         .select(
-            "contentid, title, addr1, first_image, event_start, event_end, review_count, avg_rating"
+            "contentid, title, addr1, first_image, event_start, event_end, review_count, avg_rating",
         )
         .eq("deleted", false);
 
-    // 정렬 방식에 따라 다르게 처리
+    // 필터링
+    if (options.regionCode && options.regionCode !== "0") {
+        query = query.eq("areacode", options.regionCode);
+    }
+    if (options.eventStartDate && options.eventEndDate) {
+        query = query
+            .gte("event_end", options.eventStartDate)
+            .lte("event_start", options.eventEndDate);
+    }
+    if (options.keyword) {
+        query = query.ilike("title", `%${options.keyword}%`);
+    }
+
+    // 정렬
     if (options.sortBy === "date") {
         query = query.order("event_start", { ascending: true });
     } else if (options.sortBy === "review_count") {
@@ -23,13 +66,11 @@ export async function getFestivalListFromDB(options: {
     }
 
     // 페이징
-    if (options.limit) {
-        query = query.limit(options.limit);
-    }
-    if (options.offset) {
+    if (options.limit) query = query.limit(options.limit);
+    if (options.offset !== undefined) {
         query = query.range(
             options.offset,
-            options.offset + (options.limit || 12) - 1
+            options.offset + (options.limit || 12) - 1,
         );
     }
 
@@ -61,11 +102,9 @@ export async function getBannerFestivalListFromDB(options: {
         .from("festivals")
         .select("contentid, title, addr1, first_image, event_start, event_end") // 축제 id, 제목, 주소, 대표이미지, 시작일, 종료일
         .eq("deleted", false)
-        // 이번 달에 시작하는 축제 중, 아직 종료되지 않은 축제
         .gte("event_start", monthStart.toISOString().split("T")[0])
         .lte("event_start", monthEnd.toISOString().split("T")[0])
         .gte("event_end", now.toISOString().split("T")[0])
-        // 이미지 필수 (null/빈 문자열 제외)
         .not("first_image", "is", null)
         .not("first_image", "eq", "");
 

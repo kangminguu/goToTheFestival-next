@@ -5,18 +5,23 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "../../../../styles/regionSelector.swiper.css";
 
-import { REGION_LIST } from "../../../../constants/regions";
+import { REGION_LIST, RegionCode } from "../../../../constants/regions";
 import RegionButton from "./RegionButton";
-import { useRegionStore } from "../../../../stores/index";
+
+interface RegionSelectorProps {
+    region: RegionCode;
+    setRegion: (region: RegionCode) => void;
+}
 
 /**
  * 축제 검색 시 지역을 설정하는 컴포넌트입니다.
  * @returns RegionSelector
  */
-export default function RegionSelector() {
-    const regions = REGION_LIST;
-
-    const { regionCode, setRegionCode } = useRegionStore();
+export default function RegionSelector({
+    region,
+    setRegion,
+}: RegionSelectorProps) {
+    const regions = REGION_LIST; // 지역 목록
 
     return (
         <Swiper
@@ -28,8 +33,10 @@ export default function RegionSelector() {
                 <SwiperSlide key={rnum}>
                     <RegionButton
                         region={name}
-                        isSelect={regionCode === code}
-                        onClick={() => setRegionCode(code)}
+                        isSelect={region === code}
+                        onClick={() => {
+                            setRegion(code);
+                        }}
                     />
                 </SwiperSlide>
             ))}

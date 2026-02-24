@@ -1,6 +1,6 @@
 interface SortSelectorProps {
-    sortOption: "date" | "distance";
-    setSortOption: (option: "date" | "distance") => void;
+    sortOption: "date" | "distance" | "review_count";
+    setSortOption: (option: "date" | "distance" | "review_count") => void;
 }
 
 export default function SortSelector({
@@ -31,6 +31,19 @@ export default function SortSelector({
                 }`}
             >
                 거리순
+            </button>
+
+            <span className="text-border-base">|</span>
+
+            <button
+                onClick={() => setSortOption("review_count")}
+                className={`${
+                    sortOption === "review_count"
+                        ? "text-font-highlight"
+                        : "text-font-secondary"
+                }`}
+            >
+                리뷰순
             </button>
         </div>
     );

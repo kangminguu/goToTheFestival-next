@@ -1,11 +1,8 @@
 import Banner from "./components/Banner/Banner";
-import RegionSelector from "./components/RegionSelector/RegionSelector";
-import DateSelector from "./components/DateSelector/DateSelector";
-import SearchBar from "./components/SearchBar/SearchBar";
-import FestivalCardList from "../../components/FestivalCardList/FestivalCardList";
 import BackToTopButton from "../../components/BackToTopButton/BackToTopButton";
 import { getBannerFestivalListFromDB } from "../../lib/api/festival/getFestivalListFromDB";
 import { FALLBACK_BANNER_FESTIVALS } from "../../constants/fallBackBannerFestivals";
+import SearchContainer from "./components/SearchContainer";
 
 export function generateMetadata() {
     return {
@@ -49,20 +46,7 @@ export default async function Page() {
         <>
             <Banner festivalList={festivalList} currentMonth={currentMonth} />
 
-            <div className="min-max-padding">
-                <div className="md:mt-[40px] mt-[30px]">
-                    <RegionSelector />
-                </div>
-
-                <div className="md:mt-[40px] mt-[30px] flex flex-col md:flex-row gap-[20px]">
-                    <DateSelector />
-                    <SearchBar />
-                </div>
-
-                <div className="mt-[60px] min-h-[400px] md:min-h-[600px]">
-                    <FestivalCardList listType="home" />
-                </div>
-            </div>
+            <SearchContainer />
 
             <BackToTopButton />
         </>

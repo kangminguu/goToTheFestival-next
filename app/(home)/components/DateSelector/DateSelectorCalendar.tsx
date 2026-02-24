@@ -2,26 +2,35 @@ import Calendar from "react-calendar";
 import "../../../../styles/calendar.custom.css";
 
 import { useEventDateStore } from "../../../../stores/index";
-import { convertSelectedDateText } from "./utils";
-import { getToday, convertYYYYMMDDToDate } from "../../../../lib/utils";
+import {
+    getToday,
+    convertStringDateToDate,
+    convertDateToShowFormat,
+} from "../../../../lib/utils";
 import Button from "../../../../components/Button/Button";
 import { useEffect, useRef } from "react";
 
 interface DateSelectorCalendarProps {
     close: () => void;
+    startDate: string;
+    endDate: string;
+    setSelectedDate: (dateRange: {
+        startDate: string;
+        endDate: string;
+    }) => void;
 }
 
 const thisYear = new Date().getFullYear(); // 올해 년도
 
 const PERIODS = {
-    full: ["20100101", "20501231"], // 전체기간
-    lastYear: [`${thisYear - 1}0101`, `${thisYear - 1}1231`], // 작년
-    thisYear: [`${thisYear}0101`, `${thisYear}1231`], // 올해
-    nextYear: [`${thisYear + 1}0101`, `${thisYear + 1}1231`], // 내년
+    full: ["2010-01-01", "2050-12-31"], // 전체기간
+    lastYear: [`${thisYear - 1}-01-01`, `${thisYear - 1}-12-31`], // 작년
+    thisYear: [`${thisYear}-01-01`, `${thisYear}-12-31`], // 올해
+    nextYear: [`${thisYear + 1}-01-01`, `${thisYear + 1}-12-31`], // 내년
     today: [getToday(), getToday()], // 오늘
 };
 
-const getConvertedPeriod = (key) => PERIODS[key].map(convertYYYYMMDDToDate);
+const getConvertedPeriod = (key) => PERIODS[key].map(convertStringDateToDate);
 
 /**
  * @param 클릭 이벤트 : 닫힘 상태로 변경
@@ -29,8 +38,11 @@ const getConvertedPeriod = (key) => PERIODS[key].map(convertYYYYMMDDToDate);
  */
 export default function DateSelectorCalendar({
     close,
+    startDate,
+    endDate,
+    setSelectedDate,
 }: DateSelectorCalendarProps) {
-    const { eventDate, setEventDate } = useEventDateStore();
+    // const { eventDate, setEventDate } = useEventDateStore();
     const ref = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -51,7 +63,10 @@ export default function DateSelectorCalendar({
 
     // 기간 간편 선택 클릭 이벤트
     const handleSetPeriod = (key) => {
-        setEventDate(getConvertedPeriod(key));
+        setSelectedDate({
+            startDate: PERIODS[key][0],
+            endDate: PERIODS[key][1],
+        });
     };
 
     return (
@@ -66,9 +81,9 @@ export default function DateSelectorCalendar({
                     />
 
                     <span className="font-semibold text-[15px]">
-                        {`${convertSelectedDateText(
-                            eventDate[0]
-                        )} ~ ${convertSelectedDateText(eventDate[1])}`}
+                        {`${convertDateToShowFormat(
+                            convertStringDateToDate(startDate),
+                        )} ~ ${convertDateToShowFormat(convertStringDateToDate(endDate))}`}
                     </span>
                 </div>
 
@@ -76,7 +91,10 @@ export default function DateSelectorCalendar({
                 <Calendar
                     onChange={(value) => {
                         if (Array.isArray(value)) {
-                            setEventDate(value);
+                            setSelectedDate({
+                                startDate: value[0].toISOString().split("T")[0],
+                                endDate: value[1].toISOString().split("T")[0],
+                            });
                         }
                     }}
                     selectRange
@@ -110,7 +128,10 @@ export default function DateSelectorCalendar({
                             className="w-[24px]"
                         />
                     }
-                    value={eventDate}
+                    value={[
+                        convertStringDateToDate(startDate),
+                        convertStringDateToDate(endDate),
+                    ]}
                 />
 
                 {/* 빠른 기간 선택 버튼 */}

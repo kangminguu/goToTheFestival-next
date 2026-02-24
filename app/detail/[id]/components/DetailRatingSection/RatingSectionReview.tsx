@@ -4,7 +4,7 @@ import {
     convertYYYYMMDDToDate,
     getToday,
 } from "../../../../../lib/utils";
-import getDifferenceDates from "../../../../../lib/utils/getDifferenceDates";
+import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
 
 export default function RatingSectionReview({
     userName,

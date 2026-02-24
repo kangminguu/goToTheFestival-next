@@ -3,84 +3,129 @@
 import { useEffect, useState } from "react";
 import SortSelector from "./SortSelector";
 import FestivalCard from "../FestivalCard/FestivalCard";
-import { convertDateToYYYYMMDD } from "../../lib/utils";
-import {
-    useEventDateStore,
-    useFavoriteStore,
-    useInputValueStore,
-    useRegionStore,
-} from "../../stores";
+import { useFavoriteStore, useInputValueStore } from "../../stores";
 import FestivalCardSkeleton from "../FestivalCard/FestivalCardSkeleton";
-import { sortByDate, sortByDistance } from "./utils";
 import Button from "../Button/Button";
 import EmptyCardList from "./EmptyCardList";
+import { RegionCode } from "../../constants/regions";
 
 type ListType = "home" | "favorite";
 
-export default function FestivalCardList({ listType }: { listType: ListType }) {
-    const [sortOption, setSortOption] = useState<"date" | "distance">("date");
+const setIpLocation = async () => {
+    const response = await fetch("https://ipapi.co/json/");
+    const data = await response.json();
+
+    return {
+        lat: data.latitude,
+        lng: data.longitude,
+    };
+};
+
+export default function FestivalCardList({
+    region,
+    startDate,
+    endDate,
+    listType,
+}: {
+    region: RegionCode;
+    startDate: string;
+    endDate: string;
+    listType: ListType;
+}) {
+    const [sortOption, setSortOption] = useState<
+        "date" | "distance" | "review_count"
+    >("date");
+    const [userLocation, setUserLocation] = useState<{
+        lat: number;
+        lng: number;
+    } | null>(null);
 
     const [festivalList, setFestivalList] = useState<any[]>([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [page, setPage] = useState(12);
-    const [showList, setShowList] = useState<any[]>([]);
-    const [totalCount, setTotalCount] = useState(0);
+    const [hasMore, setHasMore] = useState(true);
 
     const { favorites } = useFavoriteStore();
-    const { regionCode } = useRegionStore();
-    const { eventDate } = useEventDateStore();
     const { searchForm } = useInputValueStore();
 
-    // 축제 리스트 상태와 정렬
-    const updateFestivalList = async (list: any[]) => {
-        if (!list || list.length === 0) {
-            setFestivalList([]);
-            setShowList([]);
-            setTotalCount(0);
-            setPage(12);
-            setIsLoading(false);
-            return;
+    // distance 정렬 시 위치 정보 요청
+    useEffect(() => {
+        if (sortOption === "distance") {
+            const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+
+            if (isMobile) {
+                console.log("모바일에서 위치 정보 요청", navigator.userAgent);
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        setUserLocation({
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        });
+                    },
+                    () => {
+                        alert("위치 정보를 허용해주세요");
+                        setSortOption("date");
+                    },
+                );
+            } else {
+                console.log(
+                    "PC에서 IP 기반 위치 정보 요청",
+                    navigator.userAgent,
+                );
+                setIpLocation().then((location) => {
+                    setUserLocation(location);
+                });
+            }
         }
+    }, [sortOption]);
 
-        const sortedList =
-            sortOption === "date"
-                ? sortByDate(list)
-                : await sortByDistance(list);
-
-        setFestivalList(sortedList);
-        setTotalCount(sortedList.length);
-        setShowList(sortedList.slice(0, 12));
-        setPage(12);
-        setIsLoading(false);
-    };
-
-    // 메인페이지 검색 리스트
+    // 메인페이지 검색 리스트 - DB에서 가져오기
     useEffect(() => {
         if (listType !== "home") return;
 
         const fetchSearchData = async () => {
             setIsLoading(true);
-
-            const eventStartDate = convertDateToYYYYMMDD(eventDate[0]);
-            const eventEndDate = convertDateToYYYYMMDD(eventDate[1]);
+            setFestivalList([]); // 초기화
+            setHasMore(true);
 
             const params = new URLSearchParams({
-                pageNo: "1",
-                numOfRows: "10000",
-                eventStartDate,
-                eventEndDate,
-                areaCode: regionCode,
+                eventStartDate: startDate,
+                eventEndDate: endDate,
+                areaCode: region,
                 keyword: searchForm,
+                sortBy: sortOption,
+                limit: "13", // 12 + 1개 더 가져와서 더보기 존재 여부 확인
+                offset: "0",
+                ...(sortOption === "distance" &&
+                    userLocation && {
+                        userLat: userLocation.lat.toString(),
+                        userLng: userLocation.lng.toString(),
+                    }),
             });
 
             const res = await fetch(`/api/festivalList?${params.toString()}`);
             const data = await res.json();
 
-            await updateFestivalList(data.festivalList || []);
+            const newList = data.festivalList || [];
+            setFestivalList(newList.slice(0, 12)); // 12개까지만 표시
+            setHasMore(newList.length > 12); // 12개 이상이면 더 있다는 뜻
+            setIsLoading(false);
         };
 
+        // distance 정렬인데 위치정보가 없으면 대기
+        if (sortOption === "distance" && !userLocation) {
+            return;
+        }
+
         fetchSearchData();
-    }, [eventDate, regionCode, searchForm]);
+    }, [
+        startDate,
+        endDate,
+        region,
+        searchForm,
+        sortOption,
+        userLocation,
+        listType,
+    ]);
 
     // 찜 페이지 리스트
     useEffect(() => {
@@ -88,16 +133,19 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
 
         const fetchFavoriteData = async () => {
             setIsLoading(true);
+            setFestivalList([]);
+            setHasMore(false); // 찜은 전체 로드
 
             if (favorites.length === 0) {
-                await updateFestivalList([]);
+                setIsLoading(false);
                 return;
             }
 
             const params = new URLSearchParams({
-                pageNo: "1",
-                numOfRows: "10000",
-                eventStartDate: "20000101",
+                eventStartDate: "2000-01-01",
+                eventEndDate: "2050-12-31",
+                limit: "10000",
+                offset: "0",
             });
 
             const res = await fetch(`/api/festivalList?${params.toString()}`);
@@ -105,31 +153,51 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
 
             const favoriteSet = new Set(favorites);
             const filteredFavorites = (data.festivalList || []).filter((obj) =>
-                favoriteSet.has(obj.contentid)
+                favoriteSet.has(obj.contentid),
             );
 
-            await updateFestivalList(filteredFavorites || []);
+            setFestivalList(filteredFavorites);
+            setIsLoading(false);
         };
 
         fetchFavoriteData();
     }, [favorites]);
 
-    // 정렬 옵션 변경 시 정렬 재적용
-    useEffect(() => {
-        const sortList = async () => {
-            if (festivalList.length === 0) return;
+    // 더 보기 함수
+    const loadMore = async () => {
+        if (listType !== "home" || !hasMore || isLoading) return;
 
-            setIsLoading(true);
-            await updateFestivalList(festivalList);
-        };
+        setIsLoading(true);
 
-        sortList();
-    }, [sortOption]);
+        const params = new URLSearchParams({
+            eventStartDate: startDate,
+            eventEndDate: endDate,
+            areaCode: region,
+            keyword: searchForm,
+            sortBy: sortOption,
+            limit: "13",
+            offset: festivalList.length.toString(), // 현재 개수만큼 offset
+            ...(sortOption === "distance" &&
+                userLocation && {
+                    userLat: userLocation.lat.toString(),
+                    userLng: userLocation.lng.toString(),
+                }),
+        });
 
-    // 페이지 변경 시 보여주는 리스트 갱신
-    useEffect(() => {
-        setShowList(festivalList.slice(0, page));
-    }, [page]);
+        const res = await fetch(`/api/festivalList?${params.toString()}`);
+        const data = await res.json();
+
+        const newData = data.festivalList || [];
+
+        if (newData.length > 0) {
+            setFestivalList((prev) => [...prev, ...newData.slice(0, 12)]); // 누적
+            setHasMore(newData.length > 12); // 12개 이상이면 더 있다는 뜻
+        } else {
+            setHasMore(false);
+        }
+
+        setIsLoading(false);
+    };
 
     return (
         <div className="flex flex-col gap-[15px]">
@@ -139,11 +207,11 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
             />
 
             <div className="w-full flex flex-wrap gap-[10px] lg:grid lg:grid-cols-4 md:grid md:grid-cols-3">
-                {isLoading
-                    ? Array.from({ length: page }).map((_, index) => (
+                {isLoading && festivalList.length === 0
+                    ? Array.from({ length: 12 }).map((_, index) => (
                           <FestivalCardSkeleton key={index} />
                       ))
-                    : showList.map((festival) => (
+                    : festivalList.map((festival) => (
                           <FestivalCard
                               key={festival.contentid}
                               festival={festival}
@@ -151,24 +219,17 @@ export default function FestivalCardList({ listType }: { listType: ListType }) {
                       ))}
             </div>
 
-            {!isLoading && totalCount === 0 && (
+            {!isLoading && festivalList.length === 0 && (
                 <EmptyCardList listType={listType} />
             )}
 
             <div className="w-full row-center justify-center mt-[20px] mb-[60px]">
-                {page !== totalCount ? (
-                    page / 12 !== Math.floor(totalCount / 12 + 1) ? (
-                        <Button
-                            onClick={() => setPage(page + 12)}
-                            title={`더 보기 ${page / 12} / ${Math.floor(
-                                totalCount % 12 === 0
-                                    ? totalCount / 12
-                                    : totalCount / 12 + 1
-                            )}`}
-                            isBorder
-                        />
-                    ) : null
-                ) : null}
+                {listType === "home" && hasMore && !isLoading && (
+                    <Button onClick={loadMore} title={`더 보기`} isBorder />
+                )}
+                {isLoading && festivalList.length > 0 && (
+                    <div className="text-font-secondary">로딩 중...</div>
+                )}
             </div>
         </div>
     );

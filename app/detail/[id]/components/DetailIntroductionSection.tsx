@@ -51,14 +51,15 @@ export default function DetailIntroductionSection({
     };
 
     // 홈페이지 링크
-    const homepageLink =
-        homepage !== ""
-            ? homepage
-                  .split(" ")
-                  .filter((a) => a.includes("href"))[0]
-                  .replace("href=", "")
-                  .replace(/["']/g, "")
-            : "";
+    const homepageLink = homepage.includes("href")
+        ? homepage
+              .split(" ")
+              .filter((a) => a.includes("href"))[0]
+              .replace("href=", "")
+              .replace(/["']/g, "")
+        : homepage;
+
+    console.log(homepageLink);
 
     return (
         <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">

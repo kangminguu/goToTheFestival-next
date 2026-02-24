@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
-import { BannerFestival } from "./type";
+import { BannerFestival } from "../../../../lib/types/festival";
 
 export default function BannerCard({
     festival,
