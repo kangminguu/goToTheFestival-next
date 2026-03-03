@@ -1,7 +1,5 @@
 import Calendar from "react-calendar";
 import "../../../../styles/calendar.custom.css";
-
-import { useEventDateStore } from "../../../../stores/index";
 import {
     getToday,
     convertStringDateToDate,
@@ -30,7 +28,7 @@ const PERIODS = {
     today: [getToday(), getToday()], // 오늘
 };
 
-const getConvertedPeriod = (key) => PERIODS[key].map(convertStringDateToDate);
+// const getConvertedPeriod = (key) => PERIODS[key].map(convertStringDateToDate);
 
 /**
  * @param 클릭 이벤트 : 닫힘 상태로 변경
@@ -62,7 +60,7 @@ export default function DateSelectorCalendar({
     }, [close]);
 
     // 기간 간편 선택 클릭 이벤트
-    const handleSetPeriod = (key) => {
+    const handleSetPeriod = (key: keyof typeof PERIODS) => {
         setSelectedDate({
             startDate: PERIODS[key][0],
             endDate: PERIODS[key][1],
@@ -92,8 +90,10 @@ export default function DateSelectorCalendar({
                     onChange={(value) => {
                         if (Array.isArray(value)) {
                             setSelectedDate({
-                                startDate: value[0].toISOString().split("T")[0],
-                                endDate: value[1].toISOString().split("T")[0],
+                                startDate: value[0]!
+                                    .toISOString()
+                                    .split("T")[0],
+                                endDate: value[1]!.toISOString().split("T")[0],
                             });
                         }
                     }}

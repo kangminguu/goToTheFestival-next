@@ -2,8 +2,6 @@ import {
     convertDateToShowFormat,
     convertStringDateToDate,
 } from "../../../../lib/utils";
-import { useEventDateStore } from "../../../../stores/index";
-import { convertSelectedDateText } from "./utils";
 
 interface DateSelectorButtonProps {
     open: () => void;
