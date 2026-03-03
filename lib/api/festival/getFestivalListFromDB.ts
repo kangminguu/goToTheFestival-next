@@ -104,7 +104,7 @@ export async function getBannerFestivalListFromDB(options: {
         .eq("deleted", false)
         .gte("event_start", monthStart.toISOString().split("T")[0])
         .lte("event_start", monthEnd.toISOString().split("T")[0])
-        .gte("event_end", now.toISOString().split("T")[0])
+        // .gte("event_end", now.toISOString().split("T")[0])
         .not("first_image", "is", null)
         .not("first_image", "eq", "");
 
