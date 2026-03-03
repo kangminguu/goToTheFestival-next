@@ -6,7 +6,7 @@ import DateSelector from "./DateSelector/DateSelector";
 import RegionSelector from "./RegionSelector/RegionSelector";
 import SearchBar from "./SearchBar/SearchBar";
 import { REGION_CODES, RegionCode } from "../../../constants/regions";
-import { getToday } from "../../../lib/utils";
+import { getLastDayOfMonth, getToday } from "../../../lib/utils";
 
 export default function SearchContainer() {
     // 검색 지역
@@ -17,10 +17,8 @@ export default function SearchContainer() {
         endDate: string;
     }>({
         startDate: getToday(),
-        endDate: getToday(),
+        endDate: getLastDayOfMonth(),
     });
-    // 검색 키워드
-    const [keyword, setKeyword] = useState<string>("");
 
     return (
         <div className="min-max-padding">
