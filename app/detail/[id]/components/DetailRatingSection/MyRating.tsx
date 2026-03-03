@@ -23,7 +23,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
     const today = convertYYYYMMDDToDate(getToday());
     // 작성일
     const createdDate = convertYYYYMMDDToDate(
-        userRating.created_at.split("T")[0].split("-").join("")
+        userRating.created_at.split("T")[0].split("-").join(""),
     );
     // 작성 경과 시간
     const lastDate = getDifferenceDates(createdDate, today);
@@ -38,7 +38,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
         displayDate = "일주일 전";
     } else {
         displayDate = convertToDotDateFormat(
-            userRating.created_at.split("T")[0].split("-").join("")
+            userRating.created_at.split("T")[0].split("-").join(""),
         );
     }
 
@@ -75,10 +75,10 @@ export default function MyRating({ userRating, setUserRating, title }) {
                     alertOpen("작성하신 후기가 삭제되었습니다.");
                 } else {
                     alertOpen(
-                        "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요."
+                        "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
-            }
+            },
         );
     };
 
@@ -128,12 +128,12 @@ export default function MyRating({ userRating, setUserRating, title }) {
                     alertOpen("후기를 수정하였습니다.");
                 } else {
                     alertOpen(
-                        "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요."
+                        "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
             },
             userRating.rating,
-            userRating.content
+            userRating.content,
         );
     };
 
