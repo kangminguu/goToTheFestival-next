@@ -1,7 +1,7 @@
 import Rating from "../../../../../components/Rating/Rating";
 import {
+    convertStringDateToDate,
     convertToDotDateFormat,
-    convertYYYYMMDDToDate,
     getToday,
 } from "../../../../../lib/utils";
 import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
@@ -11,12 +11,17 @@ export default function RatingSectionReview({
     rating,
     content,
     created_at,
+}: {
+    userName: string;
+    rating: number;
+    content: string;
+    created_at: string;
 }) {
     // 오늘
-    const today = convertYYYYMMDDToDate(getToday());
+    const today = convertStringDateToDate(getToday());
     // 작성일
-    const createdDate = convertYYYYMMDDToDate(
-        created_at.split("T")[0].split("-").join("")
+    const createdDate = convertStringDateToDate(
+        created_at.split("T")[0].split("-").join(""),
     );
     // 작성 경과 시간
     const lastDate = getDifferenceDates(createdDate, today);
@@ -31,7 +36,7 @@ export default function RatingSectionReview({
         displayDate = "일주일 전";
     } else {
         displayDate = convertToDotDateFormat(
-            created_at.split("T")[0].split("-").join("")
+            created_at.split("T")[0].split("-").join(""),
         );
     }
 

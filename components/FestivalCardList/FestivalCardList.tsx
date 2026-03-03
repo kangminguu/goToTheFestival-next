@@ -22,14 +22,14 @@ const setIpLocation = async () => {
 };
 
 export default function FestivalCardList({
-    region,
-    startDate,
-    endDate,
+    region = "",
+    startDate = "2000-01-01",
+    endDate = "2050-12-31",
     listType,
 }: {
-    region: RegionCode;
-    startDate: string;
-    endDate: string;
+    region?: RegionCode;
+    startDate?: string;
+    endDate?: string;
     listType: ListType;
 }) {
     const [sortOption, setSortOption] = useState<
@@ -53,7 +53,6 @@ export default function FestivalCardList({
             const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
 
             if (isMobile) {
-                console.log("모바일에서 위치 정보 요청", navigator.userAgent);
                 navigator.geolocation.getCurrentPosition(
                     (position) => {
                         setUserLocation({
@@ -67,10 +66,6 @@ export default function FestivalCardList({
                     },
                 );
             } else {
-                console.log(
-                    "PC에서 IP 기반 위치 정보 요청",
-                    navigator.userAgent,
-                );
                 setIpLocation().then((location) => {
                     setUserLocation(location);
                 });
@@ -152,8 +147,8 @@ export default function FestivalCardList({
             const data = await res.json();
 
             const favoriteSet = new Set(favorites);
-            const filteredFavorites = (data.festivalList || []).filter((obj) =>
-                favoriteSet.has(obj.contentid),
+            const filteredFavorites = (data.festivalList || []).filter(
+                (obj: { contentid: string }) => favoriteSet.has(obj.contentid),
             );
 
             setFestivalList(filteredFavorites);

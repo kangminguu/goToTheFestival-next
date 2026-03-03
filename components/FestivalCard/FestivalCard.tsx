@@ -5,34 +5,21 @@ import EventDate from "../EventDate/EventDate";
 import Link from "next/link";
 import Rating from "../Rating/Rating";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
-import { useEffect, useState } from "react";
-import { createClient } from "../../lib/utils/client";
 
-export default function FestivalCard({ festival }) {
-    const [rating, setRating] = useState(0);
-    const supabase = createClient();
-
-    // supabase festival_ratings테이블에서 평점 가져오기
-    useEffect(() => {
-        async function fetchRating() {
-            const { data, error } = await supabase
-                .from("festival_ratings")
-                .select("avg_rating")
-                .eq("festival_id", festival.contentid)
-                .maybeSingle();
-
-            if (error) {
-                console.error(error);
-                setRating(0);
-                return;
-            }
-
-            setRating(data?.avg_rating ?? 0);
-        }
-
-        fetchRating();
-    }, [festival.contentid, supabase]);
-
+export default function FestivalCard({
+    festival,
+}: {
+    festival: {
+        contentid: string;
+        title: string;
+        addr1: string;
+        first_image: string;
+        first_image2?: string;
+        event_start: string;
+        event_end: string;
+        avg_rating: number;
+    };
+}) {
     return (
         <Link
             href={`/detail/${festival.contentid}`}
@@ -77,7 +64,7 @@ export default function FestivalCard({ festival }) {
 
                 {/* 평점, 위치, 기간 */}
                 <div className="flex flex-col md:gap-[8px] gap-[5px]">
-                    <Rating rating={rating} />
+                    <Rating rating={festival.avg_rating} />
 
                     <Address address={festival.addr1} sizeType="card" />
 
