@@ -2,7 +2,7 @@ import { useRouter } from "next/navigation";
 import Rating from "../../../../../components/Rating/Rating";
 import {
     convertToDotDateFormat,
-    convertYYYYMMDDToDate,
+    convertStringDateToDate,
     getToday,
 } from "../../../../../lib/utils";
 import { createClient } from "../../../../../lib/utils/client";
@@ -20,9 +20,9 @@ export default function MyRating({ userRating, setUserRating, title }) {
     const router = useRouter();
 
     // 오늘
-    const today = convertYYYYMMDDToDate(getToday());
+    const today = convertStringDateToDate(getToday());
     // 작성일
-    const createdDate = convertYYYYMMDDToDate(
+    const createdDate = convertStringDateToDate(
         userRating.created_at.split("T")[0].split("-").join(""),
     );
     // 작성 경과 시간
