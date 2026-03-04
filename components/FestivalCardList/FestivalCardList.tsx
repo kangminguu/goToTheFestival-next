@@ -50,26 +50,29 @@ export default function FestivalCardList({
     // distance 정렬 시 위치 정보 요청
     useEffect(() => {
         if (sortOption === "distance") {
-            const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
+            // const isMobile = /iPhone|iPad|Android/i.test(navigator.userAgent);
 
-            if (isMobile) {
-                navigator.geolocation.getCurrentPosition(
-                    (position) => {
-                        setUserLocation({
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude,
-                        });
-                    },
-                    () => {
-                        alert("위치 정보를 허용해주세요");
-                        setSortOption("date");
-                    },
-                );
-            } else {
-                setIpLocation().then((location) => {
-                    setUserLocation(location);
-                });
-            }
+            // if (isMobile) {
+            //     navigator.geolocation.getCurrentPosition(
+            //         (position) => {
+            //             setUserLocation({
+            //                 lat: position.coords.latitude,
+            //                 lng: position.coords.longitude,
+            //             });
+            //         },
+            //         () => {
+            //             alert("위치 정보를 허용해주세요");
+            //             setSortOption("date");
+            //         },
+            //     );
+            // } else {
+            //     setIpLocation().then((location) => {
+            //         setUserLocation(location);
+            //     });
+            // }
+            setIpLocation().then((location) => {
+                setUserLocation(location);
+            });
         }
     }, [sortOption]);
 
