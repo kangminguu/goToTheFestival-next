@@ -4,7 +4,7 @@ import Address from "../../../../components/Address/Address";
 import Button from "../../../../components/Button/Button";
 import EventDate from "../../../../components/EventDate/EventDate";
 import ReadMore from "../../../../components/ReadMore/ReadMore";
-import { convertBr } from "../../../../lib/utils";
+import { convertBr, convertToDashDateFormat } from "../../../../lib/utils";
 import { useAlertStore } from "../../../../stores/useAlertStore";
 import IconIntroduction from "./IconIntroduction";
 
@@ -30,7 +30,7 @@ export default function DetailIntroductionSection({
     homepage = "",
     info_1 = "",
     info_2 = "",
-}) {
+}: DetailIntroductionSectionProps) {
     const { open, close } = useAlertStore();
 
     const handleCopy = async () => {
@@ -45,7 +45,7 @@ export default function DetailIntroductionSection({
     };
 
     const handleMoveScrollToLocation = () => {
-        document.getElementById("location-section").scrollIntoView({
+        document.getElementById("location-section")!.scrollIntoView({
             behavior: "smooth",
         });
     };
@@ -77,8 +77,8 @@ export default function DetailIntroductionSection({
 
                 {/* 기간 */}
                 <EventDate
-                    eventStartDate={eventStartDate}
-                    eventEndDate={eventEndDate}
+                    eventStartDate={convertToDashDateFormat(eventStartDate)}
+                    eventEndDate={convertToDashDateFormat(eventEndDate)}
                     sizeType="detailPage"
                 />
 

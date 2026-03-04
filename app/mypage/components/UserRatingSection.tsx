@@ -1,9 +1,9 @@
 import { getFestivalCommon } from "../../../lib/api/festival";
 import UserReviewList from "./UserReview/UserReviewList";
 
-export default async function UserRatingSection({ reviews }) {
+export default async function UserRatingSection({ reviews }: any) {
     const userReviews = await Promise.all(
-        reviews.map(async (review) => {
+        reviews.map(async (review: any) => {
             const festivalCommon = await getFestivalCommon(review.festival_id);
 
             // 축제 제목을 추가해서 리뷰를 리턴
@@ -14,7 +14,7 @@ export default async function UserRatingSection({ reviews }) {
                 content: review.content,
                 contentId: review.festival_id,
             };
-        })
+        }),
     );
 
     return (

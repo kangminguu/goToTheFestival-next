@@ -1,22 +1,27 @@
 import Rating from "../../../../../components/Rating/Rating";
 import {
+    convertStringDateToDate,
     convertToDotDateFormat,
-    convertYYYYMMDDToDate,
     getToday,
 } from "../../../../../lib/utils";
-import getDifferenceDates from "../../../../../lib/utils/getDifferenceDates";
+import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
 
 export default function RatingSectionReview({
     userName,
     rating,
     content,
     created_at,
+}: {
+    userName: string;
+    rating: number;
+    content: string;
+    created_at: string;
 }) {
     // 오늘
-    const today = convertYYYYMMDDToDate(getToday());
+    const today = convertStringDateToDate(getToday());
     // 작성일
-    const createdDate = convertYYYYMMDDToDate(
-        created_at.split("T")[0].split("-").join("")
+    const createdDate = convertStringDateToDate(
+        created_at.split("T")[0].split("-").join(""),
     );
     // 작성 경과 시간
     const lastDate = getDifferenceDates(createdDate, today);
@@ -31,9 +36,13 @@ export default function RatingSectionReview({
         displayDate = "일주일 전";
     } else {
         displayDate = convertToDotDateFormat(
-            created_at.split("T")[0].split("-").join("")
+            created_at.split("T")[0].split("-").join(""),
         );
     }
+
+    const displayUserName = userName
+        ? `${userName.slice(0, 3)}****${userName.slice(-2)}`
+        : "사용자";
 
     return (
         <div className="flex flex-col gap-[10px] md:gap-[15px]">
@@ -43,7 +52,7 @@ export default function RatingSectionReview({
                 <div className="row-center gap-[4px] md:gap-[10px]">
                     {/* 사용자 이름 */}
                     <span className="text-[14px] md:text-[16px]">
-                        {userName ? userName : "사용자"}
+                        {displayUserName}
                     </span>
                     {/* 평점 */}
                     <Rating rating={rating} sizeType="ratingSection" />

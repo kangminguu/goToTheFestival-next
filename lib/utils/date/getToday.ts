@@ -1,6 +1,6 @@
 /**
  * getToday
- * @returns YYYYMMDD 형식으로 오늘 날짜를 반환합니다. (KST 기준)
+ * @returns YYYY-MM-DD 형식으로 오늘 날짜를 반환합니다. (KST 기준)
  */
 export default function getToday(): string {
     const now = new Date();
@@ -16,5 +16,5 @@ export default function getToday(): string {
         .replace(/\. /g, "-")
         .replace(".", "")
         .split("-");
-    return `${year}${month}${day}`;
+    return `${year}-${month}-${day}`;
 }

@@ -12,7 +12,7 @@ type FavoriteStore = {
 export const useFavoriteStore = create<FavoriteStore>()(
     persist(
         (set) => ({
-            favorites: [],
+            favorites: [] as string[],
             clickFavorite: (contentId) =>
                 set((state) => ({
                     favorites: state.favorites.includes(contentId)
@@ -23,6 +23,6 @@ export const useFavoriteStore = create<FavoriteStore>()(
         {
             name: "favorites",
             storage: createJSONStorage(() => localStorage),
-        }
-    )
+        },
+    ),
 );

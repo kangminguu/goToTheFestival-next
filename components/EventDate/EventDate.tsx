@@ -1,5 +1,3 @@
-import { convertToDotDateFormat } from "../../lib/utils";
-
 type EventDateSizeType = "banner" | "card" | "detailPage";
 
 interface EventDateProps {
@@ -35,9 +33,11 @@ export default function EventDate({
     sizeType,
 }: EventDateProps) {
     const { div, img, svg, text } = styles[sizeType];
-    const eventDate = `${convertToDotDateFormat(
-        eventStartDate
-    )} ~ ${convertToDotDateFormat(eventEndDate)}`;
+
+    const eventDate = `${eventStartDate.replaceAll(
+        "-",
+        ".",
+    )} ~ ${eventEndDate.replaceAll("-", ".")}`;
 
     return (
         <div className={`row-center ${div}`}>

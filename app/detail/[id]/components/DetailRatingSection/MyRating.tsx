@@ -2,16 +2,16 @@ import { useRouter } from "next/navigation";
 import Rating from "../../../../../components/Rating/Rating";
 import {
     convertToDotDateFormat,
-    convertYYYYMMDDToDate,
+    convertStringDateToDate,
     getToday,
 } from "../../../../../lib/utils";
 import { createClient } from "../../../../../lib/utils/client";
-import getDifferenceDates from "../../../../../lib/utils/getDifferenceDates";
+import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
 import { useModalStore } from "../../../../../stores/useModalStore";
 import { useAlertStore } from "../../../../../stores/useAlertStore";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
 
-export default function MyRating({ userRating, setUserRating, title }) {
+export default function MyRating({ userRating, setUserRating, title }: any) {
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
     const { open: writeModalOpen, close: writeModalClose } =
@@ -20,10 +20,10 @@ export default function MyRating({ userRating, setUserRating, title }) {
     const router = useRouter();
 
     // 오늘
-    const today = convertYYYYMMDDToDate(getToday());
+    const today = convertStringDateToDate(getToday());
     // 작성일
-    const createdDate = convertYYYYMMDDToDate(
-        userRating.created_at.split("T")[0].split("-").join("")
+    const createdDate = convertStringDateToDate(
+        userRating.created_at.split("T")[0].split("-").join(""),
     );
     // 작성 경과 시간
     const lastDate = getDifferenceDates(createdDate, today);
@@ -38,14 +38,14 @@ export default function MyRating({ userRating, setUserRating, title }) {
         displayDate = "일주일 전";
     } else {
         displayDate = convertToDotDateFormat(
-            userRating.created_at.split("T")[0].split("-").join("")
+            userRating.created_at.split("T")[0].split("-").join(""),
         );
     }
 
     const supabase = createClient();
 
     // 후기 삭제
-    const deleteReview = async () => {
+    const deleteReview = async (): Promise<any> => {
         const { error } = await supabase.from("reviews").delete().match({
             festival_id: userRating.festival_id,
             user_id: userRating.user_id,
@@ -75,14 +75,17 @@ export default function MyRating({ userRating, setUserRating, title }) {
                     alertOpen("작성하신 후기가 삭제되었습니다.");
                 } else {
                     alertOpen(
-                        "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요."
+                        "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
-            }
+            },
         );
     };
 
-    const editReview = async (rating: number, content: string) => {
+    const editReview = async (
+        rating: number,
+        content: string,
+    ): Promise<any> => {
         const { error } = await supabase
             .from("reviews")
             .update({ rating, content })
@@ -92,7 +95,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
         return error;
     };
 
-    const fetchUserRating = async () => {
+    const fetchUserRating = async (): Promise<void> => {
         const { data, error } = await supabase
             .from("reviews")
             .select("*")
@@ -102,7 +105,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
 
         if (error) {
             console.error("리뷰 가져오기 실패:", error);
-            return null;
+            return;
         }
 
         setUserRating(data);
@@ -128,12 +131,12 @@ export default function MyRating({ userRating, setUserRating, title }) {
                     alertOpen("후기를 수정하였습니다.");
                 } else {
                     alertOpen(
-                        "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요."
+                        "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
             },
             userRating.rating,
-            userRating.content
+            userRating.content,
         );
     };
 

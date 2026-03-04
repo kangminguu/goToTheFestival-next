@@ -7,7 +7,7 @@ import { useAlertStore } from "../../../stores/useAlertStore";
 import { useModalStore } from "../../../stores/useModalStore";
 import DeleteAccountButton from "./DeleteAccountButton/DeleteAccountButton";
 
-export default function UserDeleteAccountSection({ userId }) {
+export default function UserDeleteAccountSection({ userId }: any) {
     const router = useRouter();
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
@@ -45,10 +45,10 @@ export default function UserDeleteAccountSection({ userId }) {
                 } else {
                     // 실패알람
                     alertOpen(
-                        "후기를 삭제하지 못했습니다. 잠시 후 다시 시도해주세요."
+                        "후기를 삭제하지 못했습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
-            }
+            },
         );
     };
 
