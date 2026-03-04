@@ -118,9 +118,13 @@ export default async function DetailPage({
                     fee={festivalIntroduction.usetimefestival}
                     tel={festivalCommon.tel}
                     homepage={festivalCommon.homepage}
-                    info_1={festivalContents[0].infotext}
+                    info_1={
+                        festivalContents && festivalContents[0]
+                            ? festivalContents[0].infotext
+                            : null
+                    }
                     info_2={
-                        festivalContents[1]
+                        festivalContents && festivalContents[1]
                             ? festivalContents[1].infotext
                             : null
                     }
