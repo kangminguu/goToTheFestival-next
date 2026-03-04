@@ -1,6 +1,6 @@
-export const sortByDate = (festivalList) => {
+export const sortByDate = (festivalList: any[]) => {
     const sortFestivalList = [...festivalList].sort(
-        (a, b) => parseInt(a.eventstartdate) - parseInt(b.eventstartdate)
+        (a, b) => parseInt(a.eventstartdate) - parseInt(b.eventstartdate),
     );
 
     return sortFestivalList;
@@ -21,7 +21,7 @@ export const sortByDistance = async (festivalList: any[]) => {
                     enableHighAccuracy: true,
                     maximumAge: 0,
                     timeout: 10000,
-                }
+                },
             );
         });
     };
@@ -33,7 +33,7 @@ export const sortByDistance = async (festivalList: any[]) => {
 
     const getDistance = (
         p1: { x: number; y: number },
-        p2: { x: number; y: number }
+        p2: { x: number; y: number },
     ) => {
         const dx = parseFloat(p1.x.toString()) - parseFloat(p2.x.toString());
         const dy = parseFloat(p1.y.toString()) - parseFloat(p2.y.toString());

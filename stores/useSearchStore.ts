@@ -14,7 +14,7 @@ type SearchStore = {
 export const useSearchStore = create<SearchStore>()(
     persist(
         (set) => ({
-            keywords: [],
+            keywords: [] as string[],
             addKeyword: (keyword) =>
                 set((state) => ({
                     keywords: [keyword, ...state.keywords.slice(-9)], // 최대 10개까지 저장
@@ -28,6 +28,6 @@ export const useSearchStore = create<SearchStore>()(
         {
             name: "keywords",
             storage: createJSONStorage(() => localStorage),
-        }
-    )
+        },
+    ),
 );
