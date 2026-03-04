@@ -28,6 +28,13 @@ const PERIODS = {
     today: [getToday(), getToday()], // 오늘
 };
 
+const toLocalYYYYMMDD = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+};
+
 // const getConvertedPeriod = (key) => PERIODS[key].map(convertStringDateToDate);
 
 /**
@@ -90,10 +97,8 @@ export default function DateSelectorCalendar({
                     onChange={(value) => {
                         if (Array.isArray(value)) {
                             setSelectedDate({
-                                startDate: value[0]!
-                                    .toISOString()
-                                    .split("T")[0],
-                                endDate: value[1]!.toISOString().split("T")[0],
+                                startDate: toLocalYYYYMMDD(value[0]),
+                                endDate: toLocalYYYYMMDD(value[1]),
                             });
                         }
                     }}
