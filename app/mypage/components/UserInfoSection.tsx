@@ -9,7 +9,7 @@ export default function UserInfoSection({ name, email, profileImg }) {
 
             <div className="row-center gap-[15px]">
                 <img
-                    className="md:h-[54px] h-[44px] rounded-full"
+                    className="md:h-[54px] md:w-[54px] h-[44px] w-[44px] rounded-full object-cover object-center block shrink-0"
                     src={profileImg}
                     alt="프로필_사진"
                 />
@@ -21,7 +21,7 @@ export default function UserInfoSection({ name, email, profileImg }) {
                             {email}
                         </span>
                         <img
-                            className="md:h-[24px] h-[20px] rounded-full md:p-[6px] p-[5px] bg-[#FEE500]"
+                            className="md:h-[24px] md:w-[24px] h-[20px] w-[20px] rounded-full md:p-[6px] p-[5px] bg-[#FEE500]"
                             src="/assets/kakao.svg"
                             alt="카카오계정"
                         />
