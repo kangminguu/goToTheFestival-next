@@ -40,6 +40,10 @@ export default function RatingSectionReview({
         );
     }
 
+    const displayUserName = userName
+        ? `${userName.slice(0, 3)}****${userName.slice(-2)}`
+        : "사용자";
+
     return (
         <div className="flex flex-col gap-[10px] md:gap-[15px]">
             <span className="w-full bg-border-base h-[1px]" />
@@ -48,7 +52,7 @@ export default function RatingSectionReview({
                 <div className="row-center gap-[4px] md:gap-[10px]">
                     {/* 사용자 이름 */}
                     <span className="text-[14px] md:text-[16px]">
-                        {userName ? userName : "사용자"}
+                        {displayUserName}
                     </span>
                     {/* 평점 */}
                     <Rating rating={rating} sizeType="ratingSection" />
