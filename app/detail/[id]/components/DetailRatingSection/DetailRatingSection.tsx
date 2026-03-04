@@ -106,7 +106,7 @@ export default function DetailRatingSection({
                     alertOpen("후기가 성공적으로 등록되었습니다.");
                 } else {
                     alertOpen(
-                        "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요."
+                        "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.",
                     );
                 }
             });
@@ -119,13 +119,16 @@ export default function DetailRatingSection({
                 () => {
                     modalClose();
                     router.push("/login"); // 로그인 페이지로 이동
-                }
+                },
             );
         }
     };
 
     return (
-        <div id="rating-section" className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
+        <div
+            id="rating-section"
+            className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]"
+        >
             <div className="row-center justify-between">
                 <h2 className="md:text-[24px] text-[16px] font-semibold">
                     축제 후기
@@ -160,7 +163,7 @@ export default function DetailRatingSection({
             {/* 축제 후기 */}
             <div className="flex flex-col gap-[20px]">
                 {reviews.length !== 0
-                    ? showReviews.map((review, index) => {
+                    ? showReviews.map((review: any, index: number) => {
                           return (
                               <RatingSectionReview
                                   key={index}

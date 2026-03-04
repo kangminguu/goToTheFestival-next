@@ -1,4 +1,4 @@
-export default function RatingButtons({ rating, setRating }) {
+export default function RatingButtons({ rating, setRating }: any) {
     const handleClickRating = (rate: number) => {
         setRating(rate);
     };

@@ -1,6 +1,6 @@
 "use client";
 
-export default function ScrollToRatingSectionButton({ ratingCount }) {
+export default function ScrollToRatingSectionButton({ ratingCount }: any) {
     // 후기 섹션으로 스크롤 이동 이벤트
     const handleMoveScrollToRating = () => {
         document.getElementById("rating-section").scrollIntoView({

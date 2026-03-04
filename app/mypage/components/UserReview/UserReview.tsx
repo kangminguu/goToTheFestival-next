@@ -7,7 +7,7 @@ import {
 } from "../../../../lib/utils";
 import getDifferenceDates from "../../../../lib/utils/date/getDifferenceDates";
 
-export default function UserReview({ review }) {
+export default function UserReview({ review }: any) {
     // 오늘
     const today = convertStringDateToDate(getToday());
     // 작성일

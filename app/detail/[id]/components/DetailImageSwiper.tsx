@@ -11,10 +11,21 @@ import "../../../../styles/detailImage.swiper.css";
 
 import { useState } from "react";
 
-export default function DetailImageSwiper({ imageList }) {
+export default function DetailImageSwiper({
+    imageList,
+}: {
+    imageList: {
+        contentid?: string;
+        cpyrhtDivCd?: string;
+        smallimageurl?: string;
+        originimgurl: string;
+        imgname: string;
+        serialnum: string;
+    }[];
+}) {
     const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
-    const imageURLs = [];
+    const imageURLs: string[] = [];
     const filteredImages = imageList.filter((festival) => {
         if (!imageURLs.includes(festival.originimgurl)) {
             imageURLs.push(festival.originimgurl);

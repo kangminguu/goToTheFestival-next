@@ -11,7 +11,7 @@ import { useModalStore } from "../../../../../stores/useModalStore";
 import { useAlertStore } from "../../../../../stores/useAlertStore";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
 
-export default function MyRating({ userRating, setUserRating, title }) {
+export default function MyRating({ userRating, setUserRating, title }: any) {
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
     const { open: writeModalOpen, close: writeModalClose } =
@@ -45,7 +45,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
     const supabase = createClient();
 
     // 후기 삭제
-    const deleteReview = async () => {
+    const deleteReview = async (): Promise<any> => {
         const { error } = await supabase.from("reviews").delete().match({
             festival_id: userRating.festival_id,
             user_id: userRating.user_id,
@@ -82,7 +82,10 @@ export default function MyRating({ userRating, setUserRating, title }) {
         );
     };
 
-    const editReview = async (rating: number, content: string) => {
+    const editReview = async (
+        rating: number,
+        content: string,
+    ): Promise<any> => {
         const { error } = await supabase
             .from("reviews")
             .update({ rating, content })
@@ -92,7 +95,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
         return error;
     };
 
-    const fetchUserRating = async () => {
+    const fetchUserRating = async (): Promise<void> => {
         const { data, error } = await supabase
             .from("reviews")
             .select("*")
@@ -102,7 +105,7 @@ export default function MyRating({ userRating, setUserRating, title }) {
 
         if (error) {
             console.error("리뷰 가져오기 실패:", error);
-            return null;
+            return;
         }
 
         setUserRating(data);
