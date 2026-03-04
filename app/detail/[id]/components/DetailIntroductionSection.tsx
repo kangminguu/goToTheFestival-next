@@ -59,8 +59,6 @@ export default function DetailIntroductionSection({
               .replace(/["']/g, "")
         : homepage;
 
-    console.log(homepageLink);
-
     return (
         <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px]">
             <div className="flex flex-col md:gap-[20px] gap-[10px]">
