@@ -14,6 +14,14 @@ export async function GET(request: Request) {
     const limit = Number(searchParams.get("limit") ?? "12");
     const offset = Number(searchParams.get("offset") ?? "0");
 
+    const contentIdsParam = searchParams.get("contentIds") ?? "";
+    const contentIds = contentIdsParam
+        ? contentIdsParam
+              .split(",")
+              .map((id) => id.trim())
+              .filter(Boolean)
+        : undefined;
+
     // 거리순 정렬 시 위치 정보
     const userLat = searchParams.get("userLat")
         ? parseFloat(searchParams.get("userLat")!)
@@ -32,6 +40,7 @@ export async function GET(request: Request) {
         eventStartDate,
         eventEndDate,
         keyword: keyword ? keyword : undefined,
+        contentIds,
     });
 
     return NextResponse.json({

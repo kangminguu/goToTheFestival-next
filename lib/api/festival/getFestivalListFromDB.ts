@@ -11,6 +11,7 @@ export async function getFestivalListFromDB(options: {
     eventStartDate?: string;
     eventEndDate?: string;
     keyword?: string;
+    contentIds?: string[];
 }) {
     const supabase = await createClient();
 
@@ -44,6 +45,12 @@ export async function getFestivalListFromDB(options: {
             "contentid, title, addr1, first_image, event_start, event_end, review_count, avg_rating",
         )
         .eq("deleted", false);
+
+    // contentIds 필터
+    if (options.contentIds) {
+        if (options.contentIds.length === 0) return [];
+        query = query.in("contentid", options.contentIds);
+    }
 
     // 필터링
     if (options.regionCode && options.regionCode !== "0") {

@@ -140,18 +140,13 @@ export default function FestivalCardList({
                 eventStartDate: "2000-01-01",
                 eventEndDate: "2050-12-31",
                 limit: "10000",
-                offset: "0",
+                contentIds: favorites.join(","),
             });
 
             const res = await fetch(`/api/festivalList?${params.toString()}`);
             const data = await res.json();
 
-            const favoriteSet = new Set(favorites);
-            const filteredFavorites = (data.festivalList || []).filter(
-                (obj: { contentid: string }) => favoriteSet.has(obj.contentid),
-            );
-
-            setFestivalList(filteredFavorites);
+            setFestivalList(data.festivalList || []);
             setIsLoading(false);
         };
 
@@ -196,10 +191,12 @@ export default function FestivalCardList({
 
     return (
         <div className="flex flex-col gap-[15px]">
-            <SortSelector
-                sortOption={sortOption}
-                setSortOption={setSortOption}
-            />
+            {listType !== "favorite" && (
+                <SortSelector
+                    sortOption={sortOption}
+                    setSortOption={setSortOption}
+                />
+            )}
 
             <div className="w-full flex flex-wrap gap-[10px] lg:grid lg:grid-cols-4 md:grid md:grid-cols-3">
                 {isLoading && festivalList.length === 0
