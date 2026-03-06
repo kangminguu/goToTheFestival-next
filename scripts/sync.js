@@ -9,7 +9,9 @@
  *   set TOUR_API_KEY=xxxxx
  */
 
-require('dotenv').config({ path: '.env.local' });
+try {
+    require("dotenv").config({ path: ".env.local" });
+} catch { }
 
 const { createClient } = require('@supabase/supabase-js');
 
