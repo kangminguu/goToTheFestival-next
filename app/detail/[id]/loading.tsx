@@ -1,3 +1,4 @@
+import { AIIcon } from "@/components/Icons";
 import Button from "../../../components/Button/Button";
 import DetailHeader from "./components/DetailHeader";
 
@@ -21,6 +22,29 @@ export default function Loading() {
 
             {/* 평점 */}
             <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover mt-[5px]" />
+
+            {/* AI 요약 */}
+            <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px] mt-[20px]">
+                <h2 className="md:text-[24px] text-[16px] font-semibold flex flex-row items-center">
+                    <AIIcon size={44} />
+                    AI 요약
+                </h2>
+
+                {/* 태그 */}
+                <div className="flex flex-row gap-[6px]">
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                </div>
+
+                {/* 설명 */}
+                <div className="flex flex-col md:gap-[25px] gap-[20px]">
+                    <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
+                    <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
+                </div>
+            </div>
 
             {/* 축제 상세 정보 */}
             <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px] mt-[20px]">
