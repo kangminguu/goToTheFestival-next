@@ -13,6 +13,7 @@ import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
 import DetailRatingSection from "./components/DetailRatingSection/DetailRatingSection";
 import { createClient } from "../../../lib/utils/server";
+import DetailAISummarySection from "../../../features/festival/ai-summary/ui/DetailAISummarySection";
 
 export async function generateMetadata({
     params,
@@ -109,6 +110,21 @@ export default async function DetailPage({
                     ratingCount={ratingCount}
                 />
 
+                {/* AI 요약 섹션 */}
+                <DetailAISummarySection
+                    contentId={contentId}
+                    festivalInfo={{
+                        title: festivalCommon.title,
+                        overview: festivalCommon.overview,
+                        addr1: festivalCommon.addr1,
+                        introText: festivalContents?.[0]?.infotext,
+                        eventText: festivalContents?.[1]?.infotext,
+                        eventStartDate: festivalIntroduction.eventstartdate,
+                        eventEndDate: festivalIntroduction.eventenddate,
+                        eventPlace: festivalIntroduction.eventplace,
+                    }}
+                />
+
                 {/* 축제 상세 설명 */}
                 <DetailIntroductionSection
                     address={festivalCommon.addr1}
@@ -118,13 +134,9 @@ export default async function DetailPage({
                     fee={festivalIntroduction.usetimefestival}
                     tel={festivalCommon.tel}
                     homepage={festivalCommon.homepage}
-                    info_1={
-                        festivalContents && festivalContents[0]
-                            ? festivalContents[0].infotext
-                            : null
-                    }
+                    info_1={festivalContents[0].infotext}
                     info_2={
-                        festivalContents && festivalContents[1]
+                        festivalContents[1]
                             ? festivalContents[1].infotext
                             : null
                     }
