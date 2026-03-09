@@ -1,5 +1,8 @@
+import { ReactNode } from "react";
+
 interface ButtonParams {
-    title: string;
+    children?: ReactNode;
+    title?: string;
     icon?: string;
     isBorder?: boolean;
     onClick?: () => void;
@@ -7,10 +10,9 @@ interface ButtonParams {
 
 /**
  * 기본 버튼 컴포넌트
- * @param title
- * @param event
  */
 export default function Button({
+    children,
     title,
     icon,
     isBorder = false,
@@ -19,8 +21,7 @@ export default function Button({
     const baseClass = "px-[14px] py-[10px] rounded-button";
     const fontStyle =
         "font-pretendard font-semibold text-[14px] text-font-primary";
-    const backgroundStyle =
-        "hover-active";
+    const backgroundStyle = "hover-active";
     const borderStyle = "border border-border-base";
 
     return (
@@ -34,6 +35,7 @@ export default function Button({
                 <img src={icon} alt={icon} className=" w-[15px] h-[15px]" />
             ) : null}
             {title}
+            {children}
         </button>
     );
 }
