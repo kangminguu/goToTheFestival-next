@@ -7,6 +7,7 @@ import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/Write
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     verification: {
@@ -27,7 +28,9 @@ export default function RootLayout({
             <body className="flex flex-col justify-center min-h-screen">
                 <Header />
 
-                <main className="flex-1">{children}</main>
+                <main className="flex-1">
+                    <Providers>{children}</Providers>
+                </main>
 
                 <Footer />
 
