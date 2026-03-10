@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Button from "../../../../../components/Button/Button";
 import Rating from "../../../../../components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
@@ -10,22 +10,20 @@ import { createClient } from "../../../../../lib/utils/client";
 import { useRouter } from "next/navigation";
 import { useModalStore } from "../../../../../stores/useModalStore";
 import MyRating from "./MyRating";
+import {
+    DetailRatingSectionProps,
+    FestivalReview,
+    UserReview,
+} from "@/features/festival/rating/model/types";
+import { useFestivalReviewsQuery } from "@/features/festival/rating/hooks/useFestivalReviewsQuery";
+import { useCreateFestivalReview } from "@/features/festival/rating/hooks/useCreateFestivalReview";
 
 export default function DetailRatingSection({
     contentId,
     title,
     avgRating,
-    ratingCount,
-    reviews,
-    userId,
-}: {
-    contentId: string;
-    title: string;
-    avgRating: number;
-    ratingCount: number;
-    reviews: any;
-    userId: any;
-}) {
+    reviewCount,
+}: DetailRatingSectionProps) {
     const router = useRouter();
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
@@ -34,94 +32,56 @@ export default function DetailRatingSection({
 
     // 보여줄 리뷰 수
     const [page, setPage] = useState(3);
-    const [showReviews, setShowReviews] = useState(reviews.slice(0, page));
 
-    // 사용자 여부(로그인 여부)
-    // const [user, setUser] = useState(null);
-    const [userRating, setUserRating] = useState(null);
+    const { data, isLoading, isError } = useFestivalReviewsQuery(contentId);
+    const createReviewMutation = useCreateFestivalReview(contentId);
 
-    const supabase = createClient();
+    const reviews = data?.reviews ?? [];
+    const userRating = data?.myReview ?? null;
+    const isLogin = data?.isLogin ?? false;
 
-    useEffect(() => {
-        // 로그인 하지 않았거나 리뷰 개수가 0개라면 사용자의 후기를 패칭하지 않음
-        if (userId !== null && reviews.length !== 0) fetchUserRating();
-    }, []);
+    const showReviews = useMemo(() => reviews.slice(0, page), [reviews, page]);
 
     useEffect(() => {
-        setShowReviews(reviews ? reviews.slice(0, page) : []);
-    }, [reviews, page]);
-
-    const fetchUserRating = async () => {
-        const { data, error } = await supabase
-            .from("reviews")
-            .select("*")
-            .eq("festival_id", contentId) // 특정 축제 ID
-            .eq("user_id", userId) // 특정 유저 ID
-            .single(); // 하나만 가져옴
-
-        // if (error) {
-        //     console.error("리뷰 가져오기 실패:", error);
-        //     return null;
-        // }
-
-        setUserRating(data);
-    };
+        setPage(3);
+    }, [contentId]);
 
     const handleShowMoreReview = () => {
-        const nextPage = page + 3;
-
-        setShowReviews(reviews.slice(0, nextPage));
-        setPage(nextPage);
-    };
-
-    const writeReview = async (rating: number, content: string) => {
-        const { error } = await supabase.from("reviews").insert([
-            {
-                festival_id: contentId,
-                user_id: userId,
-                rating,
-                content,
-            },
-        ]);
-
-        return error;
+        setPage((prev) => prev + 3);
     };
 
     const handleWriteReview = () => {
         alertClose();
 
-        if (userId) {
-            // 로그인 한 경우
-            writeModalOpen(title, contentId, async (rating, content) => {
-                // 축제 후기 작성
-                const error = await writeReview(rating, content);
-
-                writeModalClose();
-
-                fetchUserRating();
-
-                router.refresh();
-
-                if (!error) {
-                    alertOpen("후기가 성공적으로 등록되었습니다.");
-                } else {
-                    alertOpen(
-                        "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.",
-                    );
-                }
-            });
-        } else {
-            // 로그인 하지 않은 경우
+        if (!isLogin) {
             modalOpen(
                 "후기 작성",
                 "후기 작성은 로그인이 필요한 서비스입니다.",
                 "로그인 하기",
                 () => {
                     modalClose();
-                    router.push("/login"); // 로그인 페이지로 이동
+                    router.push("/login");
                 },
             );
+            return;
         }
+
+        writeModalOpen(title, contentId, async (rating, content) => {
+            const result = await createReviewMutation.mutateAsync({
+                rating,
+                content,
+            });
+
+            writeModalClose();
+
+            if (result.ok) {
+                alertOpen("후기가 성공적으로 등록되었습니다.");
+            } else {
+                alertOpen(
+                    "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.",
+                );
+            }
+        });
     };
 
     return (
@@ -146,34 +106,32 @@ export default function DetailRatingSection({
             <div className="row-center gap-[10px]">
                 <Rating sizeType="rating" rating={avgRating} />
                 <span className=" text-center text-font-secondary text-[14px]">
-                    {ratingCount === 0
+                    {reviewCount === 0
                         ? "후기가 없습니다"
-                        : `${ratingCount}개 평가`}
+                        : `${reviewCount}개 평가`}
                 </span>
             </div>
 
             {userRating ? (
-                <MyRating
-                    userRating={userRating}
-                    setUserRating={setUserRating}
-                    title={title}
-                />
+                <MyRating userRating={userRating} title={title} />
             ) : null}
 
             {/* 축제 후기 */}
             <div className="flex flex-col gap-[20px]">
                 {reviews.length !== 0
-                    ? showReviews.map((review: any, index: number) => {
-                          return (
-                              <RatingSectionReview
-                                  key={index}
-                                  userName={review.user_name}
-                                  rating={review.rating}
-                                  content={review.content}
-                                  created_at={review.created_at}
-                              />
-                          );
-                      })
+                    ? showReviews.map(
+                          (review: FestivalReview, index: number) => {
+                              return (
+                                  <RatingSectionReview
+                                      key={index}
+                                      userName={review.user_name}
+                                      rating={review.rating}
+                                      content={review.content}
+                                      created_at={review.created_at}
+                                  />
+                              );
+                          },
+                      )
                     : null}
 
                 {showReviews.length === reviews.length ? null : (

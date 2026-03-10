@@ -1,23 +1,28 @@
-import { useRouter } from "next/navigation";
 import Rating from "../../../../../components/Rating/Rating";
 import {
     convertToDotDateFormat,
     convertStringDateToDate,
     getToday,
 } from "../../../../../lib/utils";
-import { createClient } from "../../../../../lib/utils/client";
 import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
 import { useModalStore } from "../../../../../stores/useModalStore";
 import { useAlertStore } from "../../../../../stores/useAlertStore";
 import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
+import { useUpdateFestivalReview } from "@/features/festival/rating/hooks/useUpdateFestivalReview";
+import { useDeleteFestivalReview } from "@/features/festival/rating/hooks/useDeleteFestivalReview";
 
-export default function MyRating({ userRating, setUserRating, title }: any) {
+export default function MyRating({ userRating, title }: any) {
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
 
-    const router = useRouter();
+    const updateReviewMutation = useUpdateFestivalReview(
+        userRating.festival_id,
+    );
+    const deleteReviewMutation = useDeleteFestivalReview(
+        userRating.festival_id,
+    );
 
     // 오늘
     const today = convertStringDateToDate(getToday());
@@ -42,18 +47,6 @@ export default function MyRating({ userRating, setUserRating, title }: any) {
         );
     }
 
-    const supabase = createClient();
-
-    // 후기 삭제
-    const deleteReview = async (): Promise<any> => {
-        const { error } = await supabase.from("reviews").delete().match({
-            festival_id: userRating.festival_id,
-            user_id: userRating.user_id,
-        });
-
-        return error;
-    };
-
     // 후기 삭제
     const handleDelete = () => {
         alertClose();
@@ -63,15 +56,18 @@ export default function MyRating({ userRating, setUserRating, title }: any) {
             `작성하신 ${title}의 후기를 삭제합니다.\n삭제된 후기는 복구가 불가능해요.\n정말로 작성하신 후기를 삭제하시겠어요?`,
             "삭제할게요",
             async () => {
-                const error = await deleteReview();
+                const result = await deleteReviewMutation.mutateAsync({
+                    reviewId: userRating.id,
+                });
 
                 modalClose();
 
-                if (!error) {
-                    setUserRating(null); // 정신 나갈거 같이 복잡해진 코드 및 클라이언트 컴포넌트에서 요청하는 바람에 네트워크 탭에 노출되어버린 모든 api 엔드포인트 노출
+                if (result.status === 401) {
+                    alertOpen("로그인이 필요합니다.");
+                    return;
+                }
 
-                    router.refresh();
-
+                if (result.ok) {
                     alertOpen("작성하신 후기가 삭제되었습니다.");
                 } else {
                     alertOpen(
@@ -82,52 +78,27 @@ export default function MyRating({ userRating, setUserRating, title }: any) {
         );
     };
 
-    const editReview = async (
-        rating: number,
-        content: string,
-    ): Promise<any> => {
-        const { error } = await supabase
-            .from("reviews")
-            .update({ rating, content })
-            .eq("festival_id", userRating.festival_id)
-            .eq("user_id", userRating.user_id);
-
-        return error;
-    };
-
-    const fetchUserRating = async (): Promise<void> => {
-        const { data, error } = await supabase
-            .from("reviews")
-            .select("*")
-            .eq("festival_id", userRating.festival_id) // 특정 축제 ID
-            .eq("user_id", userRating.user_id) // 특정 유저 ID
-            .single(); // 하나만 가져옴
-
-        if (error) {
-            console.error("리뷰 가져오기 실패:", error);
-            return;
-        }
-
-        setUserRating(data);
-    };
-
     const handleEditReview = () => {
         alertClose();
 
         writeModalOpen(
             title,
-            userRating.user_id,
+            userRating.festival_id,
             async (rating, content) => {
-                // 축제 후기 작성
-                const error = await editReview(rating, content);
+                const result = await updateReviewMutation.mutateAsync({
+                    reviewId: userRating.id,
+                    rating,
+                    content,
+                });
 
                 writeModalClose();
 
-                fetchUserRating();
+                if (result.status === 401) {
+                    alertOpen("로그인이 필요합니다.");
+                    return;
+                }
 
-                router.refresh();
-
-                if (!error) {
+                if (result.ok) {
                     alertOpen("후기를 수정하였습니다.");
                 } else {
                     alertOpen(

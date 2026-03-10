@@ -66,6 +66,9 @@ export default async function DetailPage({
         serialnum: contentId + "_0",
     });
 
+    // 축제 평균 점수, 후기 개수 클라이언트 query로 변경하기
+    // 그래야 후기 작성, 수정, 삭제 시 실시간으로 반영 가능
+
     // 축제 평균 점수와 후기 개수 패칭
     const { data, error: festivalRatings_error } = await (await supabase)
         .from("festival_ratings")
@@ -77,19 +80,8 @@ export default async function DetailPage({
     const avgRating =
         !festivalRatings_error && data?.avg_rating ? data.avg_rating : 0; // data가 null인경우 처리를 좀 더 가독성 좋게
     // 후기 개수 : 오류가 나거나 후기 개수가 없다면 0으로
-    const ratingCount =
+    const reviewCount =
         !festivalRatings_error && data?.review_count ? data.review_count : 0;
-
-    // 해당 축제 전체 후기 패칭 : 해당 축제에 대한 리뷰가 없으면 reviews = [], 빈 배열
-    const { data: reviews, error: reviews_error } = await (await supabase)
-        .from("review_with_user")
-        .select("*")
-        .eq("festival_id", contentId)
-        .order("created_at", { ascending: false });
-
-    const {
-        data: { user },
-    } = await (await supabase).auth.getUser();
 
     return (
         <>
@@ -107,7 +99,7 @@ export default async function DetailPage({
                     eventstartdate={festivalIntroduction.eventstartdate}
                     eventenddate={festivalIntroduction.eventenddate}
                     avgRating={avgRating}
-                    ratingCount={ratingCount}
+                    reviewCount={reviewCount}
                 />
 
                 {/* AI 요약 섹션 */}
@@ -147,9 +139,7 @@ export default async function DetailPage({
                     contentId={contentId}
                     title={festivalCommon.title}
                     avgRating={avgRating}
-                    ratingCount={ratingCount}
-                    reviews={reviews}
-                    userId={user ? user.id : null}
+                    reviewCount={reviewCount}
                 />
 
                 {/* 축제 위치 지도 */}

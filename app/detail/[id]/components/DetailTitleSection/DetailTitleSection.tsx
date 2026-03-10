@@ -14,14 +14,14 @@ export default function DetailTitleSection({
     eventstartdate,
     eventenddate,
     avgRating,
-    ratingCount,
+    reviewCount,
 }: {
     contentid: string;
     title: string;
     eventstartdate: string;
     eventenddate: string;
     avgRating: number;
-    ratingCount: number;
+    reviewCount: number;
 }) {
     const formattedStartDate = convertStringDateToDate(
         convertToDashDateFormat(eventstartdate),
@@ -64,7 +64,7 @@ export default function DetailTitleSection({
 
                 <span className="bg-font-secondary w-[4px] h-[4px] rounded-full" />
 
-                <ScrollToRatingSectionButton ratingCount={ratingCount} />
+                <ScrollToRatingSectionButton reviewCount={reviewCount} />
             </div>
         </div>
     );
