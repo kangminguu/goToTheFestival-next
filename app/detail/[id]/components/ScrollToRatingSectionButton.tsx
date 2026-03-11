@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowIcon } from "@/components/Icons";
+
 export default function ScrollToRatingSectionButton({ reviewCount }: any) {
     // 후기 섹션으로 스크롤 이동 이벤트
     const handleMoveScrollToRating = () => {
@@ -14,11 +16,9 @@ export default function ScrollToRatingSectionButton({ reviewCount }: any) {
             className="row-center gap-[5px] text-font-secondary text-[14px] md:text-[16px]"
         >
             {reviewCount === 0 ? "후기가 없습니다" : `${reviewCount}개 평가`}
-            <img
-                src="/assets/arrow/arrow_gray.svg"
-                alt="rating"
-                className=" rotate-180 w-[14px] md:w-[16px]"
-            />
+            <div className="rotate-0 w-[14px] md:w-[16px]">
+                <ArrowIcon size={16} color="#767676" />
+            </div>
         </button>
     );
 }

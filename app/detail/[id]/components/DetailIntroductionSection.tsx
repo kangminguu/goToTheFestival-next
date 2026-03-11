@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowIcon } from "@/components/Icons";
 import Address from "../../../../components/Address/Address";
 import Button from "../../../../components/Button/Button";
 import EventDate from "../../../../components/EventDate/EventDate";
@@ -68,11 +69,10 @@ export default function DetailIntroductionSection({
                     className="row-center md:gap-[10px] gap-[5px]"
                 >
                     <Address address={address} sizeType="detailPage" />
-                    <img
-                        src="/assets/arrow/arrow.svg"
-                        alt="address"
-                        className=" rotate-180 w-[14px] md:w-[16px]"
-                    />
+                    
+                    <div className="w-[14px] md:w-[16px]">
+                        <ArrowIcon size={16} color="#767676"/>
+                    </div>
                 </button>
 
                 {/* 기간 */}
