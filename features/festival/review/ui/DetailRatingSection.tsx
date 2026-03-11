@@ -1,22 +1,22 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Button from "../../../../../components/Button/Button";
-import Rating from "../../../../../components/Rating/Rating";
+import Button from "../../../../components/Button/Button";
+import Rating from "../../../../components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
-import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
-import { useAlertStore } from "../../../../../stores/useAlertStore";
-import { createClient } from "../../../../../lib/utils/client";
+import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
+import { useAlertStore } from "../../../../stores/useAlertStore";
 import { useRouter } from "next/navigation";
-import { useModalStore } from "../../../../../stores/useModalStore";
+import { useModalStore } from "../../../../stores/useModalStore";
 import MyRating from "./MyRating";
 import {
     DetailRatingSectionProps,
     FestivalReview,
-    UserReview,
-} from "@/features/festival/rating/model/types";
-import { useFestivalReviewsQuery } from "@/features/festival/rating/hooks/useFestivalReviewsQuery";
-import { useCreateFestivalReview } from "@/features/festival/rating/hooks/useCreateFestivalReview";
+} from "@/features/festival/review/model/types";
+import { useFestivalReviewsQuery } from "@/features/festival/review/hooks/useFestivalReviewsQuery";
+import { useCreateFestivalReview } from "@/features/festival/review/hooks/useCreateFestivalReview";
+import DetailRatingLoading from "./DetailRatingLoading";
+import DetailRatingError from "./DetailRatingError";
 
 export default function DetailRatingSection({
     contentId,
@@ -25,6 +25,7 @@ export default function DetailRatingSection({
     reviewCount,
 }: DetailRatingSectionProps) {
     const router = useRouter();
+
     const { open: writeModalOpen, close: writeModalClose } =
         useWriteReviewModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
@@ -76,6 +77,7 @@ export default function DetailRatingSection({
 
             if (result.ok) {
                 alertOpen("후기가 성공적으로 등록되었습니다.");
+                router.refresh();
             } else {
                 alertOpen(
                     "후기 등록에 실패하였습니다. 잠시 후 다시 시도해주세요.",
@@ -83,6 +85,15 @@ export default function DetailRatingSection({
             }
         });
     };
+
+    if (isLoading) {
+        return <DetailRatingLoading />;
+    }
+
+    if (isError) {
+        return <DetailRatingError />;
+    }
+
 
     return (
         <div

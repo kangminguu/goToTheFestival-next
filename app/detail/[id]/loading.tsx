@@ -61,7 +61,12 @@ export default function Loading() {
                     <h2 className="md:text-[24px] text-[16px] font-semibold">
                         축제 후기
                     </h2>
-                    <Button title="후기 작성" icon="/assets/open_in_new.svg" />
+                    <div className="pointer-events-none">
+                        <Button
+                            title="후기 작성"
+                            icon="/assets/open_in_new.svg"
+                        />
+                    </div>
                 </div>
                 <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover" />
                 <div className="row-center justify-between">

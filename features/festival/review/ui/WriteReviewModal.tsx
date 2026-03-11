@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Button from "../../../../../components/Button/Button";
-import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
+import Button from "@/components/Button/Button";
+import { useWriteReviewModalStore } from "@/stores/useWriteReviewModalStore";
 import RatingButtons from "./RatingButtons";
 
 export default function WriteReviewModal() {

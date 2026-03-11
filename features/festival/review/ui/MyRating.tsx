@@ -1,17 +1,20 @@
-import Rating from "../../../../../components/Rating/Rating";
+import Rating from "../../../../components/Rating/Rating";
 import {
     convertToDotDateFormat,
     convertStringDateToDate,
     getToday,
-} from "../../../../../lib/utils";
-import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
-import { useModalStore } from "../../../../../stores/useModalStore";
-import { useAlertStore } from "../../../../../stores/useAlertStore";
-import { useWriteReviewModalStore } from "../../../../../stores/useWriteReviewModalStore";
-import { useUpdateFestivalReview } from "@/features/festival/rating/hooks/useUpdateFestivalReview";
-import { useDeleteFestivalReview } from "@/features/festival/rating/hooks/useDeleteFestivalReview";
+} from "../../../../lib/utils";
+import getDifferenceDates from "../../../../lib/utils/date/getDifferenceDates";
+import { useModalStore } from "../../../../stores/useModalStore";
+import { useAlertStore } from "../../../../stores/useAlertStore";
+import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
+import { useUpdateFestivalReview } from "@/features/festival/review/hooks/useUpdateFestivalReview";
+import { useDeleteFestivalReview } from "@/features/festival/review/hooks/useDeleteFestivalReview";
+import { useRouter } from "next/navigation";
 
 export default function MyRating({ userRating, title }: any) {
+    const router = useRouter();
+
     const { open: modalOpen, close: modalClose } = useModalStore();
     const { open: alertOpen, close: alertClose } = useAlertStore();
     const { open: writeModalOpen, close: writeModalClose } =
@@ -69,6 +72,7 @@ export default function MyRating({ userRating, title }: any) {
 
                 if (result.ok) {
                     alertOpen("작성하신 후기가 삭제되었습니다.");
+                    router.refresh();
                 } else {
                     alertOpen(
                         "삭제에 실패하였습니다. 잠시 후 다시 시도해주세요.",
@@ -100,6 +104,7 @@ export default function MyRating({ userRating, title }: any) {
 
                 if (result.ok) {
                     alertOpen("후기를 수정하였습니다.");
+                    router.refresh();
                 } else {
                     alertOpen(
                         "후기 수정을 실패하였습니다. 잠시 후 다시 시도해주세요.",

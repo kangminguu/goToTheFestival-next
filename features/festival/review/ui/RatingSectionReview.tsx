@@ -1,10 +1,10 @@
-import Rating from "../../../../../components/Rating/Rating";
+import Rating from "../../../../components/Rating/Rating";
 import {
     convertStringDateToDate,
     convertToDotDateFormat,
     getToday,
-} from "../../../../../lib/utils";
-import getDifferenceDates from "../../../../../lib/utils/date/getDifferenceDates";
+} from "../../../../lib/utils";
+import getDifferenceDates from "../../../../lib/utils/date/getDifferenceDates";
 
 export default function RatingSectionReview({
     userName,

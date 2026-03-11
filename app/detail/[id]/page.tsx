@@ -7,11 +7,11 @@ import {
 import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
 import DetailIntroductionSection from "./components/DetailIntroductionSection";
-import DetailTitleSection from "./components/DetailTitleSection/DetailTitleSection";
+import DetailTitleSection from "./components/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
-import DetailRatingSection from "./components/DetailRatingSection/DetailRatingSection";
+import DetailRatingSection from "../../../features/festival/review/ui/DetailRatingSection";
 import { createClient } from "../../../lib/utils/server";
 import DetailAISummarySection from "../../../features/festival/ai-summary/ui/DetailAISummarySection";
 
@@ -65,9 +65,6 @@ export default async function DetailPage({
         imgname: "대표이미지",
         serialnum: contentId + "_0",
     });
-
-    // 축제 평균 점수, 후기 개수 클라이언트 query로 변경하기
-    // 그래야 후기 작성, 수정, 삭제 시 실시간으로 반영 가능
 
     // 축제 평균 점수와 후기 개수 패칭
     const { data, error: festivalRatings_error } = await (await supabase)

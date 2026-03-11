@@ -3,7 +3,7 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import "./globals.css";
-import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/WriteReviewModal";
+import WriteReviewModal from "../features/festival/review/ui/WriteReviewModal";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
