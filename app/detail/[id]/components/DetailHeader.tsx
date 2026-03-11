@@ -1,8 +1,9 @@
 "use client";
 
-import Button from "../../../../components/Button/Button";
+import Button from "@/components/Button/Button";
 import { usePathname } from "next/navigation";
-import { useAlertStore } from "../../../../stores/useAlertStore";
+import { useAlertStore } from "@/stores/useAlertStore";
+import { LinkIcon } from "@/components/Icons";
 
 export default function DetailHeader() {
     const domain = process.env.NEXT_PUBLIC_BASE_URL;
@@ -24,11 +25,10 @@ export default function DetailHeader() {
 
     return (
         <div className="row-center justify-end md:my-[20px] mb-[10px]">
-            <Button
-                title="URL 복사"
-                icon="/assets/link.svg"
-                onClick={handleCopy}
-            />
+            <Button onClick={handleCopy}>
+                <LinkIcon size={18} />
+                URL 복사
+            </Button>
         </div>
     );
 }

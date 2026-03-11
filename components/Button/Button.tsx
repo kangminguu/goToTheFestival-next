@@ -27,7 +27,7 @@ export default function Button({
     return (
         <button
             onClick={onClick}
-            className={`row-center gap-[6px] ${baseClass} ${fontStyle} ${backgroundStyle} ${
+            className={`flex flex-row items-center justify-center gap-[6px] text-center ${baseClass} ${fontStyle} ${backgroundStyle} ${
                 isBorder ? borderStyle : ""
             }`}
         >
