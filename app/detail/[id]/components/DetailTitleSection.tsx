@@ -1,11 +1,10 @@
-import FavoriteButton from "../../../../components/FavoriteButton/FavoriteButton";
-import Rating from "../../../../components/Rating/Rating";
-import Tag from "../../../../components/Tag/Tag";
+import FavoriteButton from "@/components/FavoriteButton/FavoriteButton";
+import Rating from "@/components/Rating/Rating";
+import Tag from "@/components/Tag/Tag";
 import {
     convertStringDateToDate,
     convertToDashDateFormat,
-    convertToDotDateFormat,
-} from "../../../../lib/utils";
+} from "@/lib/utils";
 import ScrollToRatingSectionButton from "./ScrollToRatingSectionButton";
 
 export default function DetailTitleSection({

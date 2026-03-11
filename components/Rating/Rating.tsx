@@ -1,3 +1,5 @@
+import { FireIcon } from "../Icons";
+
 type ratingType = "card" | "detailPage" | "ratingSection" | "rating";
 
 interface RatingProps {
@@ -40,28 +42,20 @@ export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
             <div className={`row-center`}>
                 {/* 펼쳐진 평점 */}
                 {Array.from({ length: rating }, (_, i) => (
-                    <img
-                        key={i}
-                        src="/assets/flame/flame.svg"
-                        alt="rating"
-                        className={`${spread_img}`}
-                    />
+                    <div key={i} className={`${spread_img}`}>
+                        <FireIcon size={24} color="#FF4238" />
+                    </div>
                 ))}
                 {Array.from({ length: 5 - Math.floor(rating) }, (_, i) => (
-                    <img
-                        key={rating + i}
-                        src="/assets/flame/flame_gray.svg"
-                        alt="rating"
-                        className={`${spread_img}`}
-                    />
+                    <div key={i} className={`${spread_img}`}>
+                        <FireIcon size={24} color="#EBEBEB" />
+                    </div>
                 ))}
 
                 {/* 접힌 평점 */}
-                <img
-                    src="/assets/flame/flame.svg"
-                    alt="rating"
-                    className={`${img}`}
-                />
+                <div className={`${img}`}>
+                    <FireIcon size={24} color="#FF4238" />
+                </div>
             </div>
 
             <span className={`text-center ${text}`}>{rating.toFixed(1)}</span>
