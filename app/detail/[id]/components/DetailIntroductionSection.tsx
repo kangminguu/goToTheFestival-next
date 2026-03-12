@@ -108,16 +108,18 @@ export default function DetailIntroductionSection({
                 </div>
 
                 {/* 전화번호 */}
-                <div className="flex flex-row items-start md:gap-[10px] gap-[5px]">
-                    <div className="shrink-0 md:w-[20px] w-[15px] md:h-[20px] h-[15px] mt-[3.5px]">
+                <div className="flex flex-row items-center md:gap-[10px] gap-[5px]">
+                    <div className="shrink-0 md:w-[20px] w-[15px] md:h-[20px] h-[15px]">
                         <CallIcon color="#333333" />
                     </div>
+
                     <p className="md:text-[18px] text-[15px] whitespace-pre-line">
                         {convertBr(tel)}
                     </p>
+
                     <button
                         onClick={handleCopy}
-                        className="text-[14px] font-semibold whitespace-nowrap text-font-activeButton mt-[3.5px]"
+                        className="text-[14px] font-semibold whitespace-nowrap text-font-activeButton"
                     >
                         복사
                     </button>
