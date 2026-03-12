@@ -1,13 +1,18 @@
 "use client";
 
-import { ArrowIcon } from "@/components/Icons";
-import Address from "../../../../components/Address/Address";
-import Button from "../../../../components/Button/Button";
-import EventDate from "../../../../components/EventDate/EventDate";
-import ReadMore from "../../../../components/ReadMore/ReadMore";
-import { convertBr, convertToDashDateFormat } from "../../../../lib/utils";
-import { useAlertStore } from "../../../../stores/useAlertStore";
-import IconIntroduction from "./IconIntroduction";
+import {
+    ArrowIcon,
+    CallIcon,
+    ClockIcon,
+    OpenInNewIcon,
+    TicketIcon,
+} from "@/components/Icons";
+import Address from "@/components/Address/Address";
+import Button from "@/components/Button/Button";
+import EventDate from "@/components/EventDate/EventDate";
+import ReadMore from "@/components/ReadMore/ReadMore";
+import { convertBr, convertToDashDateFormat } from "@/lib/utils";
+import { useAlertStore } from "@/stores/useAlertStore";
 
 interface DetailIntroductionSectionProps {
     address: string;
@@ -69,9 +74,9 @@ export default function DetailIntroductionSection({
                     className="row-center md:gap-[10px] gap-[5px]"
                 >
                     <Address address={address} sizeType="detailPage" />
-                    
+
                     <div className="w-[14px] md:w-[16px]">
-                        <ArrowIcon size={16} color="#767676"/>
+                        <ArrowIcon size={16} color="#767676" />
                     </div>
                 </button>
 
@@ -83,23 +88,36 @@ export default function DetailIntroductionSection({
                 />
 
                 {/* 개최 시간 */}
-                <IconIntroduction
-                    icon="/assets/time.svg"
-                    introduction={playTime}
-                />
+                <div className="flex flex-row items-start md:gap-[10px] gap-[5px]">
+                    <div className="shrink-0 md:w-[20px] w-[15px] md:h-[20px] h-[15px] mt-[3.5px]">
+                        <ClockIcon color="#333333" />
+                    </div>
+                    <p className="md:text-[18px] text-[15px] whitespace-pre-line">
+                        {convertBr(playTime)}
+                    </p>
+                </div>
 
                 {/* 입장료, 참가비 */}
-                <IconIntroduction icon="/assets/fee.svg" introduction={fee} />
+                <div className="flex flex-row items-start md:gap-[10px] gap-[5px]">
+                    <div className="shrink-0 md:w-[20px] w-[15px] md:h-[20px] h-[15px] mt-[3.5px]">
+                        <TicketIcon color="#333333" />
+                    </div>
+                    <p className="md:text-[18px] text-[15px] whitespace-pre-line">
+                        {convertBr(fee)}
+                    </p>
+                </div>
 
                 {/* 전화번호 */}
-                <div className="row-center gap-[15px]">
-                    <IconIntroduction
-                        icon="/assets/call.svg"
-                        introduction={tel}
-                    />
+                <div className="flex flex-row items-start md:gap-[10px] gap-[5px]">
+                    <div className="shrink-0 md:w-[20px] w-[15px] md:h-[20px] h-[15px] mt-[3.5px]">
+                        <CallIcon color="#333333" />
+                    </div>
+                    <p className="md:text-[18px] text-[15px] whitespace-pre-line">
+                        {convertBr(tel)}
+                    </p>
                     <button
                         onClick={handleCopy}
-                        className="text-[14px] font-semibold whitespace-nowrap text-font-activeButton"
+                        className="text-[14px] font-semibold whitespace-nowrap text-font-activeButton mt-[3.5px]"
                     >
                         복사
                     </button>
@@ -114,11 +132,10 @@ export default function DetailIntroductionSection({
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Button
-                        title="공식 홈페이지"
-                        icon="/assets/open_in_new.svg"
-                        onClick={() => {}}
-                    />
+                    <Button>
+                        <OpenInNewIcon size={16} />
+                        공식 홈페이지
+                    </Button>
                 </a>
             ) : null}
 

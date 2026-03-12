@@ -1,4 +1,4 @@
-import { convertBr } from "../../../../lib/utils";
+import { convertBr } from "@/lib/utils";
 
 interface IconIntroductionProps {
     icon: string;

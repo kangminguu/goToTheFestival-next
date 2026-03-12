@@ -5,3 +5,8 @@ export { default as FireIcon } from "./FireIcon";
 export { default as ArrowIcon } from "./ArrowIcon";
 export { default as FavoriteIcon } from "./FavoriteIcon";
 export { default as LocationIcon } from "./LocationIcon";
+export { default as CalendarIcon } from "./CalendarIcon";
+export { default as ClockIcon } from "./ClockIcon";
+export { default as TicketIcon } from "./TicketIcon";
+export { default as CallIcon } from "./CallIcon";
+export { default as OpenInNewIcon } from "./OpenInNewIcon";
