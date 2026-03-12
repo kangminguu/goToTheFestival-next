@@ -18,10 +18,7 @@ export default function DetailAISummaryLoading() {
             </div>
 
             {/* 설명 */}
-            <div className="flex flex-col md:gap-[25px] gap-[20px]">
-                <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
-                <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
-            </div>
+            <div className="md:h-[80px] h-[60px] w-full bg-background-hover rounded" />
         </div>
     );
 }

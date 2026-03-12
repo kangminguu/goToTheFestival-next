@@ -6,7 +6,9 @@ export default function Loading() {
     return (
         <div className="min-max-padding bg-background-base animate-pulse">
             {/* 뒤로가기, URL복사 버튼 */}
-            <DetailHeader />
+            <div className="pointer-events-none">
+                <DetailHeader />
+            </div>
 
             {/* 이미지 부분 */}
             <div className="flex flex-col gap-[5px]">
@@ -40,10 +42,7 @@ export default function Loading() {
                 </div>
 
                 {/* 설명 */}
-                <div className="flex flex-col md:gap-[25px] gap-[20px]">
-                    <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
-                    <div className="md:h-[27px] h-[23px] w-[100%] bg-background-hover rounded" />
-                </div>
+                <div className="md:h-[80px] h-[60px] w-full bg-background-hover rounded" />
             </div>
 
             {/* 축제 상세 정보 */}
@@ -86,7 +85,12 @@ export default function Loading() {
                     <h2 className="md:text-[24px] text-[16px] font-semibold">
                         위치 보기
                     </h2>
-                    <Button title="지도 보기" icon="/assets/open_in_new.svg" />
+                    <div className="pointer-events-none">
+                        <Button
+                            title="지도 보기"
+                            icon="/assets/open_in_new.svg"
+                        />
+                    </div>
                 </div>
                 <div className="md:h-[27px] h-[23px] w-[30%] bg-background-hover rounded" />
                 <div className="md:h-[385px] h-[200px] w-full bg-background-hover rounded" />
