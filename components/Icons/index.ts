@@ -12,3 +12,4 @@ export { default as CallIcon } from "./CallIcon";
 export { default as OpenInNewIcon } from "./OpenInNewIcon";
 export { default as RateReviewIcon } from "./RateReviewIcon";
 export { default as FlagIcon } from "./FlagIcon";
+export { default as MailIcon } from "./MailIcon";
