@@ -9,7 +9,8 @@ export default function SignOutButton() {
         // supabse 세션 종료
         await supabase.auth.signOut();
 
-        const KAKAO_REST_API_KEY = process.env.NEXT_PUBLIC_KAKAO_MAP_KEY;
+        const KAKAO_REST_API_KEY =
+            process.env.NEXT_PUBLIC_SUPABASE_KAKAO_REST_API_KEY;
         const LOGOUT_REDIRECT_URI = process.env.NEXT_PUBLIC_BASE_URL; // 리다이렉트 주소 : 홈으로 이동
 
         // 카카오에서 리다이렉트 주소 등록
