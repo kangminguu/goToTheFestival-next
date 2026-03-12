@@ -1,3 +1,4 @@
+import { AIIcon } from "@/components/Icons";
 import Button from "../../../components/Button/Button";
 import DetailHeader from "./components/DetailHeader";
 
@@ -5,7 +6,9 @@ export default function Loading() {
     return (
         <div className="min-max-padding bg-background-base animate-pulse">
             {/* 뒤로가기, URL복사 버튼 */}
-            <DetailHeader />
+            <div className="pointer-events-none">
+                <DetailHeader />
+            </div>
 
             {/* 이미지 부분 */}
             <div className="flex flex-col gap-[5px]">
@@ -22,6 +25,26 @@ export default function Loading() {
             {/* 평점 */}
             <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover mt-[5px]" />
 
+            {/* AI 요약 */}
+            <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px] mt-[20px]">
+                <h2 className="md:text-[24px] text-[16px] font-semibold flex flex-row items-center">
+                    <AIIcon size={44} />
+                    AI 요약
+                </h2>
+
+                {/* 태그 */}
+                <div className="flex flex-row gap-[6px]">
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                    <div className="h-[26px] w-[45px] bg-background-hover rounded" />
+                </div>
+
+                {/* 설명 */}
+                <div className="md:h-[80px] h-[60px] w-full bg-background-hover rounded" />
+            </div>
+
             {/* 축제 상세 정보 */}
             <div className="flex flex-col md:gap-[25px] gap-[20px] border border-border-base rounded-[8px] py-[16px] px-[14px] md:py-[36px] md:px-[30px] mb-[40px] mt-[20px]">
                 <div className="md:h-[27px] h-[23px] w-[25%] bg-background-hover rounded" />
@@ -37,7 +60,12 @@ export default function Loading() {
                     <h2 className="md:text-[24px] text-[16px] font-semibold">
                         축제 후기
                     </h2>
-                    <Button title="후기 작성" icon="/assets/open_in_new.svg" />
+                    <div className="pointer-events-none">
+                        <Button
+                            title="후기 작성"
+                            icon="/assets/open_in_new.svg"
+                        />
+                    </div>
                 </div>
                 <div className="h-[21px] md:h-[24px] w-[20%] rounded bg-background-hover" />
                 <div className="row-center justify-between">
@@ -57,7 +85,12 @@ export default function Loading() {
                     <h2 className="md:text-[24px] text-[16px] font-semibold">
                         위치 보기
                     </h2>
-                    <Button title="지도 보기" icon="/assets/open_in_new.svg" />
+                    <div className="pointer-events-none">
+                        <Button
+                            title="지도 보기"
+                            icon="/assets/open_in_new.svg"
+                        />
+                    </div>
                 </div>
                 <div className="md:h-[27px] h-[23px] w-[30%] bg-background-hover rounded" />
                 <div className="md:h-[385px] h-[200px] w-full bg-background-hover rounded" />

@@ -7,12 +7,13 @@ import {
 import DetailHeader from "./components/DetailHeader";
 import DetailImageSwiper from "./components/DetailImageSwiper";
 import DetailIntroductionSection from "./components/DetailIntroductionSection";
-import DetailTitleSection from "./components/DetailTitleSection/DetailTitleSection";
+import DetailTitleSection from "./components/DetailTitleSection";
 import { convertBr } from "../../../lib/utils";
 import DetailLocationSection from "./components/DetailLocationSection";
 import BackToTopButton from "../../../components/BackToTopButton/BackToTopButton";
-import DetailRatingSection from "./components/DetailRatingSection/DetailRatingSection";
+import DetailRatingSection from "../../../features/festival/review/ui/DetailRatingSection";
 import { createClient } from "../../../lib/utils/server";
+import DetailAISummarySection from "../../../features/festival/ai-summary/ui/DetailAISummarySection";
 
 export async function generateMetadata({
     params,
@@ -76,19 +77,8 @@ export default async function DetailPage({
     const avgRating =
         !festivalRatings_error && data?.avg_rating ? data.avg_rating : 0; // data가 null인경우 처리를 좀 더 가독성 좋게
     // 후기 개수 : 오류가 나거나 후기 개수가 없다면 0으로
-    const ratingCount =
+    const reviewCount =
         !festivalRatings_error && data?.review_count ? data.review_count : 0;
-
-    // 해당 축제 전체 후기 패칭 : 해당 축제에 대한 리뷰가 없으면 reviews = [], 빈 배열
-    const { data: reviews, error: reviews_error } = await (await supabase)
-        .from("review_with_user")
-        .select("*")
-        .eq("festival_id", contentId)
-        .order("created_at", { ascending: false });
-
-    const {
-        data: { user },
-    } = await (await supabase).auth.getUser();
 
     return (
         <>
@@ -106,7 +96,22 @@ export default async function DetailPage({
                     eventstartdate={festivalIntroduction.eventstartdate}
                     eventenddate={festivalIntroduction.eventenddate}
                     avgRating={avgRating}
-                    ratingCount={ratingCount}
+                    reviewCount={reviewCount}
+                />
+
+                {/* AI 요약 섹션 */}
+                <DetailAISummarySection
+                    contentId={contentId}
+                    festivalInfo={{
+                        title: festivalCommon.title,
+                        overview: festivalCommon.overview,
+                        addr1: festivalCommon.addr1,
+                        introText: festivalContents?.[0]?.infotext,
+                        eventText: festivalContents?.[1]?.infotext,
+                        eventStartDate: festivalIntroduction.eventstartdate,
+                        eventEndDate: festivalIntroduction.eventenddate,
+                        eventPlace: festivalIntroduction.eventplace,
+                    }}
                 />
 
                 {/* 축제 상세 설명 */}
@@ -135,9 +140,7 @@ export default async function DetailPage({
                     contentId={contentId}
                     title={festivalCommon.title}
                     avgRating={avgRating}
-                    ratingCount={ratingCount}
-                    reviews={reviews}
-                    userId={user ? user.id : null}
+                    reviewCount={reviewCount}
                 />
 
                 {/* 축제 위치 지도 */}

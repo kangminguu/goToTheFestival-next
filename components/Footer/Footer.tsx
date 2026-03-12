@@ -1,11 +1,11 @@
 import Link from "next/link";
+import { MailIcon } from "../Icons";
 
 export default function Footer() {
     const emailLink = "mailto:mingudat9909@gmail.com";
-    const githubLink = "https://github.com/kangminguu";
 
     return (
-        <footer className="bg-background-hover py-[50px]">
+        <footer className="bg-background-hover py-[80px]">
             <div className="min-max-padding row-center justify-between">
                 <div className="w-fit flex flex-1 flex-col items-start gap-[10px]">
                     <img
@@ -13,24 +13,29 @@ export default function Footer() {
                         alt="logo"
                         className="md:h-[26px] h-[18px]"
                     />
-                    <span className="font-pretendard font-normal md:text-[14px] text-[12px] text-font-muted">
-                        Copyright © 2025, 축제가자. All rights reserved.
-                    </span>
-                </div>
 
-                <div className="flex flex-1 flex-row whitespace-normal break-words justify-end gap-[32px]">
-                    <Link href={emailLink} className="w-[32px] h-[32px]">
-                        <img src="/assets/mail.svg" alt="email" />
-                    </Link>
+                    <div className="flex flex-col gap-[2px]">
+                        <span className="font-normal md:text-[14px] text-[12px] text-font-muted">
+                            Copyright © 2026, 축제가자. All rights reserved.
+                        </span>
 
-                    <a
-                        href={githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-[32px] h-[32px]"
-                    >
-                        <img src="/assets/github.svg" alt="github" />
-                    </a>
+                        <div className="flex flex-row whitespace-normal break-words gap-[5px]">
+                            <span className="font-normal md:text-[14px] text-[12px] text-font-muted">
+                                Contact
+                            </span>
+                            <Link
+                                href={emailLink}
+                                className="flex flex-row items-center gap-[2px]"
+                            >
+                                <div className="w-[14px] md:w-[16px]">
+                                    <MailIcon color="#D9D9D9" />
+                                </div>
+                                <span className="font-normal md:text-[14px] text-[12px] text-font-muted">
+                                    mingudat9909@gmail.com
+                                </span>
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         </footer>

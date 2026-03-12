@@ -7,7 +7,7 @@ import "swiper/css/free-mode";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
-import "../../../../styles/detailImage.swiper.css";
+import "@/styles/detailImage.swiper.css";
 
 import { useState } from "react";
 

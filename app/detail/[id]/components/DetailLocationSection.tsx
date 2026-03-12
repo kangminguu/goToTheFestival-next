@@ -1,8 +1,9 @@
 "use client";
 
 import { Map, useKakaoLoader, CustomOverlayMap } from "react-kakao-maps-sdk";
-import Button from "../../../../components/Button/Button";
-import { useAlertStore } from "../../../../stores/useAlertStore";
+import Button from "@/components/Button/Button";
+import { useAlertStore } from "@/stores/useAlertStore";
+import { FlagIcon, LocationIcon, OpenInNewIcon } from "@/components/Icons";
 
 interface DetailLocationProps {
     address: string;
@@ -48,7 +49,10 @@ export default function DetailLocationSection({
                     target="_blank"
                     rel="noopener noreferrer"
                 >
-                    <Button title="지도 보기" icon="/assets/open_in_new.svg" />
+                    <Button>
+                        <OpenInNewIcon size={16} />
+                        지도 보기
+                    </Button>
                 </a>
             </div>
 
@@ -72,12 +76,8 @@ export default function DetailLocationSection({
                 <CustomOverlayMap
                     position={{ lat: parseFloat(mapy), lng: parseFloat(mapx) }}
                 >
-                    <div className="w-[30px] h-[30px] md:w-[50px] md:h-[50px]">
-                        <img
-                            src="/assets/marker.svg"
-                            alt="marker"
-                            className="w-full h-full"
-                        />
+                    <div className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] text-[#FF4238] drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                        <FlagIcon />
                     </div>
                 </CustomOverlayMap>
             </Map>

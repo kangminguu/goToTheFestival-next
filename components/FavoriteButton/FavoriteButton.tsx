@@ -1,6 +1,7 @@
 "use client";
 
 import { useFavoriteStore } from "../../stores";
+import { FavoriteIcon } from "../Icons";
 
 type FavoriteButtonSizeType = "card" | "detailPage";
 
@@ -37,23 +38,13 @@ export default function FavoriteButton({
             className={`${button}`}
         >
             {favorites.includes(contentid) ? (
-                <img
-                    src="/assets/favorite/favorite_active.svg"
-                    alt="favorite"
-                />
+                <div className="group text-[#FF4238]">
+                    <FavoriteIcon size={30} />
+                </div>
             ) : (
-                <>
-                    <img
-                        src="/assets/favorite/favorite.svg"
-                        alt="favorite"
-                        className="md:group-hover:hidden group-active:hidden block"
-                    />
-                    <img
-                        src="/assets/favorite/favorite_hover.svg"
-                        alt="favorite"
-                        className="hidden md:group-hover:block group-active:block"
-                    />
-                </>
+                <div className="group text-[#333333] hover:text-[#FF4238]">
+                    <FavoriteIcon size={30} opacity={0.5}/>
+                </div>
             )}
         </button>
     );

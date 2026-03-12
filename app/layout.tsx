@@ -3,10 +3,11 @@ import Footer from "../components/Footer/Footer";
 import Header from "../components/Header/Header";
 import Modal from "../components/Modal/Modal";
 import "./globals.css";
-import WriteReviewModal from "./detail/[id]/components/DetailRatingSection/WriteReviewModal";
+import WriteReviewModal from "../features/festival/review/ui/WriteReviewModal";
 import { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     verification: {
@@ -27,7 +28,9 @@ export default function RootLayout({
             <body className="flex flex-col justify-center min-h-screen">
                 <Header />
 
-                <main className="flex-1">{children}</main>
+                <main className="flex-1">
+                    <Providers>{children}</Providers>
+                </main>
 
                 <Footer />
 
