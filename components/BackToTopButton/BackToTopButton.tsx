@@ -1,5 +1,7 @@
 "use client";
 
+import { ArrowIcon } from "../Icons";
+
 export default function BackToTopButton() {
     const handleScrollTop = () => {
         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -11,11 +13,9 @@ export default function BackToTopButton() {
                 onClick={handleScrollTop}
                 className="col-center justify-center w-[57px] h-[57px] rounded-full bg-background-base shadow-window border border-border-base"
             >
-                <img
-                    className="rotate-90"
-                    src="/assets/arrow/arrow_gray.svg"
-                    alt="위로"
-                />
+                <div className="-rotate-90">
+                    <ArrowIcon size={24} color="#767676" />
+                </div>
                 <span className="relative text-[12px] top-[-5px]">위로</span>
             </button>
         </div>

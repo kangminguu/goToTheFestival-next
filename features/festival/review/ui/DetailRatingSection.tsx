@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import Button from "../../../../components/Button/Button";
-import Rating from "../../../../components/Rating/Rating";
+import Button from "@/components/Button/Button";
+import Rating from "@/components/Rating/Rating";
 import RatingSectionReview from "./RatingSectionReview";
-import { useWriteReviewModalStore } from "../../../../stores/useWriteReviewModalStore";
-import { useAlertStore } from "../../../../stores/useAlertStore";
+import { useWriteReviewModalStore } from "@/stores/useWriteReviewModalStore";
+import { useAlertStore } from "@/stores/useAlertStore";
 import { useRouter } from "next/navigation";
-import { useModalStore } from "../../../../stores/useModalStore";
+import { useModalStore } from "@/stores/useModalStore";
 import MyRating from "./MyRating";
 import {
     DetailRatingSectionProps,
@@ -17,6 +17,7 @@ import { useFestivalReviewsQuery } from "@/features/festival/review/hooks/useFes
 import { useCreateFestivalReview } from "@/features/festival/review/hooks/useCreateFestivalReview";
 import DetailRatingLoading from "./DetailRatingLoading";
 import DetailRatingError from "./DetailRatingError";
+import { RateReviewIcon } from "@/components/Icons";
 
 export default function DetailRatingSection({
     contentId,
@@ -94,7 +95,6 @@ export default function DetailRatingSection({
         return <DetailRatingError />;
     }
 
-
     return (
         <div
             id="rating-section"
@@ -106,11 +106,10 @@ export default function DetailRatingSection({
                 </h2>
 
                 {!userRating ? (
-                    <Button
-                        onClick={handleWriteReview}
-                        title="후기 작성"
-                        icon="/assets/review.svg"
-                    />
+                    <Button onClick={handleWriteReview}>
+                        <RateReviewIcon size={16} />
+                        후기 작성
+                    </Button>
                 ) : null}
             </div>
 

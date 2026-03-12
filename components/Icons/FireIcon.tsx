@@ -1,6 +1,9 @@
 import { IconProps } from "./Icon.types";
 
-export default function FireIcon({ size = 24, color = "#333333" }: IconProps) {
+export default function FireIcon({
+    size = "100%",
+    color = "#333333",
+}: IconProps) {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"

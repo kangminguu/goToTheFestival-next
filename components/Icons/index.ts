@@ -10,3 +10,5 @@ export { default as ClockIcon } from "./ClockIcon";
 export { default as TicketIcon } from "./TicketIcon";
 export { default as CallIcon } from "./CallIcon";
 export { default as OpenInNewIcon } from "./OpenInNewIcon";
+export { default as RateReviewIcon } from "./RateReviewIcon";
+export { default as FlagIcon } from "./FlagIcon";

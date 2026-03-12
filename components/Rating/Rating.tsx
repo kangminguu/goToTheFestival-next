@@ -22,7 +22,7 @@ const styles = {
     },
     ratingSection: {
         div: "",
-        spread_img: "md:w-[24px] w-[15px]",
+        spread_img: "md:w-[24px] w-[16px]",
         img: "hidden",
         text: "text-[12px] md:text-[14px] text-font-secondary",
     },
@@ -43,18 +43,18 @@ export default function Rating({ rating = 0, sizeType = "card" }: RatingProps) {
                 {/* 펼쳐진 평점 */}
                 {Array.from({ length: rating }, (_, i) => (
                     <div key={i} className={`${spread_img}`}>
-                        <FireIcon size={24} color="#FF4238" />
+                        <FireIcon color="#FF4238" />
                     </div>
                 ))}
                 {Array.from({ length: 5 - Math.floor(rating) }, (_, i) => (
                     <div key={i} className={`${spread_img}`}>
-                        <FireIcon size={24} color="#EBEBEB" />
+                        <FireIcon color="#EBEBEB" />
                     </div>
                 ))}
 
                 {/* 접힌 평점 */}
                 <div className={`${img}`}>
-                    <FireIcon size={24} color="#FF4238" />
+                    <FireIcon color="#FF4238" />
                 </div>
             </div>
 
