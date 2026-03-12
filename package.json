@@ -4,7 +4,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "sync:festivals": "node scripts/sync.js"
+        "sync:festivals": "node --env-file=.env.local scripts/sync.js"
     },
     "dependencies": {
         "@supabase/ssr": "^0.6.1",

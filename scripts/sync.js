@@ -1,17 +1,13 @@
 /**
  * sync.js - Festival data synchronization script
  * CommonJS 방식으로 작성 (환경변수 호환성↑, 파일도 간단)
- * 실행: node scripts/sync.js
+ * 실행: node --env-file=.env.local scripts/sync.js
  * 환경변수 설정(CMD):
  *   set SUPABASE_URL=https://xxxxx.supabase.co
  *   set SUPABASE_SERVICE_ROLE_KEY=xxxxx
  *   set TOUR_API_BASE_URL=https://apis.data.go.kr/...
  *   set TOUR_API_KEY=xxxxx
  */
-
-try {
-    require("dotenv").config({ path: ".env.local" });
-} catch { }
 
 const { createClient } = require('@supabase/supabase-js');
 
