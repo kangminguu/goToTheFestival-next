@@ -8,7 +8,7 @@ export default function BackToTopButton() {
     };
 
     return (
-        <div className="sticky z-50 bottom-[30px] min-max-padding flex justify-end pb-[10px]">
+        <div className="fixed z-50 bottom-[30px] right-[30px] w-[57px] h-[57px] rounded-full">
             <button
                 onClick={handleScrollTop}
                 className="col-center justify-center w-[57px] h-[57px] rounded-full bg-background-base shadow-window border border-border-base"
