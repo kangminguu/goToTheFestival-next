@@ -2,6 +2,7 @@ import Link from "next/link";
 import Address from "../../../../components/Address/Address";
 import EventDate from "../../../../components/EventDate/EventDate";
 import { BannerFestival } from "../../../../lib/types/festival";
+import HttpToHttps from "@/lib/utils/HttpToHttps";
 
 export default function BannerCard({
     festival,
@@ -10,6 +11,8 @@ export default function BannerCard({
     festival: BannerFestival;
     currentMonth: number;
 }) {
+    const festivalImage = festival.first_image || "/gotothefestival.png";
+
     return (
         <Link
             href={`/detail/${festival.contentid}`}
@@ -25,7 +28,7 @@ export default function BannerCard({
                         rgba(255, 255, 255, 1) 30%,
                         rgba(255, 255, 255, 0) 100%
                     ), 
-                    url(${festival.first_image || "/gotothefestival.png"})`,
+                    url(${HttpToHttps(festivalImage)})`,
                 }}
             >
                 <div className="min-max-padding md:pt-[50px] pt-[30px] md:pb-[60px] pb-[40px] flex flex-col md:gap-[20px] gap-[10px]">

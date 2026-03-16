@@ -1,3 +1,4 @@
+import HttpToHttps from "@/lib/utils/HttpToHttps";
 import SignOutButton from "./SignOutButton/SignOutButton";
 
 export default function UserInfoSection({ name, email, profileImg }: any) {
@@ -10,7 +11,7 @@ export default function UserInfoSection({ name, email, profileImg }: any) {
             <div className="row-center gap-[15px]">
                 <img
                     className="md:h-[54px] md:w-[54px] h-[44px] w-[44px] rounded-full object-cover object-center block shrink-0"
-                    src={profileImg}
+                    src={HttpToHttps(profileImg)}
                     alt="프로필_사진"
                 />
                 <div className="flex flex-col">

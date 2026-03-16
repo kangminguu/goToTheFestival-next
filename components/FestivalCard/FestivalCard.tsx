@@ -5,6 +5,7 @@ import EventDate from "../EventDate/EventDate";
 import Link from "next/link";
 import Rating from "../Rating/Rating";
 import FavoriteButton from "../FavoriteButton/FavoriteButton";
+import HttpToHttps from "@/lib/utils/HttpToHttps";
 
 export default function FestivalCard({
     festival,
@@ -20,6 +21,9 @@ export default function FestivalCard({
         avg_rating: number;
     };
 }) {
+    const festivalImage =
+        festival.first_image || festival.first_image2 || "/assets/no_image.png";
+
     return (
         <Link
             href={`/detail/${festival.contentid}`}
@@ -30,11 +34,7 @@ export default function FestivalCard({
             {/* 이미지 */}
             <div className="relative shrink-0 w-[125px] h-[125px] overflow-hidden rounded-[6px] md:w-full md:h-[190px]">
                 <Image
-                    src={
-                        festival.first_image ||
-                        festival.first_image2 ||
-                        "/assets/no_image.png"
-                    }
+                    src={HttpToHttps(festivalImage)}
                     alt={festival.title}
                     fill
                     className="object-cover"
