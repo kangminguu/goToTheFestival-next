@@ -3,7 +3,7 @@
 import { Map, useKakaoLoader, CustomOverlayMap } from "react-kakao-maps-sdk";
 import Button from "@/components/Button/Button";
 import { useAlertStore } from "@/stores/useAlertStore";
-import { FlagIcon, LocationIcon, OpenInNewIcon } from "@/components/Icons";
+import { FlagIcon, OpenInNewIcon } from "@/components/Icons";
 
 interface DetailLocationProps {
     address: string;
