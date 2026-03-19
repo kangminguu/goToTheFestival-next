@@ -10,6 +10,7 @@ import "swiper/css/thumbs";
 import "@/styles/detailImage.swiper.css";
 
 import { useState } from "react";
+import HttpToHttps from "@/lib/utils/HttpToHttps";
 
 export default function DetailImageSwiper({
     imageList,
@@ -64,7 +65,7 @@ export default function DetailImageSwiper({
                                 priority={index === 0}
                             /> */}
                             <img
-                                src={festival.originimgurl}
+                                src={HttpToHttps(festival.originimgurl)}
                                 alt={festival.imgname}
                                 className="object-contain"
                                 style={{
@@ -83,7 +84,7 @@ export default function DetailImageSwiper({
                             priority={index === 0}
                         /> */}
                         <img
-                            src={festival.originimgurl}
+                            src={HttpToHttps(festival.originimgurl)}
                             alt={festival.imgname}
                             className="absolute object-cover blur-sm opacity-60"
                             style={{
@@ -114,7 +115,7 @@ export default function DetailImageSwiper({
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 800px"
                         /> */}
                         <img
-                            src={festival.originimgurl}
+                            src={HttpToHttps(festival.originimgurl)}
                             alt={festival.imgname}
                             className="object-cover"
                             style={{
