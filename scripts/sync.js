@@ -84,7 +84,7 @@ async function upsertFestival(item) {
         title: item.title,
         addr1: item.addr1 || null,
         addr2: item.addr2 || null,
-        areacode: item.areacode || null,
+        areacode: item.areacode || inferAreaCode(item.addr1) || null,
         mapx: item.mapx ? parseFloat(item.mapx) : null,
         mapy: item.mapy ? parseFloat(item.mapy) : null,
         event_start: item.eventstartdate ? formatYYYYMMDDToDate(item.eventstartdate) : null,
@@ -104,6 +104,31 @@ async function upsertFestival(item) {
         console.error(`Upsert error for ${item.contentid}:`, error);
         throw error;
     }
+}
+
+/**
+ * addr1에서 지역명 추출하여 areacode 반환
+ */
+function inferAreaCode(addr1) {
+    if (!addr1) return null;
+    if (addr1.includes("서울")) return "1";
+    if (addr1.includes("인천")) return "2";
+    if (addr1.includes("대전")) return "3";
+    if (addr1.includes("대구")) return "4";
+    if (addr1.includes("광주")) return "5";
+    if (addr1.includes("부산")) return "6";
+    if (addr1.includes("울산")) return "7";
+    if (addr1.includes("세종")) return "8";
+    if (addr1.includes("경기")) return "31";
+    if (addr1.includes("강원")) return "32";
+    if (addr1.includes("충북") || addr1.includes("충청북")) return "33";
+    if (addr1.includes("충남") || addr1.includes("충청남")) return "34";
+    if (addr1.includes("경북") || addr1.includes("경상북")) return "35";
+    if (addr1.includes("경남") || addr1.includes("경상남")) return "36";
+    if (addr1.includes("전북") || addr1.includes("전라북")) return "37";
+    if (addr1.includes("전남") || addr1.includes("전라남")) return "38";
+    if (addr1.includes("제주")) return "39";
+    return null;
 }
 
 /**
@@ -154,6 +179,7 @@ async function run() {
                 const existingModified = existing[item.contentid];
 
                 if (!existingModified || existingModified !== apiModified) {
+                    // if (true) { // for testing
                     await upsertFestival(item);
                     updated++;
                 } else {
