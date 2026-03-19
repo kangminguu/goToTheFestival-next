@@ -23,11 +23,10 @@ export default function BannerCard({
                 className="w-full h-full bg-cover bg-center"
                 style={{
                     backgroundImage: `
-                    linear-gradient(
-                        to right, 
-                        rgba(255, 255, 255, 1) 30%,
-                        rgba(255, 255, 255, 0) 100%
-                    ), 
+                    linear-gradient(90deg, 
+                        rgba(255,255,255,0.8) 0%,
+                        rgba(255,255,255,0.8) 30%, 
+                        rgba(255,255,255,0) 100%),
                     url(${HttpToHttps(festivalImage)})`,
                 }}
             >
