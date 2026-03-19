@@ -25,6 +25,10 @@ export default function RootLayout({
 }) {
     return (
         <html lang="ko">
+            <head>
+                <link rel="apple-touch-icon" href="/apple_touch_icon.png" />
+                <link rel="shortcut icon" href="/shortcut_icon.png" />
+            </head>
             <body className="flex flex-col justify-center min-h-screen">
                 <Header />
 
